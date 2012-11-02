@@ -12,4 +12,14 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require_tree
+
+j = jQuery.noConflict();
+
+j(document).ready(function(){
+
+});
+
+function toggleSigninWindow(){
+    j("#signin_window").toggle();
+}

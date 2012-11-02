@@ -1,0 +1,15 @@
+ru:
+  will_paginate:
+    previous_label: "<--Туда"
+    next_label: "Сюда-->"
+
+  All_users: "Все пользователи"
+  Profile: "Профиль"
+  Settings: "Настройки"
+  Help: "Помощь"
+  Sign_out: "Выйти"
+  Sign_in: "Войти"
+  or: "или"
+  Sign_up: "Зарегестрироваться"
+  Home: "Главная"
+  Search: "Поиск"

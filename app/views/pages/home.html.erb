@@ -1,0 +1,6 @@
+<% if signed_in? %>
+ You are Signed in
+<% else %>
+  <h1>Any advert</h1>
+  <%= link_to "Sign up now!", signup_path %>
+<% end %>

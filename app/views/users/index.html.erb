@@ -1,0 +1,6 @@
+<h1><%= t('All_users')%></h1>
+<table id="user_list">
+  <% @users.each do |user| %>
+    <%= link_to user.full_name, user %>
+  <% end %>
+</table>

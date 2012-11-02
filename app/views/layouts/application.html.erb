@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ShopUp</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
+  <title><%= title %></title>
+  <%= csrf_meta_tag %>
 </head>
 <body>
-
-<%= yield %>
-
+  <div id="header"><%= render 'layouts/header'%></div>
+  <div id="main">
+    <div id="sidebar"><%= render 'layouts/sidebar' %></div>
+    <div id="content">
+      <%= render 'shared/flash_messages'%>
+      <%= yield %>
+    </div>
+  </div>
+  <div id="footer" class="cleaner"><%= render 'layouts/footer' %></div>
+  <%= render 'layouts/styles_&_scripts' %>
 </body>
 </html>
