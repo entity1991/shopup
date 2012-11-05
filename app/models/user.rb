@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   attr_accessor :password #only virtual attribute(getter and setter)
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation  #editable attribute
 
+  has_many :stores, :foreign_key => "owner_id"
+
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   validates :first_name,  :presence => true,

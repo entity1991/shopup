@@ -18,17 +18,15 @@ j = jQuery.noConflict();
 
 j(document).ready(function(){
 
+    j("html").click(function(e){
+        if (!hasParent(e.target, "signin_window") && e.target.id != 'signin_window' && e.target.id != 'sign_in') {
+            j('#signin_window').hide();
+        }
+    });
 });
-
-j("html").click(function(e){
-    if (!hasParent(e.target, "signin_window") && e.target.id != 'signin_window' && e.target.id != 'sign_in') {
-        j('#signin_window').hide();
-    }
-});
-
 //functions
 
-function showSigninWindow(){
+function toggleSigninWindow(){
     j("#signin_window").toggle();
 }
 

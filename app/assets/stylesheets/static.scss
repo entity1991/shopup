@@ -18,6 +18,10 @@ a{
   }
 }
 
+p{
+  margin: 3px;
+}
+
 h1, h2, h3, h4, h5, h6{
   margin: 3px;
   font-family: courier;
@@ -26,18 +30,46 @@ h1, h2, h3, h4, h5, h6{
 h1{
   font-size: 1.6em;
 }
-h1{
+h2{
   font-size: 1.4em;
 }
-h1{
+h3{
   font-size: 1.2em;
 }
 
 label{
   font-size: 0.7em;
+  padding: 5px;
 }
 input{
   border-radius: 5px;
   border: 1px solid #2e8b57;
   margin: 0;
+  padding: 1px;
 }
+
+select{
+  cursor: pointer;
+  height: 25px;
+  background-color: #b4b390;
+  color: #ffffff;
+  border-radius: 3px;
+  border: none;
+  option{
+    background-color: #b4b390;
+  }
+}
+//
+//button{
+//  cursor: pointer;
+//  color: #d6d6d6;
+//  height: 2em;
+//  width: 100px;
+//  background: -webkit-linear-gradient(top, rgb(129, 141, 136) 0%, rgb(106, 124, 143) 100%);
+//  border: 2px solid #bdcec7;
+//  border-radius: 5px;
+//  &:hover{
+//    background: -webkit-linear-gradient(top, rgb(78, 91, 105) 0%, rgb(92, 101, 116) 100%);
+//    border-width: 2px;
+//  }
+//}

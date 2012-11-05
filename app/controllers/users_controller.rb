@@ -2,7 +2,9 @@ class UsersController < ApplicationController
 
   include UsersHelper
 
-  before_filter :authenticate, :only => [:index, :edit, :update]
+  before_filter :authenticate, :except => [:new, :create]
+  before_filter :correct_user?, :only => [:edit, :update]
+  before_filter :boss?, :only => [:index]
 
   def index
     @title = "All users"
@@ -16,11 +18,13 @@ class UsersController < ApplicationController
 
   def new
     @title = "Sign up"
+    @submit_value = "Sign up"
     @user = User.new
   end
 
   def edit
     @user = User.find(params[:id])
+    @submit_value = "Save"
     @title = "Edit user"
   end
 
@@ -63,15 +67,18 @@ class UsersController < ApplicationController
     end
   end
 
-  def correct_user
-    @user = User.find(params[:id])
-    unless current_user?(@user)
-      redirect_to(root_path)
-    end
+
+  def boss?
+    flash[:notice] = "You don't have permision to this page"
+    redirect_to(root_path)
   end
 
-  def boss_user
-    redirect_to(root_path)
+  def correct_user?
+    @user = User.find(params[:id])
+    unless current_user?(@user)
+      flash[:notice] = "You don't have permision to this page"
+      redirect_to(root_path)
+    end
   end
 
 end

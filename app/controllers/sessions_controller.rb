@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   before_filter :access_for_create_session, :only => [:new, :create]
+  before_filter :authenticate, :only => [:profile]
 
   def new
     @title = "Sign in"
@@ -25,6 +26,12 @@ class SessionsController < ApplicationController
   def change_locale
     session[:locale] = params[:set_locale]
     redirect_to :back
+  end
+
+  def profile
+    @user = current_user
+    @submit_value = "Save"
+    @title = "Profile"
   end
 
   private

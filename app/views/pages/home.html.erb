@@ -1,6 +1,10 @@
 <% if signed_in? %>
- You are Signed in
+ <%= link_to "Create your store now!", new_store_path ,{:class => "big_green_button"}%>
 <% else %>
-  <h1>Any advert</h1>
-  <%= link_to "Sign up now!", signup_path %>
+  <h1>Create your ecommerce store today with Shopify</h1>
+  <h3>ShopUp offers a complete ecommerce solution</h3>
+  <p>ShopUp is a hosted ecommerce solution that allows you to set up and run your own online store.
+  Pick an ecommerce website template, list your products, accept credit card orders, and ship your goods — all with a
+  few clicks of the mouse.
+  With ShopUp it's easy to sell online and there's no software to download or maintain.</p>
 <% end %>
