@@ -1,10 +1,4 @@
 ua:
-  will_paginate:
-    previous_label: "<--Туди"
-    next_label: "Сюди-->"
-
-  All_users: "Всі користувачі"
-  Profile: "Профіль"
   Settings: "Настройки"
   Help: "Допомога"
   Sign_out: "Вийти"

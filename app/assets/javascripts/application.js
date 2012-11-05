@@ -20,6 +20,26 @@ j(document).ready(function(){
 
 });
 
-function toggleSigninWindow(){
+j("html").click(function(e){
+    if (!hasParent(e.target, "signin_window") && e.target.id != 'signin_window' && e.target.id != 'sign_in') {
+        j('#signin_window').hide();
+    }
+});
+
+//functions
+
+function showSigninWindow(){
     j("#signin_window").toggle();
 }
+
+function hasParent(element, parentId){
+    var parentsId = j(element).parents().map(function(){return this.id}).get();
+    var isParent = false;
+    for(var id in parentsId){
+        if(parentsId[id] != parentId) continue
+        isParent = true;
+    }
+    return isParent;
+}
+
+

@@ -22,6 +22,11 @@ class SessionsController < ApplicationController
     redirect_to root_path
   end
 
+  def change_locale
+    session[:locale] = params[:set_locale]
+    redirect_to :back
+  end
+
   private
 
   def access_for_create_session

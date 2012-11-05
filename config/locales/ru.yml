@@ -1,10 +1,4 @@
 ru:
-  will_paginate:
-    previous_label: "<--Туда"
-    next_label: "Сюда-->"
-
-  All_users: "Все пользователи"
-  Profile: "Профиль"
   Settings: "Настройки"
   Help: "Помощь"
   Sign_out: "Выйти"

@@ -5,6 +5,7 @@
 .cleaner { clear: both }
 .float_l { float: left }
 .float_r { float: right }
+.center { text-align: center;}
 
 #header {
   position: relative;
@@ -12,12 +13,24 @@
   left: 0;
   width: 100%;
   padding: 3px;
-  height: 70px;
-  background-color: #c9f3ff;
-  text-align: right;
-  #logo {
-    float: left;
-    height: 100%;
+  height: 40px;
+  background-color: #505865;
+  #header_menu{
+    margin: 8px;
+    float: right;
+    #change_locale_form{
+      width: 100px;
+      padding: 0;
+      display: inline-block;
+    }
+    a{
+      color: #d6d6d6;
+      margin-right: 3px;
+      margin-left: 3px;
+      &:hover{
+        color: white;
+      }
+    }
   }
 }
 
@@ -40,22 +53,26 @@
 #footer {
   width: 100%;
   text-align: center;
-  background: #d8ffd0;
+  background: #bdcec7;
 }
 
 #signin_window{
-  width: 180px;
+  width: 183px;
   display: none;
   text-align: left;
   position: fixed;
-  top: 75px;
+  top: 45px;
   right: 5px;
+  padding: 10px;
   z-index: 100;
-  background-color: #08aee3;
+  background-color: #5e95b2;
   border: 1px solid #CCC;
-  border-radius: 5px;
+  border-radius: 10px;
   text-shadow: #121212;
-  opacity: 0.95;
+  opacity: 0.85;
+  p{
+    font-size: 0.8em;
+  }
   .field  input{
     width: 160px;
   }
