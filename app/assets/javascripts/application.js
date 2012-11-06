@@ -28,9 +28,6 @@ j(document).ready(function(){
         j("#store_domain").val(this.value.replace(/[ -]/g, '_').replace(/[`~!@#$%^&*()+=|?.,<>]/g, '').toLowerCase());
     });
 
-    j(".store_name").click(function(){
-        window.location = "/stores/" + this.getAttribute("id");
-    });
 });
 
 

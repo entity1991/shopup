@@ -31,6 +31,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
+    @submit_value = "Sign up"
     if @user.save
       sign_in @user
       flash[:success] = "Welcome to Shop!"
@@ -43,6 +44,7 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
+    @submit_value = "Save"
     if @user.update_attributes(params[:user])
       flash[:success] = "Profile updated."
       redirect_to @user
@@ -68,11 +70,6 @@ class UsersController < ApplicationController
     end
   end
 
-
-  def boss?
-    flash[:notice] = "You don't have permision to this page"
-    redirect_to(root_path)
-  end
 
   def correct_user?
     @user = User.find(params[:id])

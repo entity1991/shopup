@@ -1,13 +1,22 @@
 class StoresController < ApplicationController
 
   before_filter :authenticate
+  before_filter :boss?, :only => [:index]
+
+  def index
+    @stores = Store.all
+  end
 
   def show
     @store = Store.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
     end
+  end
+
+
+  def statistic
+    @store = Store.find(params[:id])
   end
 
   def new
@@ -51,7 +60,8 @@ class StoresController < ApplicationController
     @store.destroy
 
     respond_to do |format|
-      format.html { redirect_to stores_url }
+      format.html { redirect_to root_path }
     end
   end
+
 end

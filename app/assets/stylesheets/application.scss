@@ -15,6 +15,15 @@
   height: 40px;
   box-shadow: #9acd32 0 1px 15px;
   background-color: #9acd32;
+  #title{
+    float: left;
+    font-family: Helvetica;
+    color: #555;
+    font-weight: bold;
+    margin: 4px 10px;
+    font-size: 27px;
+    cursor: pointer;
+  }
   #header_menu{
     margin: 8px;
     float: right;
@@ -77,7 +86,7 @@
   display: none;
   text-align: left;
   position: fixed;
-  top: 45px;
+  top: 53px;
   right: 5px;
   padding: 10px;
   z-index: 100;
@@ -97,6 +106,7 @@
 
 .big_green_button{
   padding: 13px;
+  margin: 50px;
   background-color: #88ca4b;
   color: white;
   text-shadow: #333333 1px 1px 1px;
@@ -110,5 +120,34 @@
 
 .store_name{
   cursor: pointer;
+}
+
+#store_managing_menu{
+  border-bottom: 1px solid #2e8b57;
+  margin-bottom: 3px;
+  a{
+    font-family: tahoma;
+    border-left: 1px dotted #9acd32;
+    padding: 4px;
+    &:first-child{
+      border-left: none;
+    }
+  }
+}
+
+#store_title{
+  color: #696969;
+  font-weight: bolder;
+  font-size: 0.8em;
+}
+
+.form_fields{
+  float: left;
+  width: 50%;
+}
+
+.error_messages{
+  float: left;
+  width: 50%;
 }
 

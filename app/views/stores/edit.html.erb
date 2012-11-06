@@ -1,6 +1,4 @@
-<h1>Editing store</h1>
-
+<%= render 'stores/store_managing_menu'%>
 <%= render 'form' %>
 
-<%= link_to 'Show', @store %> |
-<%= link_to 'Back', stores_path %>
+<%= button_to 'Delete Store', @store, :method => :delete, :confirm => "Are You sure?" %>

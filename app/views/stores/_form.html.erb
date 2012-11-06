@@ -1,15 +1,16 @@
 <%= form_for(@store) do |f| %>
-  <%= render 'shared/error_messages', :object => f.object %>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+  <div class="form_fields">
+    <div class="field">
+      <%= f.label :name %><br />
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      <%= f.label :domain %><br />
+      <%= f.text_field :domain %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :domain %><br />
-    <%= f.text_field :domain %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <span class="error_messages"><%= render 'shared/error_messages', :object => f.object %></span>
 <% end %>

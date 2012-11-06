@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+
   before_filter :set_i18n_locale_from_session
 
   protect_from_forgery
@@ -18,5 +19,6 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
 
 end

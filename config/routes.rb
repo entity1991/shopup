@@ -6,15 +6,18 @@ ShopUp::Application.routes.draw do
 
   root :to => "pages#home"
 
+  match ':not_found' => redirect('/'), :constraints => { :not_found => /.*/ }
+
   post "/sessions/change_locale", :as=> "locale"
 
-  match '/contact',     :to => 'pages#contact'
-  match '/about',       :to => 'pages#about'
-  match '/help',        :to => 'pages#help'
-  match '/signup',      :to => 'users#new'
-  match '/profile',     :to => 'sessions#profile', :as => "profile"
-  match '/signin',      :to => 'sessions#new'
-  match '/signout',     :to => 'sessions#destroy'
+  match '/contact',              :to => 'pages#contact'
+  match '/about',                :to => 'pages#about'
+  match '/help',                 :to => 'pages#help'
+  match '/signup',               :to => 'users#new'
+  match '/stores/:id/statistic', :to => 'stores#statistic', :as => "statistic"
+  match '/profile',              :to => 'sessions#profile', :as => "profile"
+  match '/signin',               :to => 'sessions#new'
+  match '/signout',              :to => 'sessions#destroy'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -6,7 +6,7 @@ module ApplicationHelper
   end
 
   def submit_value
-    @submit_value.nil? ? "OK" : @submit_value
+    @submit_value ? @submit_value : "OK"
   end
 
   def cut_long_string(content, length)

@@ -44,6 +44,11 @@ module SessionsHelper
     @current_user ||= user_from_remember_token
   end
 
+  def boss?
+    flash[:notice] = "You don't have permision to this page"
+    redirect_to(root_path)
+  end
+
   private
 
   def user_from_remember_token

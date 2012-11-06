@@ -69,19 +69,6 @@ select{
   }
 }
 
-ul{
-  list-style-type: circle;
-  font-family: ms;
-  margin: 10px;
-  li{
-    line-height: 3em;
-
-    border-top: 2px dotted #2a7e4f;
-    &:first-child{
-      border-top: none;
-    }
-  }
-}
 
 //
 //button{

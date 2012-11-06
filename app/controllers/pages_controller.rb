@@ -14,6 +14,11 @@ class PagesController < ApplicationController
 
   def help
     @title = "Help"
+    if params[:question]
+      MainMailer.help(params[:question], current_user).deliver
+      flash[:success] = "Thanks You!"
+      redirect_to root_path
+    end
   end
 
 end

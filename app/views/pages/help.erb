@@ -1,4 +1,9 @@
-<h1>Personal help!</h1>
 <p>
-  Do you need any help?
+  Do you need any help?  You can type the question...
 </p>
+
+<%= form_tag(:controller => "pages", :action => "help") do %>
+  <%= label_tag "Your question" %><br>
+  <%= text_area_tag :question %><br>
+  <%= submit_tag "Give the question" %>
+<% end %>
