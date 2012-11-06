@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   include UsersHelper
 
   before_filter :authenticate, :except => [:new, :create]
+  before_filter :is_not_authenticate, :only => [:new, :create]
   before_filter :correct_user?, :only => [:edit, :update]
   before_filter :boss?, :only => [:index]
 

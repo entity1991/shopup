@@ -25,8 +25,10 @@
     }
     a{
       color: #d6d6d6;
+      border-left: 2px dotted green;
       margin-right: 3px;
       margin-left: 3px;
+      padding-left: 6px;
       &:hover{
         color: white;
       }
@@ -39,9 +41,10 @@
   width: 800px;
   #sidebar {
     margin: 25px 0;
+    padding: 3px;
     border-radius: 5px 0 0 5px;
-    box-shadow: #6e6f50 0 0 5px;
-    width: 25%;
+    box-shadow: #6e6f50 0 0 2px;
+    width: 150px;
     float: left;
     background-color: #dad9af;
   }
@@ -49,7 +52,7 @@
     margin: 15px 0;
     border-radius: 5px;
     box-shadow: #6e6f50 0px 0px 5px;
-    width: 65%;
+    width: 650px;
     min-height: 400px;
     float: left;
     background: #f0f0f0;
@@ -78,7 +81,8 @@
   right: 5px;
   padding: 10px;
   z-index: 100;
-  background-color: #5e95b2;
+  background-color: #9acd32;
+  box-shadow: #9acd32 0 0 15px;
   border: 1px solid #CCC;
   border-radius: 10px;
   text-shadow: #121212;
@@ -102,5 +106,9 @@
     background-color: #6ca63e;
     color: #ffffff;
   }
+}
+
+.store_name{
+  cursor: pointer;
 }
 

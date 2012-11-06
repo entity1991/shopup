@@ -36,6 +36,15 @@ h2{
 h3{
   font-size: 1.2em;
 }
+h4{
+  font-size: 1.15em;
+}
+h5{
+  font-size: 1.1em;
+}
+h6{
+  font-size: 1.05em;
+}
 
 label{
   font-size: 0.7em;
@@ -59,6 +68,21 @@ select{
     background-color: #b4b390;
   }
 }
+
+ul{
+  list-style-type: circle;
+  font-family: ms;
+  margin: 10px;
+  li{
+    line-height: 3em;
+
+    border-top: 2px dotted #2a7e4f;
+    &:first-child{
+      border-top: none;
+    }
+  }
+}
+
 //
 //button{
 //  cursor: pointer;

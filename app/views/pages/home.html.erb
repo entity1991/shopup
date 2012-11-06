@@ -1,7 +1,18 @@
 <% if signed_in? %>
- <%= link_to "Create your store now!", new_store_path ,{:class => "big_green_button"}%>
+  <%if current_user.stores%>
+
+  <% else %>
+    <ul class="float_l">
+      <li>Easy to use online store builder</li>
+      <li>Fully customizable store design</li>
+      <li>Secure shopping cart provided</li>
+      <li>Ecommerce hosting included</li>
+      <li>30,000+ stores run on ShopUp</li>
+    </ul>
+    <%= link_to "Create your store now!", new_store_path ,{:class => "big_green_button"}%>
+  <% end %>
 <% else %>
-  <h1>Create your ecommerce store today with Shopify</h1>
+  <h1>Create your ecommerce store today with ShopUp</h1>
   <h3>ShopUp offers a complete ecommerce solution</h3>
   <p>ShopUp is a hosted ecommerce solution that allows you to set up and run your own online store.
   Pick an ecommerce website template, list your products, accept credit card orders, and ship your goods — all with a

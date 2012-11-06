@@ -2,15 +2,6 @@ class StoresController < ApplicationController
 
   before_filter :authenticate
 
-  def index
-    @stores = Store.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @stores }
-    end
-  end
-
   def show
     @store = Store.find(params[:id])
 
