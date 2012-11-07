@@ -1,7 +1,7 @@
-<div id="sidebar">
+<div id="menu">
   <h6>Your stores</h6>
   <% current_user.stores.each do |store| %>
-    <%= link_to store.name, store_path(store) %><br>
+    <%= link_to store.name, store_path(store) %>
   <% end %>
 </div>
 

@@ -6,7 +6,7 @@
     <li>Ecommerce hosting included</li>
     <li>30,000+ stores run on ShopUp</li>
   </ul>
-  <%= link_to "Create your store now!", new_store_path ,{:class => "big_green_button"}%><br>
+  <%= link_to "Create your stores now!", new_store_path ,{:class => "big_green_button"}%><br>
   <%= link_to "Go to your stores", store_path(current_user.stores.first) ,{:class => "big_green_button"}%>
 <% else %>
   <h1>Create your ecommerce store today with ShopUp</h1>

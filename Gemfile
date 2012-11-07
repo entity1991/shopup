@@ -7,6 +7,7 @@ gem "rake"
 
 gem 'mysql2'
 gem 'i18n'
+gem 'paperclip'
 
 
 # Gems used only for assets and not required

@@ -7,7 +7,8 @@
 <body>
   <%= render 'layouts/header'%>
   <div id="main">
-    <div id="content" style="width: 800px;">
+    <%= render 'layouts/menu' if signed_in?%>
+    <div id="content">
       <%= render 'shared/flash_messages'%>
       <%= yield  %>
     </div>
@@ -15,4 +16,5 @@
   <div id="footer" class="cleaner"><%= render 'layouts/footer' %></div>
   <%= render 'layouts/styles_&_scripts' %>
 </body>
+<%= debug params %>
 </html>

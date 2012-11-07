@@ -10,6 +10,7 @@ db/schema.rb
 public/system
 public/sitemap
 public/assets
+public/*
 tmp/**/*
 .DS_Store
 doc/api

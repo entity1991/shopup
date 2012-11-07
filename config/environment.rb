@@ -11,8 +11,8 @@ ShopUp::Application.configure do
       :port => 587,
       :domain => "domain.of.sender.net",
       :authentication => "plain",
-      :user_name => "your.email@gmail.com",
-      :password => "password",
+      :user_name => "ruslankuzma@gmail.com",
+      :password => "1991732kuzma",
       :enable_starttls_auto => true
   }
 end

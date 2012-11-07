@@ -1,12 +1,17 @@
 ShopUp::Application.routes.draw do
-  resources :stores
 
   resources :users, :except => [:edit]
   resources :sessions, :only => [:new, :create, :destroy]
 
-  root :to => "pages#home"
+  resources :stores do
+    resources :products
 
-  match ':not_found' => redirect('/'), :constraints => { :not_found => /.*/ }
+    namespace :store, :path => "/store" do
+      match "/home", :to => "pages#home"
+    end
+  end
+
+  root :to => "pages#home"
 
   post "/sessions/change_locale", :as=> "locale"
 
@@ -14,8 +19,8 @@ ShopUp::Application.routes.draw do
   match '/about',                :to => 'pages#about'
   match '/help',                 :to => 'pages#help'
   match '/signup',               :to => 'users#new'
-  match '/stores/:id/statistic', :to => 'stores#statistic', :as => "statistic"
-  match '/profile',              :to => 'sessions#profile', :as => "profile"
+  match '/stores/:id/statistic', :to => 'stores#statistic', :as => 'statistic'
+  match '/profile',              :to => 'sessions#profile', :as => 'profile'
   match '/signin',               :to => 'sessions#new'
   match '/signout',              :to => 'sessions#destroy'
 

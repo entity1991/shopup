@@ -32,8 +32,7 @@ class StoresController < ApplicationController
   end
 
   def create
-    @store = Store.new(params[:store])
-    @store.owner = current_user
+    @store = current_user.stores.build(params[:store])
     respond_to do |format|
       if @store.save
         format.html { redirect_to @store, notice: 'Store was successfully created.' }
@@ -47,7 +46,7 @@ class StoresController < ApplicationController
     @store = Store.find(params[:id])
 
     respond_to do |format|
-      if @store.update_attributes(params[:store])
+      if @store.update_attributes(params[:stores])
         format.html { redirect_to @store, notice: 'Store was successfully updated.' }
       else
         format.html { render action: "edit" }
@@ -62,6 +61,10 @@ class StoresController < ApplicationController
     respond_to do |format|
       format.html { redirect_to root_path }
     end
+  end
+
+  def home
+    @store = Store.find(params[:id])
   end
 
 end

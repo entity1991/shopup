@@ -1,5 +1,5 @@
 /*
-//= require static
+//= require store/static
 */
 
 .cleaner { clear: both }
@@ -13,8 +13,8 @@
   left: 0;
   width: 100%;
   height: 40px;
-  box-shadow: #9acd32 0 1px 15px;
-  background-color: #9acd32;
+  box-shadow: #5172cd 0 1px 15px;
+  background-color: #5172cd;
   #title{
     float: left;
     font-family: Helvetica;
@@ -34,7 +34,7 @@
     }
     a{
       color: #d6d6d6;
-      border-left: 2px dotted green;
+      border-left: 2px dotted blue;
       margin-right: 3px;
       margin-left: 3px;
       padding-left: 6px;
@@ -51,13 +51,11 @@
   #menu {
     margin: 25px 0;
     padding: 3px;
-    border-radius: 5px;
-    box-shadow: #6e6f50 0 0 2px;
+    box-shadow: #b0b280 0 0 2px;
     width: 800px;
-    background-color: #dad9af;
     a{
       font-family: tahoma;
-      border-right: 1px dotted #9acd32;
+      border-right: 1px dotted #5172cd;
       padding: 4px;
       &:last-child{
         border-right: none;
@@ -67,10 +65,10 @@
   #content {
     margin: 15px 0;
     border-radius: 5px;
-    box-shadow: #6e6f50 0px 0px 5px;
+    box-shadow: #b0b280 0px 0px 5px;
     width: 800px;
     min-height: 400px;
-    background: #f0f0f0;
+    background: white;
     padding: 20px 15px;
   }
 }
@@ -82,9 +80,7 @@
   font-size: 0.7em;
   line-height: 1em;
   padding: 3px;
-  border-top: 1px solid #505865;
-  background: -moz-linear-gradient(top, rgb(218, 217, 175) 0%, rgb(255, 255, 255) 100%);
-  background: -webkit-linear-gradient(top, rgb(218, 217, 175) 0%, rgb(255, 255, 255) 100%);
+  background: #c6c6e5;
 }
 
 #signin_window{
@@ -96,8 +92,8 @@
   right: 5px;
   padding: 10px;
   z-index: 100;
-  background-color: #9acd32;
-  box-shadow: #9acd32 0 0 15px;
+  background-color: #5172cd;
+  box-shadow: #5172cd 0 0 15px;
   border: 1px solid #CCC;
   border-radius: 10px;
   text-shadow: #121212;
