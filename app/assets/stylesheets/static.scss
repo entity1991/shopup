@@ -58,6 +58,13 @@ input{
 }
 
 select{
+  border-radius: 5px;
+  border: 1px solid #2e8b57;
+  margin: 0;
+  padding: 1px;
+  width: 60%;
+
+  /*
   cursor: pointer;
   height: 25px;
   background-color: #b4b390;
@@ -67,6 +74,7 @@ select{
   option{
     background-color: #b4b390;
   }
+  */
 }
 
 

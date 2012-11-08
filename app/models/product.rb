@@ -1,5 +1,5 @@
 class Product < ActiveRecord::Base
-  attr_accessible :description, :price, :title, :photo
+  attr_accessible :description, :price, :title, :photo, :category_id
 
   belongs_to :store
   belongs_to :category
@@ -13,5 +13,16 @@ class Product < ActiveRecord::Base
 
   validates_attachment_presence :photo
   validates_attachment_size :photo, :less_than => 5.megabytes
-  validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png']
+  validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/jpg']
+  validates :category_id, :presence => true
+
+  def category_name
+    if self.category.name
+      self.category.name
+    else
+      ""
+    end
+
+  end
+
 end

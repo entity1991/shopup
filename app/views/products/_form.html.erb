@@ -17,6 +17,11 @@
       <%= f.file_field :photo %>
     </div>
     <div>
+      <%= f.label :category %><br />
+      <%= f.collection_select :category_id, Category.all, :id, :name %>
+    </div>
+    <div>
+      <br/>
       <%= f.submit %>
     </div>
   </div>
