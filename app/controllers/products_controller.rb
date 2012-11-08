@@ -30,16 +30,15 @@ class ProductsController < ApplicationController
   def update
     @product = Product.find(params[:id])
     if @product.update_attributes(params[:product])
-      redirect_to store_products_path, notice: 'Product was successfully created.'
+      redirect_to store_products_path, notice: 'Product was successfully updated.'
     else
       render action: "new"
     end
   end
 
   def destroy
-    @product = Product.find(params[:id])
-    @product.destroy
-    redirect_to store_products_url
+    @product = Product.find(params[:id]).destroy
+    redirect_to store_products_path
   end
 
   private

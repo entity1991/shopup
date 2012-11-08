@@ -1,0 +1,10 @@
+<%= render 'stores/store_managing_menu'%>
+
+All Categories <%= link_to '+', new_store_category_path, :class => "float_r add_item" %><hr>
+
+<% @categories.each do |category| %>
+  <%= category.name %>
+  <%= link_to '[ ]', edit_store_category_path(@store, category), :class => "float_r edit_item" %>
+  <%= link_to '-', store_category_path(@store, category), confirm: 'Are you sure?', :method => :delete, :class => "float_r remove_item" %>
+  <hr class="cleaner">
+<% end %>

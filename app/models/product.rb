@@ -2,6 +2,7 @@ class Product < ActiveRecord::Base
   attr_accessible :description, :price, :title, :photo
 
   belongs_to :store
+  belongs_to :category
 
   validates :title, :presence => true, :length => { :maximum => 30 }
   validates :price, :presence => true, :numericality => {greater_than_or_equal_to: 0.01}

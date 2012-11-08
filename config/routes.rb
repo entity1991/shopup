@@ -5,9 +5,10 @@ ShopUp::Application.routes.draw do
 
   resources :stores do
     resources :products
+    resources :categories
 
     namespace :store, :path => "/store" do
-      match "/home", :to => "pages#home"
+      match "/", :to => "pages#home"
     end
   end
 

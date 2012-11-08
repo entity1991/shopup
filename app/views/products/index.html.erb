@@ -1,25 +1,14 @@
 <%= render 'stores/store_managing_menu'%>
 
-<h1>Products</h1>
-
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Description</th>
-    <th>Price</th>
-  </tr>
+All Products <%= link_to '+', new_store_product_path, :class => "float_r add_item" %><hr>
 
 <% @products.each do |product| %>
-  <tr>
-    <%= image_tag product.photo.url(:small) %>
-    <td><%= product.title %></td>
-    <td><%= product.description %></td>
-    <td><%= product.price %></td>
-
-  </tr>
+  <%= image_tag product.photo.url(:small), :class => "float_l product_image" %>
+  <div class="product_title"><%= product.title %></div>
+  <div class="product_desc"><%= product.description %></div>
+  <div class="product_price"><%= product.price %></div>
+  <%= link_to '[ ]', edit_store_product_path(@store, product), :class => "float_r edit_item" %>
+  <%= link_to '-', store_product_path(@store, product), confirm: 'Are you sure?', :method=> :delete, :class => "float_r remove_item" %>
+  <hr class="cleaner">
 <% end %>
-</table>
 
-<br />
-
-<%= link_to 'New Product', new_store_product_path %>
