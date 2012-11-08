@@ -1,0 +1,7 @@
+<% @products.each do |product| %>
+  <%= image_tag product.photo.url(:small), :class => "float_l product_image" %>
+  <div><%= product.title %></div>
+  <div><%= product.description %></div>
+  <div><%= product.price %></div>
+ <hr class="cleaner">
+<% end %>

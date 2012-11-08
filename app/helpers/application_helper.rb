@@ -9,17 +9,17 @@ module ApplicationHelper
     @submit_value ? @submit_value : "OK"
   end
 
-  def cut_long_string(content, length)
-    clipped_string = sanitize(raw(content.split.map{ |s| wrap_long_string(s) }.join(' ')))
-    content.length < length ? clipped_string : clipped_string[0..length-1] + "..."
-  end
-
   def languages_select_tag(name = 'set_locale')
     languages = [%w(English en), %w(Russian ru), %w(Ukrainian ua)]
     options = options_for_select(languages, I18n.locale.to_s)
     form_tag locale_path, :id => "change_locale_form" do
       select_tag(name, options, :onchange => 'this.form.submit()')
     end
+  end
+
+  def cut_long_string(content, length)
+    clipped_string = sanitize(raw(content.split.map{ |s| wrap_long_string(s) }.join(' ')))
+    content.length < length ? clipped_string : clipped_string[0..length-1] + "..."
   end
 
   private

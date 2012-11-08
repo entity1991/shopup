@@ -8,7 +8,8 @@ ShopUp::Application.routes.draw do
     resources :categories
 
     namespace :store, :path => "/store" do
-      match "/", :to => "pages#home"
+      #match "/", :to => "pages#home"
+      match "/", :to => "catalogs#index"
     end
   end
 
@@ -29,11 +30,11 @@ ShopUp::Application.routes.draw do
   # first created -> highest priority.
 
   # Sample of regular route:
-  #   match 'products/:id' => 'catalog#view'
+  #   match 'products/:id' => 'catalogs#view'
   # Keep in mind you can assign values other than :controller and :action
 
   # Sample of named route:
-  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
+  #   match 'products/:id/purchase' => 'catalogs#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):

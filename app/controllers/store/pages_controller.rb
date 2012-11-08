@@ -1,8 +1,5 @@
-class Store::PagesController < ApplicationController
-
-  layout "store/application"
+class Store::PagesController < Store::ApplicationController
 
   def home
-     @store = Store.find(params[:store_id])
   end
 end
