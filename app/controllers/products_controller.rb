@@ -12,10 +12,12 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
+    @categories = @store.categories
   end
 
   def edit
     @product = Product.find(params[:id])
+    @categories = @store.categories
   end
 
   def create

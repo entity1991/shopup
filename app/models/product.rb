@@ -16,13 +16,4 @@ class Product < ActiveRecord::Base
   validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/jpg']
   validates :category_id, :presence => true
 
-  def category_name
-    if self.category.name
-      self.category.name
-    else
-      ""
-    end
-
-  end
-
 end
