@@ -1,2 +1,0 @@
-module Store::CatalogsHelper
-end

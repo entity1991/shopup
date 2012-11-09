@@ -3,6 +3,8 @@
   <% current_user.stores.each do |store| %>
     <%= link_to store.name, admin_store_path(store) %>
   <% end %>
-  </div>
+  <%= link_to "+", new_admin_store_path ,{:class => "float_r add_item", :style => "margin-top: -20px;"} if current_user.stores.count  != 0%>
+
+</div>
 
 

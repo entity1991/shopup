@@ -2,6 +2,7 @@ class PagesController < ApplicationController
 
   def home
     @title = "Home"
+    @stores = Store.all
   end
 
   def contact

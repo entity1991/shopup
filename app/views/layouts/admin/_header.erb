@@ -1,0 +1,19 @@
+<div id="header">
+
+  <div id="header_menu">
+    <%=languages_select_tag%>
+    <%= link_to t('Home'), root_path %>
+    <%= link_to t('Help'), help_path %>
+    <% if signed_in?%>
+      <%= link_to t('Profile'), profile_path %>
+      <%= link_to t('Sign_out'), signout_path, :method => :delete %>
+    <% else %>
+      <%= link_to_function t('Sign_in'), "toggleSigninWindow()", :id => "sign_in"%>
+      <%= link_to t('Sign_up'), signup_path %>
+    <% end %>
+  </div>
+
+  <%= render 'shared/signin_window'  %>
+</div>
+
+

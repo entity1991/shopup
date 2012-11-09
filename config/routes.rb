@@ -3,14 +3,16 @@ ShopUp::Application.routes.draw do
   resources :users, :except => [:edit]
   resources :sessions, :only => [:new, :create, :destroy]
 
-  resources :stores do
-    resources :products
-    resources :categories
-
-    namespace :store, :path => "/store" do
-      #match "/", :to => "pages#home"
-      match "/", :to => "catalogs#index"
+  namespace :admin do
+    resources :stores do
+      resources :products
+      resources :categories
+      get 'statistic'
     end
+  end
+
+  resources :stores do
+    match "/", :to => "stores#catalog", :as => "catalog"
   end
 
   root :to => "pages#home"
@@ -21,7 +23,6 @@ ShopUp::Application.routes.draw do
   match '/about',                :to => 'pages#about'
   match '/help',                 :to => 'pages#help'
   match '/signup',               :to => 'users#new'
-  match '/stores/:id/statistic', :to => 'stores#statistic', :as => 'statistic'
   match '/profile',              :to => 'sessions#profile', :as => 'profile'
   match '/signin',               :to => 'sessions#new'
   match '/signout',              :to => 'sessions#destroy'
