@@ -15,14 +15,24 @@
   height: 40px;
   box-shadow: #9acd32 0 1px 15px;
   background-color: #9acd32;
-  #title{
+  #stores_menu {
     float: left;
-    font-family: Helvetica;
-    color: #555;
-    font-weight: bold;
-    margin: 4px 10px;
-    font-size: 27px;
-    cursor: pointer;
+    margin: 8px;
+    border-radius: 5px;
+    width: 750px;
+    a{
+      color: #d6d6d6;
+      border-left: 2px dotted green;
+      margin-right: 3px;
+      margin-left: 3px;
+      padding-left: 6px;
+      &:hover {
+          color: white;
+      }
+      &:first-child {
+          border-left: none;
+      }
+    }
   }
   #header_menu{
     margin: 8px;
@@ -31,6 +41,15 @@
       width: 100px;
       padding: 0;
       display: inline-block;
+      select {
+        margin: 0;
+        cursor: pointer;
+        height: 25px;
+        background-color: #b4b390;
+        color: #6e6f50;
+        border-radius: 3px;
+        border: none;
+      }
     }
     a{
       color: #d6d6d6;
@@ -48,29 +67,12 @@
 #main {
   margin: auto;
   width: 800px;
-  #menu {
-    margin: 25px 0;
-    padding: 3px;
-    border-radius: 5px;
-    box-shadow: #6e6f50 0 0 2px;
-    width: 800px;
-    background-color: #dad9af;
-    a{
-      font-family: tahoma;
-      border-right: 1px dotted #9acd32;
-      padding: 4px;
-      &:last-child{
-        border-right: none;
-      }
-    }
-  }
+  min-height: 400px;
   #content {
     margin: 15px 0;
-    border-radius: 5px;
     box-shadow: #6e6f50 0px 0px 5px;
     width: 800px;
-    min-height: 400px;
-    background: #f0f0f0;
+    background: #f7f7f7;
     padding: 20px 15px;
   }
 }
@@ -108,6 +110,9 @@
   .field  input{
     width: 160px;
   }
+  a:hover{
+    color: #111;
+  }
 }
 
 .big_green_button{
@@ -124,15 +129,12 @@
   }
 }
 
-.store_name{
-  cursor: pointer;
-}
-
 #store_managing_menu{
-  border-bottom: 1px solid #2e8b57;
-  margin-bottom: 3px;
+  border-bottom: 2px solid #9acd32;
+  padding-bottom: 7px;
+  margin-bottom: 5px;
   a{
-    font-family: tahoma;
+    font-family: verdana;
     border-left: 1px dotted #9acd32;
     padding: 4px;
     &:first-child{
@@ -226,6 +228,22 @@
     color: #808080;
     border-color: #808080;
     background-color: #c0c0c0;
+  }
+}
+
+.home_store_box{
+  text-align: center;
+  color: #4682b4;
+  font-size: 1.1em;
+  font-weight: bolder;
+  float: left;
+  height: 190px;
+  width: 170px;
+  margin: 11px;
+  padding: 7px 2px;
+  &:hover{
+    box-shadow: 0 0 4px #c7e1ab;
+    background-color: #f5f5f5;
   }
 }
 
