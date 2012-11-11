@@ -1,5 +1,12 @@
 <%= render 'admin/stores/store_managing_menu'%>
-
+<% if @store.open%>
+  You store is Open and him can see all users<br>
+  <%= link_to "Close Store", close_admin_store_path(@store) %>
+<% else %>
+  This store is closed<br>
+  <%= link_to "Open Store",  open_admin_store_path(@store) %>
+<% end %>
+<br>
 If You want to see, how looks your store, <%= link_to "Go to him!", store_catalog_path(@store), :target => "_blank" %>
 
 

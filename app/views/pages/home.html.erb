@@ -6,7 +6,7 @@
     <li>Ecommerce hosting included</li>
     <li>30,000+ stores run on ShopUp</li>
   </ul>
-  <%= link_to "Create your stores now!", new_admin_store_path ,{:class => "big_green_button"} if current_user.stores.count  == 0%>
+  <%= link_to "Create your store now!", new_admin_store_path ,{:class => "big_green_button"} if current_user.stores.count  == 0%>
 <% else %>
   <h1>Create your ecommerce store today with ShopUp</h1>
   <h3>ShopUp offers a complete ecommerce solution</h3>
@@ -16,6 +16,6 @@
   With ShopUp it's easy to sell online and there's no software to download or maintain.</p>
 <% end %>
 <div class="cleaner"></div>
-<% @stores.each do |store|%>
+<% @opened_stores.each do |store|%>
   <a class="home_store_box" href="<%= store_catalog_path(store) %>"><%= store.name %></a>
 <% end %>

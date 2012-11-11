@@ -8,6 +8,8 @@ ShopUp::Application.routes.draw do
       resources :products
       resources :categories
       get 'statistic'
+      get 'open', :on => :member
+      get 'close', :on => :member
     end
   end
 

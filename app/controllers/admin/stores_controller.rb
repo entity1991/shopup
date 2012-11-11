@@ -10,11 +10,7 @@ class Admin::StoresController < Admin::ApplicationController
 
   def show
     @store = Store.find(params[:id])
-    respond_to do |format|
-      format.html # show.html.erb
-    end
   end
-
 
   def statistic
     @store = Store.find(params[:store_id])
@@ -22,10 +18,6 @@ class Admin::StoresController < Admin::ApplicationController
 
   def new
     @store = Store.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-    end
   end
 
   def edit
@@ -34,34 +26,37 @@ class Admin::StoresController < Admin::ApplicationController
 
   def create
     @store = current_user.stores.build(params[:store])
-    respond_to do |format|
-      if @store.save
-        format.html { redirect_to admin_store_path(@store), notice: 'Store was successfully created.' }
-      else
-        format.html { render action: "new" }
-      end
+    if @store.save
+      redirect_to admin_store_path(@store), notice: 'Store was successfully created.'
+    else
+      render "new"
     end
   end
 
   def update
     @store = Store.find(params[:id])
-
-    respond_to do |format|
-      if @store.update_attributes(params[:store])
-        format.html { redirect_to admin_store_path(@store), notice: 'Store was successfully updated.' }
-      else
-        format.html { render action: "edit" }
-      end
+    if @store.update_attributes(params[:store])
+      redirect_to admin_store_path(@store), notice: 'Store was successfully updated.'
+    else
+      render action: "edit"
     end
   end
 
-  def destroy
+  def open
     @store = Store.find(params[:id])
-    @store.destroy
+    @store.update_attribute("open", 1)
+    redirect_to :back
+  end
 
-    respond_to do |format|
-      format.html { redirect_to admin_stores_path }
-    end
+  def close
+    @store = Store.find(params[:id])
+    @store.update_attribute("open", 0)
+    redirect_to :back
+  end
+
+  def destroy
+    @store = Store.find(params[:id]).destroy
+    redirect_to admin_stores_path
   end
 
 end

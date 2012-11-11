@@ -8,4 +8,7 @@ class Store < ActiveRecord::Base
   validates :name,   :presence => true, :length => { :maximum => 15 }
   validates :domain, :presence => true, :length => { :maximum => 15 }, :uniqueness => true
 
+  scope :opened, where( :open => 1)
+  scope :closed, where( :open => 0)
+
 end
