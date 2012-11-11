@@ -2,6 +2,7 @@ class Admin::StoresController < Admin::ApplicationController
 
   before_filter :authenticate
   before_filter :boss?, :only => [:index]
+  skip_before_filter :owner?, :only => [:new, :create, :index]
 
   def index
     @stores = Store.all

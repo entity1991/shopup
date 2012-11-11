@@ -1,4 +1,12 @@
 <div id="header">
+  <% if signed_in?%>
+    <div id="stores_menu">
+      <%= link_to "+", new_admin_store_path if current_user.stores.count  != 0%>
+      <% current_user.stores.each do |store| %>
+        <%= link_to store.name, admin_store_path(store) %>
+      <% end %>
+    </div>
+  <% end %>
 
   <div id="header_menu">
     <%=languages_select_tag%>

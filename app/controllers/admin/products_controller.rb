@@ -1,6 +1,7 @@
 class Admin::ProductsController < Admin::ApplicationController
 
   before_filter :current_store
+  before_filter :store_categories, :only => [:new, :edit, :create, :update]
 
   def index
     @products = @store.products
@@ -12,12 +13,10 @@ class Admin::ProductsController < Admin::ApplicationController
 
   def new
     @product = Product.new
-    @categories = @store.categories
   end
 
   def edit
     @product = Product.find(params[:id])
-    @categories = @store.categories
   end
 
   def create
@@ -47,6 +46,10 @@ class Admin::ProductsController < Admin::ApplicationController
 
   def current_store
     @store = Store.find(params[:store_id])
+  end
+
+  def store_categories
+    @categories = @store.categories
   end
 
 end

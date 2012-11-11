@@ -1,5 +1,10 @@
 <div id="header">
-
+  <div id="stores_menu">
+    <%= link_to "+", new_admin_store_path if current_user.stores.count  != 0%>
+    <% current_user.stores.each do |store| %>
+      <%= link_to store.name, admin_store_path(store) %>
+    <% end %>
+    </div>
   <div id="header_menu">
     <%=languages_select_tag%>
     <%= link_to t('Home'), root_path %>
@@ -12,8 +17,6 @@
       <%= link_to t('Sign_up'), signup_path %>
     <% end %>
   </div>
-
-  <%= render 'shared/signin_window'  %>
 </div>
 
 

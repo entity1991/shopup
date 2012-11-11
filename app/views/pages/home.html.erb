@@ -17,5 +17,5 @@
 <% end %>
 <div class="cleaner"></div>
 <% @stores.each do |store|%>
-  <div style="height: 100px; width: 100px;" class="float_l"><%= store.name %></div>
+  <div class="home_store_box"><a href="<%= store_catalog_path(store) %>"><%= store.name %></a></div>
 <% end %>
