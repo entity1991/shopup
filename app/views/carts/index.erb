@@ -1,5 +1,5 @@
 <table>
-  <% @current_cart.line_items.each do |item| %>
+  <% @cart.line_items.each do |item| %>
     <tr>
       <td><%= item.quantity %>&times;</td>
       <td><%= item.product.title %></td>
@@ -8,7 +8,8 @@
   <% end %>
   <tr>
     <td colspan="2">Total</td>
-    <td><%= number_to_currency(@current_cart.total_price) %></td>
+    <td><%= number_to_currency(@cart.total_price) %></td>
   </tr>
 </table>
-<%= button_to "Empty cart", @current_cart, method: :delete, confirm: 'Are you sure?' %>
+<%= button_to "Checkout", new_order_path, method: :get %>
+<%= button_to "Empty cart", @cart, method: :delete, confirm: 'Are you sure?' %>

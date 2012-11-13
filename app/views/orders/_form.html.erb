@@ -1,0 +1,20 @@
+<%= form_for(@order) do |f| %>     .
+  <div class="form_fields">
+    <div>
+      <%= f.label :name %><br />
+      <%= f.text_field :name, size: 30 %>
+    </div>
+    <div>
+      <%= f.label :address %><br />
+      <%= f.text_area :address, rows: 6 %>
+    </div>
+    <div>
+      <%= f.label :email %><br />
+      <%= f.text_field :email, size: 30 %>
+    </div>
+    <div>
+      <%= f.submit  "Place order"%>
+    </div>
+  </div>
+  <span class="error_messages"><%= render 'shared/error_messages', :object => f.object %></span>
+<% end %>
