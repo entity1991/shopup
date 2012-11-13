@@ -1,0 +1,19 @@
+<%= render :partial => 'admin/stores/store_managing_menu'%>
+
+
+<%= link_to '+', new_admin_store_field_path, :class => "float_r add_item" %>
+<hr style="border-color: red;"/>
+
+<% @categories.each do |cat| %>
+    Category: <%=  cat.name %> <br/>
+    Fields:
+    <hr/>
+    <% cat.fields.each do |field| %>
+        <%=  field.title %>
+        <%= link_to '[ ]', edit_admin_store_field_path(@store, field), :class => "float_r edit_item" %>
+        <%= link_to '-',  admin_store_field_path(@store, field, :category_id => cat.id), confirm: 'Are you sure? Data can be destroyed',
+                    :method => :delete, :class => "float_r remove_item" %>
+        <hr class="cleaner"/>
+    <% end %>
+    <hr style="border-color: red;"/>
+<% end %>
