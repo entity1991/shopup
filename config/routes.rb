@@ -2,6 +2,8 @@ ShopUp::Application.routes.draw do
 
   resources :users, :except => [:edit]
   resources :sessions, :only => [:new, :create, :destroy]
+  resources :carts, :only => [:index, :show, :destroy]
+  resources :line_items, :only => [:create, :destroy]
 
   namespace :admin do
     resources :stores do
@@ -13,8 +15,10 @@ ShopUp::Application.routes.draw do
     end
   end
 
-  resources :stores do
-    match "/", :to => "stores#catalog", :as => "catalog"
+  namespace :stores, :path => "/" do
+    resources :stores do
+      match "/", :to => "stores#catalog", :as => "catalog"
+    end
   end
 
   root :to => "pages#home"

@@ -1,0 +1,14 @@
+<table>
+  <% @current_cart.line_items.each do |item| %>
+    <tr>
+      <td><%= item.quantity %>&times;</td>
+      <td><%= item.product.title %></td>
+      <td><%= number_to_currency(item.total_price) %></td>
+    </tr>
+  <% end %>
+  <tr>
+    <td colspan="2">Total</td>
+    <td><%= number_to_currency(@current_cart.total_price) %></td>
+  </tr>
+</table>
+<%= button_to "Empty cart", @current_cart, method: :delete, confirm: 'Are you sure?' %>

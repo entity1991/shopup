@@ -5,11 +5,14 @@ module SessionsHelper
   end
 
   def sign_in(user)
+    user.cart = current_cart
+    session[:cart_id] = nil
     cookies.permanent.signed[:remember_token] = [user.id, user.salt]
     self.current_user = user
   end
 
   def sign_out
+    self.current_user.cart.destroy if current_user.cart
     cookies.delete(:remember_token)
     self.current_user = nil
   end

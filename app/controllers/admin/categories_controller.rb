@@ -1,7 +1,5 @@
 class Admin::CategoriesController < Admin::ApplicationController
 
-  before_filter :current_store
-
   def index
     @categories = @store.categories
   end
@@ -39,12 +37,6 @@ class Admin::CategoriesController < Admin::ApplicationController
   def destroy
     @category = Category.find(params[:id]).destroy
     redirect_to admin_store_categories_path
-  end
-
-  private
-
-  def current_store
-    @store = Store.find(params[:store_id])
   end
 
 end

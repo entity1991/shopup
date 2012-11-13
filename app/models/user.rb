@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation  #editable attribute
 
   has_many :stores, :foreign_key => "owner_id", :dependent => :destroy
+  has_one :cart, :dependent => :destroy
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 

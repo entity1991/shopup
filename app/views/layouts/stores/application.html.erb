@@ -5,14 +5,15 @@
   <%= csrf_meta_tag %>
 </head>
 <body>
-<%= render 'layouts/store/header'%>
+  <%= render 'layouts/stores/header'%>
   <div id="main">
     <div id="content">
       <%= render 'shared/flash_messages'%>
       <%= yield  %>
+      <div class="cleaner"></div>
     </div>
   </div>
-  <div id="footer" class="cleaner"><%= render 'layouts/store/footer' %></div>
-  <%= render 'layouts/store/styles_&_scripts' %>
+  <div id="footer" class="cleaner"><%= render 'layouts/stores/footer' %></div>
+  <%= render 'layouts/stores/styles_&_scripts' %>
 </body>
 </html>

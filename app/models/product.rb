@@ -3,6 +3,9 @@ class Product < ActiveRecord::Base
 
   belongs_to :store
   belongs_to :category
+  has_many :line_items
+
+  before_destroy :has_line_items?
 
   validates :title, :presence => true, :length => { :maximum => 30 }
   validates :price, :presence => true, :numericality => {greater_than_or_equal_to: 0.01}
@@ -15,5 +18,17 @@ class Product < ActiveRecord::Base
   validates_attachment_size :photo, :less_than => 5.megabytes
   validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/jpg']
   validates :category_id, :presence => true
+
+  private
+
+  # ensure that there are no line items referencing this product
+  def has_line_items?
+    if line_items.empty?
+      true
+    else
+      errors.add(:base, 'Line Items present')
+      false
+    end
+  end
 
 end
