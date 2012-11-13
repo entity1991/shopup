@@ -3,6 +3,7 @@ class Admin::ProductsController < Admin::ApplicationController
   before_filter :store_categories, :only => [:new, :edit, :create, :update]
 
   def index
+    @categories = @store.categories   #нащо воно тут, якшо прописано в before filter
     @products = @store.products
   end
 
@@ -39,6 +40,11 @@ class Admin::ProductsController < Admin::ApplicationController
   def destroy
     @product = Product.find(params[:id]).destroy
     redirect_to admin_store_products_path
+  end
+
+  def dynamic_fields_for_category
+    @fields = Category.find(params[:category_id]).fields
+    render :partial => 'dynamic_fields_for_category', :locals => { :fields => @fields }
   end
 
   private
