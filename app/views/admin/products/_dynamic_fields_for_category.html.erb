@@ -1,0 +1,13 @@
+    <% fields.each do |field| %>
+        <%= label_tag field.title %>
+
+        <% if field.content_type == "string" %>
+            <%= text_field_tag field.name %>
+        <% elsif field.content_type == "integer" %>
+            <%= text_field_tag field.name %>
+        <% elsif field.content_type == "price" %>
+            <%= text_field_tag field.name %>
+        <% elsif field.content_type == "color" %>
+            <%= text_field_tag field.name %>
+        <% end %>
+    <% end %>

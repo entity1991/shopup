@@ -1,3 +1,4 @@
+<% # -*- coding: utf-8 -*-  %>
 <%= form_for([:admin, @store, @product], :html => {:multipart => true}) do |f| %>
   <div class="form_fields">
     <div>
@@ -17,11 +18,13 @@
       <%= f.file_field :photo %>
     </div>
     <% if @categories %>
-      <div>
-        <%= f.label :category %>
-        <%= f.collection_select :category_id, @categories, :id, :name %>
-      </div>
+        <div>
+          <%= f.label :category %>
+          <%= f.collection_select :category_id, @categories, :id, :name, {:include_blank => true}%>
+        </div>
     <% end %>
+
+    <div id="container"></div>
     <div>
       <br>
       <%= f.submit %>
@@ -29,3 +32,28 @@
   </div>
   <span class="error_messages"><%= render 'shared/error_messages', :object => f.object %></span>
 <% end %>
+
+<script type="text/javascript">
+    j(document).ready(function(){
+        j("#product_category_id").change(function(){
+            if(j(this).val() != ""){
+                j.ajax({
+                    url: "<%= dynamic_fields_for_category_url(@store)%>",
+                    data: {category_id: j(this).val()},
+                    type: 'GET',
+                    beforeSend: function () {
+                    },
+                    complete: function(){
+                    },
+                    error: function(err){
+                        alert("error");
+                    },
+                    success: function(data){
+                        j("#container").html(data);
+                    }
+                });
+            }
+        });
+        j("#product_category_id").trigger('change');
+    });
+</script>

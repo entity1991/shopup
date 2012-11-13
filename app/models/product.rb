@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+
+
 class Product < ActiveRecord::Base
   attr_accessible :description, :price, :title, :photo, :category_id
 

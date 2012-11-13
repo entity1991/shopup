@@ -6,12 +6,16 @@
       </div>
       <div>
         <%= f.label :content_type %>
-        <%= f.text_field :content_type %>
+        <%= f.collection_select :content_type, Field.types, :downcase, :downcase %>
+      </div>
+      <div>
+        <%= f.label :name %>(eng only)
+        <%= f.text_field :name %>
       </div>
       <div>
         <%=  label_tag("Select categories:") %> <hr/>
           <% @store.categories.each do |cat| %>
-            <%= check_box_tag 'categories['+cat.id.to_s+']' %><%= label_tag(cat.name) %><br/>
+            <%= check_box_tag "categories["+cat.id.to_s+"]" %><%= label_tag(cat.name) %><br/>
           <% end %>
       <hr/>
       </div>
@@ -22,4 +26,3 @@
     </div>
     <span class="error_messages"><%= render 'shared/error_messages', :object => f.object %></span>
 <% end %>
-                        <%= debug(params)%>

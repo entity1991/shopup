@@ -8,6 +8,7 @@ ShopUp::Application.routes.draw do
       resources :products
       resources :categories
       resources :fields
+
       get 'statistic'
       get 'open', :on => :member
       get 'close', :on => :member
@@ -29,6 +30,9 @@ ShopUp::Application.routes.draw do
   match '/profile',              :to => 'sessions#profile', :as => 'profile'
   match '/signin',               :to => 'sessions#new'
   match '/signout',              :to => 'sessions#destroy'
+
+  match 'store/:store_id/dynamic_fields_for_category', :to => 'admin/products#dynamic_fields_for_category', :as => 'dynamic_fields_for_category'
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
