@@ -32,14 +32,15 @@
   </div>
   <span class="error_messages"><%= render 'shared/error_messages', :object => f.object %></span>
 <% end %>
-
+                   <% params[:utf8] = "" %>
+<%= params[:fields]%>
 <script type="text/javascript">
     j(document).ready(function(){
         j("#product_category_id").change(function(){
             if(j(this).val() != ""){
                 j.ajax({
                     url: "<%= dynamic_fields_for_category_url(@store)%>",
-                    data: {category_id: j(this).val()},
+                    data: {category_id: j(this).val(), product_id: <%= @product.id || "0"%>},
                     type: 'GET',
                     beforeSend: function () {
                     },

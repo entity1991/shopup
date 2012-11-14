@@ -1,13 +1,16 @@
 <% fields.each do |field| %>
-    <%= label_tag field.title %>
+    <% field_name = "fields["+field[:model].id.to_s+"]" %>
+    <% value = field[:content]%>
 
-    <% if field.content_type == "string" %>
-        <%= text_field_tag field.name %>
-    <% elsif field.content_type == "integer" %>
-        <%= text_field_tag field.name %>
-    <% elsif field.content_type == "price" %>
-        <%= text_field_tag field.name %>
-    <% elsif field.content_type == "color" %>
-        <%= text_field_tag field.name %>
+    <%= label_tag field[:model].title %>
+
+    <% if field[:model].content_type == "string" %>
+        <%= text_field_tag field_name, value%>
+    <% elsif field[:model].content_type == "integer" %>
+        <%= text_field_tag field_name, value %>
+    <% elsif field[:model].content_type == "price" %>
+        <%= text_field_tag field_name, value %>
+    <% elsif field[:model].content_type == "color" %>
+        <%= text_field_tag field_name, value %>
     <% end %>
 <% end %>

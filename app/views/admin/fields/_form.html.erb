@@ -9,14 +9,10 @@
         <%= f.collection_select :content_type, Field.types, :downcase, :downcase %>
       </div>
       <div>
-        <%= f.label :name %>(eng only)
-        <%= f.text_field :name %>
-      </div>
-      <div>
         <%=  label_tag("Select categories:") %> <hr/>
           <% @store.categories.each do |cat| %>
-            <%= check_box_tag "categories["+cat.id.to_s+"]" %><%= label_tag(cat.name) %><br/>
-          <% end %>
+            <%= check_box_tag "categories["+cat.id.to_s+"]", 1, @field.categories.include?(cat) %><%= label_tag(cat.name) %><br/>
+        <% end %>
       <hr/>
       </div>
 

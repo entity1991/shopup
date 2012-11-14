@@ -1,27 +1,27 @@
 <%= render 'admin/stores/store_managing_menu'%>
 
-All Products <%= link_to '+', new_admin_store_product_path, :class => "float_r add_item" %><hr>
+All Products <%= link_to '+', new_admin_store_product_path, :class => "float_r add_item" %>
 
-<% @categories.each do |cat| %>
-  <% if !cat.products.blank? %>
-    <%=  cat.name %><hr class="cleaner">
-    <% cat.products.each do |product| %>
-      <%= image_tag product.photo.url(:small), :class => "float_l product_image" %>
-      <div class="product_title"><%= product.title %></div>
-      <div class="product_desc"><%= product.description %></div>
-      <div class="product_price"><%= number_to_currency(product.price) %></div>
-      <div>Category: <%= product.category.name %></div>
+<hr style="border-color: red;">
 
-      <% cat.fields.each do |field|%>
-        <%=  field.title %>:
-        <br/>
-      <% end %>
+<% @products_data.each do |cat| %>
+    <span style="color: red"><%= cat[:title] %></span>
+    <hr/>
+    <% cat[:products].each do |prod| %>
+        <%= image_tag prod[:base_product].photo.url(:small), :class => "float_l product_image" %>
+        <div class="product_title"><%= prod[:base_product].title %></div>
+        <div class="product_desc"><%= prod[:base_product].description %></div>
+        <div class="product_price"><%= number_to_currency(prod[:base_product].price) %></div>
 
-      <%= link_to '[ ]', edit_admin_store_product_path(@store, product), :class => "float_r edit_item" %>
-      <%= link_to '-', admin_store_product_path(@store, product), confirm: 'Are you sure?', :method=> :delete, :class => "float_r remove_item" %>
-      <hr class="cleaner">
+        <% prod[:fields].each do |field|%>
+            <div> <%= field[:title] %> : <%= field[:content]%> </div>
+        <% end %>
+
+        <%= link_to '[ ]', edit_admin_store_product_path(@store, prod[:base_product]), :class => "float_r edit_item" %>
+        <%= link_to '-', admin_store_product_path(@store, prod[:base_product]), confirm: 'Are you sure?', :method=> :delete, :class => "float_r remove_item" %>
+        <hr class="cleaner"/>
     <% end %>
-    <hr style="border-color: red"/>
-  <% end %>
+    <hr style="border-color: red;">
 <% end %>
+
 

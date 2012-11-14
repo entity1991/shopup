@@ -1,9 +1,9 @@
 development:
-  adapter: mysql2
+  adapter: mysql
   encoding: utf8
   reconnect: false
   database: shop_up_d
   pool: 5
   username: root
-  password: "1111"
+  password: "remeta"
   host: localhost

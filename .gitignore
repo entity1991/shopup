@@ -26,3 +26,4 @@ config/tunnlr.yml
 vendor/plugins/tunnlr_connector
 *.sublime-project
 *.*~
+test/

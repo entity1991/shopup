@@ -1,6 +1,4 @@
 class Admin::FieldsController < Admin::ApplicationController
-  #before filter  якшо юзер мае права - то прописано в admin/application.rb методом owner? А сюди наслідується
-
   def index
     @categories = @store.categories
   end
@@ -14,16 +12,10 @@ class Admin::FieldsController < Admin::ApplicationController
 
   def create
     @field = Field.new(params[:field])
-    if @field.save
-      params[:categories].each do |key, value|
-        category = Category.find(key)
-        if category
-          category.fields << @field
-        end
-      end
+    if @field.save_with_categories params[:categories]
       redirect_to admin_store_fields_path, notice: 'Field was successfully created.'
     else
-      render "new"
+      render :action => "new"
     end
   end
 
@@ -41,6 +33,12 @@ class Admin::FieldsController < Admin::ApplicationController
   end
 
   def update
+    @field = Field.find(params[:id])
+    if @field.save_with_categories params[:categories]
+      redirect_to admin_store_fields_path, notice: 'Field was successfully created.'
+    else
+      render "edit"
+    end
   end
 
 end
