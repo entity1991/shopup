@@ -4,7 +4,8 @@ class LineItemsController < ApplicationController
     product = Product.find(params[:product_id])
     @line_item = current_cart.add_product(product.id)
     if @line_item.save
-      redirect_to carts_path
+      flash[:notice] = "Added"
+      redirect_to :back
     else
       render action: "new"
     end

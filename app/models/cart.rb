@@ -1,7 +1,9 @@
 class Cart < ActiveRecord::Base
+  attr_accessor :store
   attr_accessible :store_id, :user_id
 
   has_many :line_items, :dependent => :destroy
+  has_many :products, :through => :line_items
   belongs_to :user
 
   def add_product(product_id)

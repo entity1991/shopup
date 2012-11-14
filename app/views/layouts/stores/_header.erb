@@ -1,8 +1,11 @@
 <div id="header">
   <div id="title"><%= @store.name %></div>
-  <div id="header_menu"></div>
 
-  <%= render 'shared/signin_window'  %>
+  <div id="header_menu">
+    <%= link_to "Home", root_path %>
+    <%= link_to "Catalog", stores_store_catalog_path(@store) %>
+    <%= link_to "Cart", stores_store_cart_path %>
+  </div>
 </div>
 
 

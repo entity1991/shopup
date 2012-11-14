@@ -1,7 +1,7 @@
 class Admin::StoresController < Admin::ApplicationController
 
   before_filter :authenticate
-  skip_before_filter :owner?, :only => [:new, :create, :index]
+  skip_before_filter :owner?, :only => [:new, :create]
   skip_before_filter :current_store
 
   def show
@@ -52,7 +52,7 @@ class Admin::StoresController < Admin::ApplicationController
 
   def destroy
     @store = Store.find(params[:id]).destroy
-    redirect_to admin_stores_path
+    redirect_to root_path
   end
 
 end

@@ -2,6 +2,21 @@ class CartsController < ApplicationController
 
   def index
     @cart = current_cart
+    @carts = []
+    stores = []
+    current_cart.products.each do |product|
+      stores << product.store unless stores.include? product.store
+    end unless current_cart.empty?
+    stores.each do |store|
+      cart = Cart.new
+      current_cart.line_items.each do |ln|
+        if ln.product.store == store
+          cart.line_items << ln
+        end
+      end
+      cart.store = store
+      @carts << cart
+    end unless stores.empty?
   end
 
   def show
