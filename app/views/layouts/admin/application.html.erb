@@ -9,11 +9,9 @@
 <body>
   <%= render 'layouts/admin/header'%>
   <div id="main">
-    <div id="content">
-      <%= render 'shared/flash_messages'%>
-      <%= yield  %>
-      <div class="cleaner"></div>
-    </div>
+    <%= render 'shared/flash_messages'%>
+    <%= yield  %>
+    <div class="cleaner"></div>
   </div>
   <div id="footer" class="cleaner"><%= render 'layouts/admin/footer' %></div>
 </body>

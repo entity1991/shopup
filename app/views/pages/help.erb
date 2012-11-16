@@ -1,9 +1,9 @@
-<p>
+<h3>
   Do you need any help?  You can type the question...
-</p>
+</h3>
 
 <%= form_tag(:controller => "pages", :action => "help") do %>
-  <%= label_tag "Your question" %><br>
-  <%= text_area_tag :question %><br>
-  <%= submit_tag "Give the question" %>
+  <%= label_tag "Your question" %>
+  <%= text_area_tag :question %>
+  <%= submit_tag "Ask the Question" %>
 <% end %>

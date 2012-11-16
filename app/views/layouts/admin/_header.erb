@@ -1,12 +1,11 @@
 <div id="header">
-  <div id="stores_menu">
+  <div class="float_l">
     <%= link_to "+", new_admin_store_path if current_user.stores.count  != 0%>
     <% current_user.stores.each do |store| %>
       <%= link_to store.name, admin_store_path(store) %>
     <% end %>
     </div>
-  <div id="header_menu">
-    <%=languages_select_tag%>
+  <div class="float_r">
     <%= link_to t('Home'), root_path %>
     <%= link_to t('Help'), help_path %>
     <% if signed_in?%>

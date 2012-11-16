@@ -25,7 +25,6 @@ j(document).ready(function(){
 
 });
 
-
 //functions
 
 function toggleSigninWindow(){

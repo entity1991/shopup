@@ -8,11 +8,10 @@
 <body>
   <%= render 'layouts/header'%>
   <div id="main">
-    <div id="content">
-      <%= render 'shared/flash_messages'%>
-      <%= yield  %>
-      <div class="cleaner"></div>
-    </div>
+    <%= render 'shared/signin_window'  %>
+    <%= render 'shared/flash_messages'%>
+    <%= yield  %>
+    <div class="cleaner"></div>
   </div>
   <div id="footer" class="cleaner"><%= render 'layouts/footer' %></div>
   <%= render 'layouts/styles_&_scripts' %>
