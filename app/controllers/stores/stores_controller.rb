@@ -17,4 +17,8 @@ class Stores::StoresController < Stores::ApplicationController
     @order = Order.new
   end
 
+  def product_detail
+    @product = Product.find(params[:product_id])
+  end
+
 end

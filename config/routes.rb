@@ -23,6 +23,7 @@ ShopUp::Application.routes.draw do
       match "/", :to => "stores#catalog", :as => "catalog"
       get "cart"
       get "order"
+      match "products/:product_id" ,:to => "stores#product_detail", :as => "product_detail"
     end
   end
 
