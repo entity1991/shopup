@@ -3,7 +3,7 @@
 <% @products.each do |product| %>
   <div class="product_box">
     <%= image_tag product.photo.url(:small), :class => "float_l product_image" %>
-    <h3><%= product.title %></h3>
+    <h3><%= link_to product.title, stores_store_product_detail_path(@store, product) %></h3>
     <div class="product_desc"><%= product.description %></div>
     <div class="product_price"><%=number_to_currency(product.price) %></div>
     <%= button_to "Add to Cart", line_items_path(product_id: product)%>
