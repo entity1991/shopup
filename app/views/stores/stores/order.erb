@@ -1,0 +1,7 @@
+<%= render 'stores/stores/store_menu'%>
+
+<h1>New order <%= "for " + @store.name%></h1>
+
+<%= render 'orders/order', :locals => {:store => @store} %>
+
+<%= link_to 'Back', :back, :method => :get %>

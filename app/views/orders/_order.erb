@@ -1,15 +1,16 @@
-<%= form_for(@order) do |f| %>     .
+<%= form_for(@order) do |f| %>
+  <%= (hidden_field_tag :store, @store.id) if @store%>
   <div class="form_fields">
     <div>
-      <%= f.label :name %><br />
+      <%= f.label :name %>
       <%= f.text_field :name, size: 30 %>
     </div>
     <div>
-      <%= f.label :address %><br />
+      <%= f.label :address %>
       <%= f.text_area :address, rows: 6 %>
     </div>
     <div>
-      <%= f.label :email %><br />
+      <%= f.label :email %>
       <%= f.text_field :email, size: 30 %>
     </div>
     <div>

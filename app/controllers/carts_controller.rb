@@ -28,6 +28,13 @@ class CartsController < ApplicationController
     end
   end
 
+  def empty_cart_from_store
+    current_cart.line_items.each do |ln|
+      ln.destroy if ln.product.store.id.to_s == params[:store_id]
+    end
+    redirect_to :back
+  end
+
   def destroy
     current_cart.destroy
     redirect_to root_path, notice: 'Your cart is currently empty'

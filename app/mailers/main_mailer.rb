@@ -12,8 +12,9 @@ class MainMailer < ActionMailer::Base
     mail :to => "ruslankuzma@gmail.com", :subject => 'You have a new question'
   end
 
-  def order_notifier(order)
+  def order_notifier(order, store)
     @order = order
-    mail :to => "ruslankuzma@gmail.com", :subject => 'You have a new order'
+    @store = store
+    mail :to => store.owner.email, :subject => 'You have a new order'
   end
 end

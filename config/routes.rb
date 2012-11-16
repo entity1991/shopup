@@ -22,7 +22,7 @@ ShopUp::Application.routes.draw do
     resources :stores do
       match "/", :to => "stores#catalog", :as => "catalog"
       get "cart"
-      match "empty_cart", :to => "stores#empty_cart", :as => "empty_cart", :via => :delete
+      get "order"
     end
   end
 
@@ -38,6 +38,8 @@ ShopUp::Application.routes.draw do
   match '/signin',               :to => 'sessions#new'
   match '/signout',              :to => 'sessions#destroy'
 
+  match "/empty_cart_from_store/:store_id", :to => "carts#empty_cart_from_store", :as => "empty_cart_from_store"
+  match "/create_order_from_store/:store_id", :to => "orders#create_order_from_store", :as => "create_order_from_store"
   match 'store/:store_id/dynamic_fields_for_category', :to => 'admin/products#dynamic_fields_for_category', :as => 'dynamic_fields_for_category'
 
 

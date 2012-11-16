@@ -13,11 +13,8 @@ class Stores::StoresController < Stores::ApplicationController
     end
   end
 
-  def empty_cart
-    current_cart.line_items.each do |ln|
-      ln.destroy if ln.product.store == @store
-    end
-    redirect_to :back
+  def order
+    @order = Order.new
   end
 
 end
