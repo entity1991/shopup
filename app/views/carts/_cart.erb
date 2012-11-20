@@ -1,15 +1,33 @@
-<table>
-  <% cart.line_items.each do |item| %>
+<div class="cart">
+  <div class="cart_store_name"><%= cart.store.name %></div>
+  <%= link_to "X", empty_cart_from_store_path(store), method: :delete, confirm: 'Are you sure?', :class => "empty_cart" %>
+  <%= link_to "Ch", stores_store_order_path(store), :method => :get, :class => "checkout" %>
+  <table>
     <tr>
-      <td><%= item.quantity %>&times;</td>
-      <td><%= item.product.title %></td>
-      <td><%= number_to_currency(item.total_price) %></td>
+      <th>Product</th>
+      <th>Details</th>
+      <th>Quantity</th>
+      <th>Price</th>
     </tr>
-  <% end %>
-  <tr>
-    <td colspan="2">Total</td>
-    <td><%= number_to_currency(cart.total_price) %></td>
-  </tr>
-</table>
-<%= link_to "Checkout", stores_store_order_path(store), :method => :get %>
-<%= link_to "Empty cart", empty_cart_from_store_path(store), method: :delete, confirm: 'Are you sure?' %>
+    <% cart.line_items.each do |item| %>
+      <tr>
+        <td>
+          <%= item.product.title %><br>
+        </td>
+        <td>
+          <%= item.product.description %><br>
+        </td>
+        <td>
+          <%= item.quantity%>
+        </td>
+        <td>
+          <%= number_to_currency(item.total_price)%>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+  <div class="cart_total_price">
+    <span class="cap_total">TOTAL :</span><br>
+    <div class="price"><%= number_to_currency cart.total_price %></div>
+  </div>
+</div>

@@ -13,6 +13,7 @@ ShopUp::Application.routes.draw do
       resources :fields
 
       get 'statistic'
+      get 'orders'
       get 'open', :on => :member
       get 'close', :on => :member
     end

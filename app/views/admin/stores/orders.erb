@@ -1,0 +1,28 @@
+<%= render 'admin/stores/store_managing_menu'%>
+<h3>Your orders</h3>
+
+<table class="order">
+  <tr>
+    <th>From</th>
+    <th>Time</th>
+    <th>Cart</th>
+  </tr>
+  <% @orders.each do |order| %>
+  <tr>
+    <td class="order_from">
+      <%= order.name %><br>
+      <%= order.address %><br>
+      <%= order.email %><br>
+    </td>
+    <td class="order_name">
+      <%= time_ago_in_words(order.created_at) + " ago" %>
+    </td>
+    <td class="order_cart">
+      <% order.line_items.each do |ln|%>
+        <%= ln.quantity.to_s + " x " + ln.product.title%><br>
+      <% end %>
+      Total: <%= number_to_currency order.total_price %>
+    </td>
+  </tr>
+  <% end %>
+</table>
