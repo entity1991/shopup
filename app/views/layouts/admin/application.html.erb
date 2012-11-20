@@ -9,7 +9,10 @@
 <body>
   <%= render 'layouts/admin/header'%>
   <div id="main">
-    <%= render 'shared/flash_messages'%>
+    <div class="flash_box">
+      <%= render 'shared/flash_messages'%>
+    </div>
+    <%= render 'admin/stores/store_managing_menu'%>
     <%= yield  %>
     <div class="cleaner"></div>
   </div>

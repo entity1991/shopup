@@ -67,8 +67,31 @@ label{
   min-height: 500px;
   color: #555;
   background-color: rgba(255, 255, 255, 0.49);
-  padding: 20px 30px 50px;
+  padding: 0px 30px 50px;
   box-shadow: 0 0 2px 1px rgba(124, 124, 124, 0.42);
+  .flash_box{
+    padding: 2px;
+    display: block;
+    height: 40px;
+    font-size: 1.2em;
+    .flash{
+      margin: 5px auto;
+      height: 30px;
+      width: 100%;
+      text-align: center;
+      border-radius: 3px;
+      padding-top: 3px;
+      &.success{
+        color: #51A351;
+      }
+      &.error{
+        color: #BD362F;
+      }
+      &.notice{
+        color: #2a87a2;
+      }
+    }
+  }
   input{
     height: 30px;
     box-shadow: 0px 0px 2px rgba(133, 133, 133, 0.80);

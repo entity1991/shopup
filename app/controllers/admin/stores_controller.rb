@@ -25,8 +25,8 @@ class Admin::StoresController < Admin::ApplicationController
   end
 
   def create
-    @store = current_user.stores.build(params[:store])
-    if @store.save
+    @store = Store.new(params[:store])
+    if @store.save and @store.update_attribute("owner_id", current_user)
       redirect_to admin_store_path(@store), notice: 'Store was successfully created.'
     else
       render "new"
