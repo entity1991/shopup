@@ -1,7 +1,6 @@
-<%= link_to "Empty all carts", @cart, method: :delete, confirm: 'Are you sure?' %>
-<%= link_to "Checkout all", new_order_path, method: :get %>
+<%= link_to "Empty all carts", @cart, method: :delete, confirm: 'Are you sure?', :class => "button red"%>
+<%= link_to "Ch All", new_order_path, method: :get, :class => "button blue" %><br>
 <% @carts.each do |cart| %>
-  <hr>
-  <%= cart.store.name %>
   <%= render :partial => "cart", :locals => {:cart => cart, :store => cart.store} %>
+  <br>
 <% end %>

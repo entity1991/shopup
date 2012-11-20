@@ -11,7 +11,7 @@
   <div class="float_r">
     <%= link_to t('Home'), root_path %>
     <%= link_to t('Help'), help_path %>
-    <%= link_to "Carts", carts_path %>
+    <%= link_to "Cart", carts_path %>
     <% if signed_in?%>
       <%= link_to t('Profile'), profile_path %>
       <%= link_to t('Sign_out'), signout_path, :method => :delete %>

@@ -6,6 +6,7 @@ class Stores::StoresController < Stores::ApplicationController
 
   def cart
     @cart = Cart.new
+    @cart.store = @store
     current_cart.line_items.each do |ln|
       if ln.product.store == @store
         @cart.line_items << ln

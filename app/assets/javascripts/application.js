@@ -18,6 +18,12 @@ j(document).ready(function(){
         j("#store_domain").val(this.value.replace(/[ -]/g, '_').replace(/[`~!@#$%^&*()+=|?.,<>]/g, '').toLowerCase());
     });
 
+    j('.flash').animate({
+        opacity: 0
+    }, 5000, function() {
+        j('.flash').remove();
+    });
+
 //    j("#store_managing_menu a").click(function(){
 //        j("#store_managing_menu a").removeClass("active_tab");
 //        j(this).addClass("active_tab");

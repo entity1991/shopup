@@ -2,14 +2,18 @@ class Admin::StoresController < Admin::ApplicationController
 
   before_filter :authenticate
   skip_before_filter :owner?, :only => [:new, :create]
-  skip_before_filter :current_store
+  skip_before_filter :current_store, :except => [:orders, :statistic]
 
   def show
     @store = Store.find(params[:id])
   end
 
   def statistic
-    @store = Store.find(params[:store_id])
+
+  end
+
+  def orders
+    @orders = Order.find_all_by_store_id @store, :order => "created_at desc"
   end
 
   def new
@@ -21,8 +25,8 @@ class Admin::StoresController < Admin::ApplicationController
   end
 
   def create
-    @store = current_user.stores.build(params[:store])
-    if @store.save
+    @store = Store.new(params[:store])
+    if @store.save and @store.update_attribute("owner_id", current_user)
       redirect_to admin_store_path(@store), notice: 'Store was successfully created.'
     else
       render "new"
