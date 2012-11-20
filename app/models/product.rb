@@ -6,6 +6,7 @@ class Product < ActiveRecord::Base
   has_many :line_items
   has_many :orders, :through => :line_items
   has_many :field_contents
+  has_many :comments, :dependent => :destroy
 
   before_destroy :has_line_items?
 

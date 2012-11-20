@@ -21,6 +21,11 @@
       <%= f.password_field :password_confirmation %>
     </div>
     <div>
+      <%= f.label :avatar, "Avatar" %>
+      <%= f.file_field :avatar %>
+    </div>
+
+    <div>
       <%= f.submit submit_value %>
     </div>
   </div>

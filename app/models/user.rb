@@ -1,9 +1,12 @@
 class User < ActiveRecord::Base
   attr_accessor :password #only virtual attribute(getter and setter)
-  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation  #editable attribute
+  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :avatar  #editable attribute
 
   has_many :stores, :foreign_key => "owner_id", :dependent => :destroy
   has_one :cart, :dependent => :destroy
+  has_many :comments
+
+  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
@@ -17,6 +20,9 @@ class User < ActiveRecord::Base
   validates :password, :presence     => true,
             :confirmation => true,
             :length       => { :within => 6..40 }
+  validates_attachment_presence :avatar
+  validates_attachment_size :avatar, :less_than => 5.megabytes
+  validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/jpg']
 
   before_save :encrypt_password
 

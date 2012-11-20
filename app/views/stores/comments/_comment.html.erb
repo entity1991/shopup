@@ -1,0 +1,19 @@
+<div class="comment-holder">
+    <div class="float_l">
+      <div class="comment-author vcard pic"><img src='<%= comment.user.avatar.url :thumb %>' height='55' width='55' /></div>
+    </div>
+    <div class="comment-info float_r">
+      <div><%= comment.user.first_name %> <%= comment.user.last_name %>
+        <% if comment.user == current_user || @store.owner == current_user %>
+            <div class="comment_remover">
+              <div id="comment_remove" comment_id="<%= comment.id%>">x</div>
+            </div>
+        <% end %>
+      </div>
+      <div class="comment-meta"><%= comment.created_at %></div>
+      <div class="comment-content" id="comment_content" comment_id="<%= comment.id%>">
+        <p><%= comment.content %></p>
+      </div>
+    </div>
+    <div class="cleaner"></div>
+</div>

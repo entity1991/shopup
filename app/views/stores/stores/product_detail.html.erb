@@ -3,7 +3,7 @@
 
 <div class="product_box">
   <%= image_tag @product.photo.url(:small), :class => "float_l product_image" %>
-  <table border="3">
+  <table>
     <tr>
       <td colspan="2">
         <h3><%= @product.title %></h3>
@@ -17,12 +17,100 @@
         <%= @product.category.name %>
       </td>
     </tr>
+    <tr>
+      <td>
+        Description:
+      </td>
+      <td>
+        <%= @product.description %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Price:
+      </td>
+      <td>
+        <%= @product.price %>
+      </td>
+    </tr>
+    <% @product.field_contents.each do |content|%>
+        <tr>
+          <td>
+            <%= content.field.title %>
+          </td>
+          <td>
+            <%= content.content %>
+          </td>
+        </tr>
+    <% end %>
+    <tr>
+      <td colspan="2">
+        <%= button_to "Add to Cart", line_items_path(product_id: @product)%>
+      </td>
+    </tr>
 
 
-    </table>
-    <%= image_tag @product.photo.url(:small), :class => "float_l product_image" %>
-    <h3><%= @product.title %></h3>
-    <div class="product_desc"><%= @product.description %></div>
-    <div class="product_price"><%= number_to_currency(@product.price) %></div>
-    <%= button_to "Add to Cart", line_items_path(product_id: @product)%>
+  </table>
+
 </div>
+
+<div id="comments">
+  <h1>Discussion: <%= @product.comments.count.to_s %> Comments :</h1>
+  <% @product.comments.each do |comment| %>
+    <%= render :partial => 'stores/comments/comment', :locals => { :comment => comment } %>
+  <% end %>
+</div>
+
+<div>
+  Add comment:<br/>
+  <textarea id="new_comment" cols="50" rows="10">
+
+  </textarea>
+  <br/><br/>
+  <input type="button" id="add_comment" class="button red" value="Add comment"/>
+</div>
+
+<script type="text/javascript">
+    j(document).ready(function(){
+        j("#add_comment").click(function(){
+            if(j("#new_comment").val() != ""){
+                j.ajax({
+                    url: "<%= stores_store_comments_url(@store) %>",
+                    data: {comment: {content: j("#new_comment").val(), product_id : <%= @product.id %>}},
+                    type: 'POST',
+                    beforeSend: function () {
+                    },
+                    complete: function(){
+                    },
+                    error: function(err){
+                        alert("error");
+                    },
+                    success: function(data){
+                        j("#comments").append(data);
+                        j("#new_comment").val("");
+                    }
+                });
+            }
+        });
+        j("#comment_remove").live('click', function(){
+            j.ajax({
+                url: "/stores/"+"<%= @store.id %>"+"/comments/" + j(this).attr('comment_id'),
+                type: 'DELETE',
+                beforeSend: function () {
+                },
+                complete: function(){
+                },
+                error: function(err){
+                    alert("error");
+                },
+                success: function(data){
+                    j("#comment_content[comment_id="+j(this).attr('comment_id')+"]").css('border', '1px solid red');
+                    alert(data);
+                }
+            });
+        });
+
+    });
+</script>
+<%= request.domain %>
+

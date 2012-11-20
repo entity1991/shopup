@@ -24,6 +24,8 @@ ShopUp::Application.routes.draw do
       get "cart"
       get "order"
       match "products/:product_id" ,:to => "stores#product_detail", :as => "product_detail"
+      resources :comments,   :only => [:create, :destroy]
+
     end
   end
 
