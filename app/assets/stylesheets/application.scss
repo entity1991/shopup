@@ -117,7 +117,6 @@ label{
       text-shadow: 1px 1px 0px #499249;
       background: -webkit-linear-gradient(top, #62C462, #51A351);
       margin: 10px;
-      display: block;
       white-space: nowrap;
       cursor: pointer;
     }
@@ -290,6 +289,7 @@ label{
   border-radius: 3px;
   text-align: center;
   cursor: pointer;
+  display: inline-block;
   &:hover{
     color: #eee;
   }
@@ -410,5 +410,66 @@ label{
   float: left;
 }
 
+
+/* container holder */
+
+.container_holder {
+  background: #DDDDDD;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.298);
+  margin-bottom: 20px;
+  padding: 15px 30px 15px 15px;
+  border-radius: 5px;
+  -webkit-transition: box-shadow 1s ease;
+  &:hover{
+    background: -webkit-linear-gradient(bottom, #dddddd 0%, #c0c0c0 100%);
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.90);
+  }
+  .container_left{
+    float: left;
+    width: 20%;
+  }
+  .container_right{
+    float: right;
+    width: 80%;
+  }
+  .container_picture{
+    background-color: white;
+    padding: 4px;
+    margin: 0;
+    display: inline-block;
+    .img{
+      min-height: 110px;
+      max-width: 110px;
+    }
+  }
+  .container_title{
+    color: #a30000;
+    font-style: italic;
+    font-size: 20px;
+  }
+}
+
+.container_info {
+  width: 600px;
+}
+
+.comment-meta {
+  color: #999999;
+  font-size: 0.75em;
+  margin: 0px 0px 3px;
+  padding: 4px 0px;
+  position: relative;
+  top: -2px;
+}
+
+.comment-content{
+  word-wrap: break-word;
+}
+
+#search{
+  background: url("find.png") no-repeat;
+  background-color: white;
+  padding-left: 35px !important;
+}
 
 

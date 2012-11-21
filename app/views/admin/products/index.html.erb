@@ -1,25 +1,50 @@
-All Products <%= link_to '+', new_admin_store_product_path, :class => "float_r add_item" %>
+All Products
+<div class="float_r">
 
-<hr style="border-color: red;">
+  <%= collection_select "category", nil, @categories, :id, :name, {:include_blank => "All"} %>
+  <input type="text" id="search" />
+  <%= link_to '+', new_admin_store_product_path, :class => "add_item" %>
+</div>
+<br/><br/>
 
-<% @products_data.each do |cat| %>
-    <span style="color: red"><%= cat[:title] %></span>
-    <hr/>
-    <% cat[:products].each do |prod| %>
-        <%= image_tag prod[:base_product].photo.url(:small), :class => "float_l product_image" %>
-        <div class="product_title"><%= prod[:base_product].title %></div>
-        <div class="product_desc"><%= prod[:base_product].description %></div>
-        <div class="product_price"><%= number_to_currency(prod[:base_product].price) %></div>
+<div id="products">
+  <%= render :partial => 'product_holder', :locals => { :products => @products }%>
+</div>
 
-        <% prod[:fields].each do |field|%>
-            <div> <%= field[:title] %> : <%= field[:content]%> </div>
-        <% end %>
+<%= will_paginate @products %>
 
-        <%= link_to '[ ]', edit_admin_store_product_path(@store, prod[:base_product]), :class => "float_r edit_item" %>
-        <%= link_to '-', admin_store_product_path(@store, prod[:base_product]), confirm: 'Are you sure?', :method=> :delete, :class => "float_r remove_item" %>
-        <hr class="cleaner"/>
-    <% end %>
-    <hr style="border-color: red;">
-<% end %>
+<script>
+  j(document).ready(function(){
+      j("#search").keyup(function(){
+          refresh_search_results();
+      });
+      j("#category_").change(function(){
+          refresh_search_results();
+      });
+      function refresh_search_results(){
+          keyword = j("#search").val();
+          category = j("#category_").val();
+          j.ajax({
+              url: "<%= admin_store_products_path(@store) %>",
+              type: 'GET',
+              data: {q : keyword, category_id : category},
+              beforeSend: function () {
+              },
+              complete: function(){
+              },
+              error: function(err){
+                  alert("error");
+              },
+              success: function(data){
+                  j("#products").html(data);
+              }
+          });
+      }
+  });
+
+
+</script>
+
+
 
 

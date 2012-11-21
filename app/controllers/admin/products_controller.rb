@@ -3,26 +3,9 @@ class Admin::ProductsController < Admin::ApplicationController
   before_filter :store_categories, :only => [:new, :edit, :create, :update, :index]
 
   def index
-    @products_data = []
-    @categories.each do |cat|
-      category = {}
-      category[:title] = cat.name
-      category[:products] = []
-      cat.products.each do |prod|
-        product = {}
-        product[:base_product] = prod
-        product[:fields] = []
-        prod.field_contents.each do |f|
-          field = {}
-          field_model = f.field
-          field[:title] = field_model.title
-          field[:content] = f.content
-          product[:fields] << field
-        end
-
-        category[:products] << product
-      end
-      @products_data << category
+    @products = Product.search(params, params[:page])
+    if(params[:q] || params[:category_id])
+      render :partial => 'product_holder', :locals => {:products => @products}
     end
   end
 

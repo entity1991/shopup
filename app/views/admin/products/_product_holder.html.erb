@@ -1,0 +1,22 @@
+<% products.each do |product| %>
+    <div class="container_holder">
+      <div class="container_left">
+        <div class="container_picture">
+          <%= image_tag product.photo.url(:small)%>
+        </div>
+      </div>
+      <div class="container_right">
+        <div class="container_title"><%= product.title %></div>
+        <div class="product_price"><%= number_to_currency(product.price) %></div>
+        <div>Category: <%= product.category.name %></div>
+        <% product.field_contents.each do |field|%>
+            <div>
+              <%=  field.field.title %>: <%= field.content %>
+            </div>
+        <% end %>
+        <div class="product_desc"><%= product.description %></div>
+      </div>
+      <div class="cleaner"></div>
+
+    </div>
+<% end %>

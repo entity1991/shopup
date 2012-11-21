@@ -12,9 +12,10 @@ class Stores::CommentsController < Stores::ApplicationController
 
   def destroy
     @comment = Comment.find(params[:id])
-    @comment.content = "Comment was deleted."
+    puts @comment.deleted?
+    @comment.deleted = true
     if @comment.save
-      render :text => "Ok"
+      render :text => "<p>Comment was deleted.</p>"
     end
   end
 

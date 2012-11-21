@@ -93,8 +93,9 @@
             }
         });
         j("#comment_remove").live('click', function(){
+            comment_id = j(this).attr('comment_id');
             j.ajax({
-                url: "/stores/"+"<%= @store.id %>"+"/comments/" + j(this).attr('comment_id'),
+                url: "/stores/"+"<%= @store.id %>"+"/comments/" + comment_id,
                 type: 'DELETE',
                 beforeSend: function () {
                 },
@@ -104,8 +105,7 @@
                     alert("error");
                 },
                 success: function(data){
-                    j("#comment_content[comment_id="+j(this).attr('comment_id')+"]").css('border', '1px solid red');
-                    alert(data);
+                    j(".comment-content[comment_id="+comment_id+"]").html(data);
                 }
             });
         });

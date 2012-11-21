@@ -43,6 +43,27 @@ class Product < ActiveRecord::Base
   end
   # ensure that there are no line items referencing this product
 
+  def self.search(params, page = 1)
+    conditions = [""]
+    if params[:q] && !params[:q].blank?
+      conditions[0] = 'title like ? or description like ?'
+      conditions << "%#{params[:q]}%"
+      conditions << "%#{params[:q]}%"
+    end
+    if params[:category_id] && !params[:category_id].blank?
+      if !conditions[0].blank?
+        conditions[0] += " and "
+      end
+      conditions[0] += " category_id like ?"
+      conditions << "%#{params[:category_id]}%"
+    end
+
+    puts conditions
+    paginate :per_page => 5, :page => page,
+             :conditions => conditions,
+             :order => 'title'
+  end
+
   private
 
   def has_line_items?
