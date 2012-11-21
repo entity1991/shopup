@@ -11,6 +11,9 @@ ShopUp::Application.routes.draw do
       resources :products
       resources :categories
       resources :fields
+      resources :assets do
+        match "download", :to => "assets#download", :as => "download", :via => "get"
+      end
 
       get 'statistic'
       get 'orders'

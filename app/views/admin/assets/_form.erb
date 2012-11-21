@@ -1,0 +1,12 @@
+<%= form_for([:admin, @store, @asset], :html => {:multipart => true}) do |f| %>
+  <div class="form_fields">
+    <div>
+      <%= f.label "Select file" %>
+      <%= f.file_field :file %>
+    </div>
+    <div>
+      <%= f.submit %>
+    </div>
+  </div>
+  <span class="error_messages"><%= render 'shared/error_messages', :object => f.object %></span>
+<% end %>

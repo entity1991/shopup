@@ -5,6 +5,12 @@
 .float_l { float: left }
 .float_r { float: right }
 .center { text-align: center;}
+.w10 {
+  width: 5%;
+}
+.block{
+  display: block;
+}
 
 *{
   box-sizing: border-box;
@@ -151,6 +157,7 @@ label{
   textarea#question{
     height: 10em;
     width: 100%;
+    max-width: 100%;
     box-shadow: 0px 0px 2px rgba(133, 133, 133, 0.80);
     border: 1px solid #808080;
     border-radius: 3px;
@@ -282,6 +289,7 @@ label{
   font-size: 1.4em;
   border-radius: 3px;
   text-align: center;
+  cursor: pointer;
   display: inline-block;
   &:hover{
     color: #eee;
@@ -396,6 +404,13 @@ label{
   }
 }
 
+.assets_box{
+  width: 30%;
+  padding: 5px;
+  display: inline-block;
+  float: left;
+}
+
 
 /* container holder */
 
@@ -468,6 +483,18 @@ label{
   background: url("find.png") no-repeat;
   background-color: white;
   padding-left: 35px !important;
+}
+
+textarea.edit_file_content{
+  height: 500px;
+  width: 100%;
+  max-width: 100%;
+  box-shadow: 0px 0px 2px rgba(133, 133, 133, 0.80);
+  border: 1px solid #808080;
+  border-radius: 3px;
+  padding: 5px;
+  color: #444;
+  margin-bottom: 7px;
 }
 
 

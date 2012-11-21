@@ -1,0 +1,6 @@
+<h3><%= @asset.file_file_name %></h3>
+<%= link_to 'Edit', edit_admin_store_asset_path(@store, @asset), :class => "float_r button blue" %>
+<%= link_to 'Download file', admin_store_asset_download_path(@store, @asset), :target => "_blank", :class => "float_r button yellow" %><br>
+<% @lines.each do |line| %>
+  <%= line %><br>
+<% end %>
