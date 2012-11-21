@@ -269,7 +269,7 @@ label{
   color: #556b2f;
 }
 .product_desc{
-
+  word-wrap: break-word;
 }
 .product_price{
   font-weight: bolder;
@@ -400,15 +400,15 @@ label{
 /* container holder */
 
 .container_holder {
-  background: #DDDDDD;
-  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.298);
+  position: relative;
   margin-bottom: 20px;
   padding: 15px 30px 15px 15px;
-  border-radius: 5px;
+  border-radius: 3px;
+  border-bottom: 1px solid #cccccc;
   -webkit-transition: box-shadow 1s ease;
-  &:hover{
-    background: -webkit-linear-gradient(bottom, #dddddd 0%, #c0c0c0 100%);
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.90);
+  background: -webkit-linear-gradient(top, #e4e4e4 0%, rgba(255, 255, 255, 0) 30%);
+  &:hover .actions{
+    display: block;
   }
   .container_left{
     float: left;
@@ -432,6 +432,18 @@ label{
     color: #a30000;
     font-style: italic;
     font-size: 20px;
+  }
+  .actions{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: none;
+  }
+  .remove_container_item{
+    background: -webkit-linear-gradient(top, #e5e5e5 0%, rgb(189, 189, 189) 100%);
+    border-radius: 7px;
+    padding: 3px;
+    border: 1px solid #959595;
   }
 }
 
@@ -457,5 +469,7 @@ label{
   background-color: white;
   padding-left: 35px !important;
 }
+
+
 
 

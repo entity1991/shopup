@@ -4,6 +4,7 @@ class Admin::ProductsController < Admin::ApplicationController
 
   def index
     @products = Product.search(params, params[:page])
+    @products_count = @products.count
     if(params[:q] || params[:category_id])
       render :partial => 'product_holder', :locals => {:products => @products}
     end

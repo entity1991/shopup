@@ -11,7 +11,9 @@ All Products
   <%= render :partial => 'product_holder', :locals => { :products => @products }%>
 </div>
 
-<%= will_paginate @products %>
+<% @products.count.times do |page| %>
+  <%= page %>
+<% end %>
 
 <script>
   j(document).ready(function(){
