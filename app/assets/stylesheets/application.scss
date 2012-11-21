@@ -5,6 +5,12 @@
 .float_l { float: left }
 .float_r { float: right }
 .center { text-align: center;}
+.w10 {
+  width: 5%;
+}
+.block{
+  display: block;
+}
 
 *{
   box-sizing: border-box;
@@ -283,6 +289,7 @@ label{
   font-size: 1.4em;
   border-radius: 3px;
   text-align: center;
+  cursor: pointer;
   &:hover{
     color: #eee;
   }
@@ -394,6 +401,13 @@ label{
     color: #468c46;
     font-weight: bold;
   }
+}
+
+.assets_box{
+  width: 30%;
+  padding: 5px;
+  display: inline-block;
+  float: left;
 }
 
 

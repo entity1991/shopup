@@ -1,6 +1,10 @@
-<%= link_to "Empty all carts", @cart, method: :delete, confirm: 'Are you sure?', :class => "button red"%>
-<%= link_to "Ch All", new_order_path, method: :get, :class => "button blue" %><br>
-<% @carts.each do |cart| %>
-  <%= render :partial => "cart", :locals => {:cart => cart, :store => cart.store} %>
-  <br>
+<% if @cart.empty?%>
+  Your cart is empty
+<% else %>
+  <%= link_to "Empty all carts", @cart, method: :delete, confirm: 'Are you sure?', :class => "button red"%>
+  <%= link_to "Ch All", new_order_path, method: :get, :class => "button blue" %><br>
+  <% @carts.each do |cart| %>
+    <%= render :partial => "cart", :locals => {:cart => cart, :store => cart.store} %>
+    <br>
+  <% end %>
 <% end %>

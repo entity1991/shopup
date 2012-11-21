@@ -1,0 +1,20 @@
+<div class="assets_box">
+  <h4>Images</h4><hr>
+  <% @images.each do |image| %>
+    <%= image_tag image.file.url(:small) %>
+  <% end %>
+</div>
+<div class="assets_box">
+  <h4>Stylesheets</h4><hr>
+  <% @stylesheets.each do |stylesheet| %>
+    <%= stylesheet.file_file_name %><br>
+  <% end %>
+</div>
+<div class="assets_box">
+  <h4>Javascripts</h4><hr>
+  <% @javascripts.each do |javascript| %>
+    <%= javascript.file_file_name %><br>
+  <% end %>
+</div>
+
+<%= link_to '+', new_admin_store_asset_path, :class => "float_r add_item" %>
