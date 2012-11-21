@@ -1,6 +1,6 @@
 class Comment < ActiveRecord::Base
-  attr_accessible :content, :product_id
+  attr_accessible :content, :product_id, :deleted
 
   belongs_to :user
-  belongs_to :produduct
+  belongs_to :product
 end
