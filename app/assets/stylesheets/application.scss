@@ -412,7 +412,7 @@ label{
 }
 
 
-/* container holder */
+/* items list */
 
 .container_holder {
   position: relative;
@@ -462,8 +462,14 @@ label{
   }
 }
 
-.container_info {
-  width: 600px;
+.pagination{
+  text-align: center;
+  a{
+    font-size: 18px;
+    &.current{
+      color: #72f5ff;
+    }
+  }
 }
 
 .comment-meta {
