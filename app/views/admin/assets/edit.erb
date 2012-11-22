@@ -1,0 +1,7 @@
+<h3> Edit <%= @asset.file_file_name %></h3>
+
+<%= form_for([:admin, @store, @asset]) do |f| %>
+  <%= f.text_area :file_content, :value => @lines, :class => "edit_file_content" %>
+  <br>
+  <%= f.submit %>
+<% end %>

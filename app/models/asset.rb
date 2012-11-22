@@ -1,17 +1,11 @@
 class Asset < ActiveRecord::Base
-
+  attr_accessor :file_content
   attr_accessible :file
 
   belongs_to :store
 
   has_attached_file :file,
-                    :styles => lambda { |a|
-                      if !(a.content_type =~ %r(image)).nil?
-                        {:small => "50x50>"}
-                      else
-                        {}
-                      end
-                    },
+                    :styles => lambda { |a| !(a.content_type =~ %r(image)).nil? ? {:small => "50x50>"} : {}},
                     :url  => "/assets/store_assets/:id/:style/:basename.:extension",
                     :path => ":rails_root/public/assets/store_assets/:id/:style/:basename.:extension"
 
@@ -23,10 +17,18 @@ class Asset < ActiveRecord::Base
   scope :stylesheets, where( :file_content_type => ['text/css'])
   scope :javascripts, where( :file_content_type => ['application/javascript'])
 
-  private
-
   def image?
-    return true
+    self.file_content_type == ['image/jpeg', 'image/png', 'image/jpg']
   end
+
+  def stylesheet?
+    self.file_content_type == 'text/css'
+  end
+
+  def javascript?
+    self.file_content_type == 'application/javascript'
+  end
+
+  private
 
 end
