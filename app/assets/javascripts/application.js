@@ -9,12 +9,18 @@ j = jQuery.noConflict();
 j(document).ready(function(){
 
     j("html").click(function(e){
-        if (!hasParent(e.target, "signin_window") && e.target.id != 'signin_window' && e.target.id != 'sign_in') {
-            j('#signin_window').hide();
-        }
+        autoHiding(e, "signin_window");
+        autoHiding(e, "stores_list");
     });
 
-    j("#store_name").keyup(function(){
+    j("#stores_list_toggler").click(function(){
+        j("#stores_list").toggle();
+    });
+
+    j("#store_name").keypress(function(){
+        if (j(this).val().length == 30){
+            return false
+        }
         j("#store_domain").val(this.value.replace(/[ -]/g, '_').replace(/[`~!@#$%^&*()+=|?.,<>]/g, '').toLowerCase());
     });
 
@@ -24,17 +30,21 @@ j(document).ready(function(){
         j('.flash').remove();
     });
 
-//    j("#store_managing_menu a").click(function(){
-//        j("#store_managing_menu a").removeClass("active_tab");
-//        j(this).addClass("active_tab");
-//    });
-
 });
 
 //functions
 
 function toggleSigninWindow(){
     j("#signin_window").toggle();
+}
+
+function autoHiding(e, id){
+
+    if(j("#" + id).css("display") != "none"){
+        if (!hasParent(e.target, id) && e.target.id != id && e.target.id != id + "_toggler") {
+            j('#' + id).hide();
+        }
+    }
 }
 
 function hasParent(element, parentId){

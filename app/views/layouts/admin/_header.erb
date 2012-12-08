@@ -1,11 +1,8 @@
 <div id="header">
   <div class="float_l">
-    <%= link_to "+", new_admin_store_path if current_user.stores.count  != 0%>
-    <% current_user.stores.each do |store| %>
-      <%= link_to store.name, admin_store_path(store), :id =>
-          ("active_store" if store.id.to_s == (params[:store_id] ? params[:store_id] : params[:id])) %>
-    <% end %>
-    </div>
+    <a id="stores_list_toggler">All</a>
+    <%= (link_to @store.name, admin_store_path(@store)) if @store.id != nil %>
+  </div>
   <div class="float_r">
     <%= link_to t('Home'), root_path %>
     <%= link_to t('Help'), help_path %>
@@ -17,6 +14,13 @@
       <%= link_to t('Sign_up'), signup_path %>
     <% end %>
   </div>
+</div>
+<div id="stores_list">
+  <% current_user.stores.each do |store| %>
+    <%= link_to store.name, admin_store_path(store), :id =>
+        ("active_store" if store.id.to_s == (params[:store_id] ? params[:store_id] : params[:id])) %>
+  <% end %>
+  <%= link_to "+", new_admin_store_path, :id => "new_store" %>
 </div>
 
 

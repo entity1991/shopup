@@ -7,8 +7,8 @@ class Store < ActiveRecord::Base
   has_many :orders,     :dependent => :destroy
   has_many :assets,     :dependent => :destroy
 
-  validates :name,   :presence => true, :length => { :maximum => 15 }
-  validates :domain, :presence => true, :length => { :maximum => 15 }, :uniqueness => true
+  validates :name,   :presence => true, :length => { :maximum => 30 }
+  validates :domain, :presence => true, :length => { :maximum => 30 }, :uniqueness => true
 
   scope :opened, where( :open => 1)
   scope :closed, where( :open => 0)

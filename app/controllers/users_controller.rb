@@ -4,7 +4,6 @@ class UsersController < ApplicationController
 
   before_filter :authenticate, :except => [:new, :create]
   before_filter :is_not_authenticate, :only => [:new, :create]
-  before_filter :correct_user?, :only => [:edit, :update]
   before_filter :boss?, :only => [:index]
 
   def index
@@ -24,7 +23,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = current_user
     @submit_value = "Save"
     @title = "Edit user"
   end
@@ -43,7 +42,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
+    @user = current_user
     @submit_value = "Save"
     if @user.update_attributes(params[:user])
       flash[:success] = "Profile updated."
