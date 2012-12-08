@@ -13,4 +13,14 @@ class Store < ActiveRecord::Base
   scope :opened, where( :open => 1)
   scope :closed, where( :open => 0)
 
+  #todo methods below refactor to scopes
+
+  def stylesheets
+    self.assets.stylesheets
+  end
+
+  def javascripts
+    self.assets.javascripts
+  end
+
 end

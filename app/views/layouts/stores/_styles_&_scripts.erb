@@ -4,3 +4,9 @@
 <![endif]-->
 <%= stylesheet_link_tag 'store/application.scss', :media => 'all' %>
 <%= javascript_include_tag 'stores/application', :media => 'all' %>
+
+<style>
+  <% @lines.each do |line| %>
+    <%= line -%>
+  <% end %>
+</style>
