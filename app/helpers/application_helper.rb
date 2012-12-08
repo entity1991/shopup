@@ -9,6 +9,18 @@ module ApplicationHelper
     @submit_value ? @submit_value : "OK"
   end
 
+  def is_c_and_a?(c, a)
+    params[:controller] == c and params[:action] == a
+  end
+
+  def is_controller?(c)
+    params[:controller] == c
+  end
+
+  def is_action?(a)
+      params[:action] == a
+    end
+
   def languages_select_tag(name = 'set_locale')
     languages = [%w(English en), %w(Russian ru), %w(Ukrainian ua)]
     options = options_for_select(languages, I18n.locale.to_s)

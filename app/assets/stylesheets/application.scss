@@ -49,6 +49,7 @@ label{
   width: 100%;
   height: 55px;
   background: -webkit-linear-gradient(bottom, #3D3D3D 0%, #525252 100%);
+  background: -moz-linear-gradient(bottom, #3D3D3D 0%, #525252 100%);
   text-shadow: 1px 1px 1px rgba(0, 0, 0, .1);
   text-transform: uppercase;
   font-size: 12px;
@@ -60,9 +61,12 @@ label{
     border-right: dotted 1px rgba(255, 255, 255, .1);
     border-left: dotted 1px rgba(0, 0, 0, .3);
     -webkit-transition: background-color 0.5s ease;
-    &:hover{
+    &:hover, &#active_store {
       color: white;
       background-color: #444;
+    }
+    &#active_store{
+      font-weight: bold;
     }
   }
 }
@@ -119,6 +123,10 @@ label{
       margin: 10px;
       white-space: nowrap;
       cursor: pointer;
+    }
+    &[type=file]{
+      border: none;
+      box-shadow: none;
     }
   }
   .button{
@@ -247,6 +255,10 @@ label{
     &:hover{
       color: #499249;
     }
+    &#active_tab{
+      color: #499249;
+      font-weight: bold;
+    }
   }
 }
 
@@ -289,6 +301,7 @@ label{
   font-size: 1.4em;
   border-radius: 3px;
   text-align: center;
+  padding-top: 3px;
   cursor: pointer;
   display: inline-block;
   &:hover{
