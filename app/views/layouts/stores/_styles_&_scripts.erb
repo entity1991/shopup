@@ -6,7 +6,12 @@
 <%= javascript_include_tag 'stores/application', :media => 'all' %>
 
 <style>
-  <% @lines.each do |line| %>
+  <% @css_lines.each do |line| %>
     <%= line -%>
   <% end %>
 </style>
+<script>
+  <% @js_lines.each do |line| %>
+    <%= line -%>
+  <% end %>
+</script>

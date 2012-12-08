@@ -27,6 +27,7 @@ class Admin::AssetsController < Admin::ApplicationController
 
   def edit
     @asset = Asset.find params[:id]
+    @asset_type = @asset.type
     if @asset.stylesheet? or @asset.javascript?
       @lines = ""
       file_name = "./public/assets/store_assets/" + @asset.id.to_s + "/original/" + @asset.file_file_name

@@ -1,7 +1,7 @@
 <div id="header">
   <div class="float_l">
     <a id="stores_list_toggler">All</a>
-    <%= (link_to @store.name, admin_store_path(@store)) if @store.id != nil %>
+    <%= (link_to @store.name, stores_store_path(@store), :target => "_blank") if @store.id != nil %>
   </div>
   <div class="float_r">
     <%= link_to t('Home'), root_path %>
