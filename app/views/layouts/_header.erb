@@ -1,13 +1,10 @@
 <div id="header">
   <% if signed_in?%>
     <div class="float_l">
-      <% if current_user.stores.count  == 0%>
+      <% if current_user.stores.count == 0%>
         <%= link_to "Create your stores now!", new_admin_store_path %>
       <% else %>
-        <%= link_to "+", new_admin_store_path %>
-      <% end %>
-      <% current_user.stores.each do |store| %>
-        <%= link_to store.name, admin_store_path(store) %>
+        <%= link_to "Go to your stores", admin_store_path(current_user.stores.first) %>
       <% end %>
     </div>
   <% end %>
@@ -20,7 +17,7 @@
       <%= link_to t('Profile'), profile_path %>
       <%= link_to t('Sign_out'), signout_path, :method => :delete %>
     <% else %>
-      <%= link_to_function t('Sign_in'), "toggleSigninWindow()", :id => "sign_in"%>
+      <%= link_to_function t('Sign_in'), "toggleSigninWindow()", :id => "signin_window_toggler"%>
       <%= link_to t('Sign_up'), signup_path %>
     <% end %>
   </div>

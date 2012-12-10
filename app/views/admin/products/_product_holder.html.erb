@@ -17,6 +17,9 @@
         <div class="product_desc"><%= product.description %></div>
       </div>
       <div class="cleaner"></div>
+      <div class="actions">
+        <%= link_to 'Delete', admin_store_product_path(@store, product), confirm: 'Are you sure?', :method=> :delete, :class => "remove_container_item" %>
+      </div>
 
     </div>
 <% end %>

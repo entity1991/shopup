@@ -1,6 +1,13 @@
 <h3><%= @asset.file_file_name %></h3>
 <%= link_to 'Edit', edit_admin_store_asset_path(@store, @asset), :class => "float_r button blue" %>
 <%= link_to 'Download file', admin_store_asset_download_path(@store, @asset), :target => "_blank", :class => "float_r button yellow" %><br>
-<% @lines.each do |line| %>
-  <%= line %><br>
-<% end %>
+<textarea id="input" style="display: none;">
+  <% @lines.each do |line| %>
+    <%= line -%>
+  <% end %>
+</textarea>
+<pre id="output" class="cm-s-default codePreview"></pre>
+<script>
+  CodeMirror.runMode(document.getElementById("input").value, "<%= @asset.type %>", document.getElementById("output"));
+</script>
+

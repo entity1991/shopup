@@ -8,17 +8,17 @@
 <div class="assets_box">
   <h4>Stylesheets</h4><hr>
   <% @stylesheets.each do |stylesheet| %>
-    <%= stylesheet.file_file_name %>
+    <%= link_to stylesheet.file_file_name, admin_store_asset_path(@store, stylesheet)%>
     <%= link_to 'X', admin_store_asset_path(@store, stylesheet), :method => :delete, :confirm => "Are You sure?", :class => "float_r" %>
-    <%= link_to '[ ]', admin_store_asset_path(@store, stylesheet), :class => "float_r" %><br>
+    <%= link_to '[ ]', edit_admin_store_asset_path(@store, stylesheet), :class => "float_r" %><br>
   <% end %>
 </div>
 <div class="assets_box">
   <h4>Javascripts</h4><hr>
   <% @javascripts.each do |javascript| %>
-    <%= javascript.file_file_name %>
+    <%= link_to javascript.file_file_name, admin_store_asset_path(@store, javascript)%>
     <%= link_to 'X', admin_store_asset_path(@store, javascript), :method => :delete, :confirm => "Are You sure?", :class => "float_r" %>
-    <%= link_to '[ ]', admin_store_asset_path(@store, javascript), :class => "float_r" %><br>
+    <%= link_to '[ ]', edit_admin_store_asset_path(@store, javascript), :class => "float_r" %><br>
   <% end %>
 </div>
 

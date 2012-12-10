@@ -1,2 +1,9 @@
 <h3>New Asset</h3>
-<%= render "form" %>
+<%= form_for([:admin, @store, @asset], :html => {:multipart => true}) do |f| %>
+  <div class="form_fields">
+    You can choose some javascript, css or image file
+    <%= f.file_field :file %>
+    <%= f.submit "Upload"%>
+  </div>
+  <span class="error_messages"><%= render 'shared/error_messages', :object => f.object %></span>
+<% end %>

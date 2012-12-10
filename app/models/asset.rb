@@ -29,6 +29,18 @@ class Asset < ActiveRecord::Base
     self.file_content_type == 'application/javascript'
   end
 
+  def type
+    if image?
+      "image"
+      else if stylesheet?
+        "css"
+        else if javascript?
+          "javascript"
+        end
+      end
+    end
+  end
+
   private
 
 end

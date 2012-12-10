@@ -1,12 +1,12 @@
 <div id="store_managing_menu">
-  <%= link_to "Main", admin_store_path(@store) %>
-  <%= link_to "Settings", edit_admin_store_path(@store) %>
-  <%= link_to "Statistic", admin_store_statistic_path(@store) %>
-  <%= link_to "Products", admin_store_products_path(@store) %>
-  <%= link_to "Categories", admin_store_categories_path(@store) %>
-  <%= link_to "Fields", admin_store_fields_path(@store) %>
-  <%= link_to "Orders", admin_store_orders_path(@store) %>
-  <%= link_to "Design", admin_store_assets_path(@store) %>
+  <%= link_to "Main", admin_store_path(@store),                  :id => ("active_tab" if is_c_and_a? "admin/stores", "show")%>
+  <%= link_to "Settings", edit_admin_store_path(@store),         :id => ("active_tab" if is_c_and_a? "admin/stores", "edit")%>
+  <%= link_to "Statistic", admin_store_statistic_path(@store),   :id => ("active_tab" if is_c_and_a? "admin/stores", "statistic")%>
+  <%= link_to "Products", admin_store_products_path(@store),     :id => ("active_tab" if is_controller? "admin/products")%>
+  <%= link_to "Categories", admin_store_categories_path(@store), :id => ("active_tab" if is_controller? "admin/categories")%>
+  <%= link_to "Fields", admin_store_fields_path(@store),         :id => ("active_tab" if is_controller? "admin/fields") %>
+  <%= link_to "Orders", admin_store_orders_path(@store),         :id => ("active_tab" if is_c_and_a? "admin/stores", "orders") %>
+  <%= link_to "Design", admin_store_assets_path(@store),         :id => ("active_tab" if is_controller? "admin/assets") %>
   <%= link_to "Co-owners","#" %>
   <%= link_to "Other","#" %>
 </div>

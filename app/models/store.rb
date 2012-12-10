@@ -14,11 +14,12 @@ class Store < ActiveRecord::Base
   has_many :orders,     :dependent => :destroy
   has_many :assets,     :dependent => :destroy
 
-  validates :name,   :presence => true, :length => { :maximum => 15 }
-  validates :domain, :presence => true, :length => { :maximum => 15 }, :uniqueness => true
+  validates :name,   :presence => true, :length => { :maximum => 30 }
+  validates :domain, :presence => true, :length => { :maximum => 30 }, :uniqueness => true
 
   scope :opened, where( :open => 1)
   scope :closed, where( :open => 0)
+
 
   def capture_full_path
     CAPTURE_PATH + self.capture
@@ -38,6 +39,16 @@ class Store < ActiveRecord::Base
       self.update_attribute :capture, 'stores_captures/' + self.domain + '.png'
     rescue
     end
+  end
+
+  #todo methods below refactor to scopes
+
+  def stylesheets
+    self.assets.stylesheets
+  end
+
+  def javascripts
+    self.assets.javascripts
   end
 
 end

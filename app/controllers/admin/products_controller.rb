@@ -3,8 +3,18 @@ class Admin::ProductsController < Admin::ApplicationController
   before_filter :store_categories, :only => [:new, :edit, :create, :update, :index]
 
   def index
-    @products = Product.search(params, params[:page])
-    if(params[:q] || params[:category_id])
+    items_per_page = 3
+    @products = Product.search(params, params[:page], items_per_page)
+    @pages_count = @products.count / items_per_page
+    if @products.count % items_per_page > 0
+      @pages_count += 1
+    end
+    @current_page = params[:page] || 1
+    puts "=---------------------"
+    puts =  params
+
+    puts "=---------------------"
+    if params[:requestasync] == "yes"
       render :partial => 'product_holder', :locals => {:products => @products}
     end
   end

@@ -2,7 +2,7 @@ class Admin::ApplicationController < ApplicationController
 
   before_filter :authenticate
   before_filter :owner?
-  before_filter :current_store
+  before_filter :get_current_store
 
   private
 
@@ -11,7 +11,7 @@ class Admin::ApplicationController < ApplicationController
     redirect_to root_path if store.owner != current_user
   end
 
-  def current_store
+  def get_current_store
     @store = Store.find(params[:store_id])
   end
 
