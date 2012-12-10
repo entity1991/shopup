@@ -33,7 +33,7 @@ class Admin::AssetsController < Admin::ApplicationController
       if File.exist? file_name
         file_lines = File.open(file_name).readlines
         file_lines.each do |line|
-          @lines << line << "\n"
+          @lines << line
         end
       else
 
@@ -90,7 +90,7 @@ class Admin::AssetsController < Admin::ApplicationController
       if File.exist? file_name
         file_lines = File.open(file_name).readlines
         file_lines.each do |line|
-          @lines << line << "\n"
+          @lines << line
         end
       else
 

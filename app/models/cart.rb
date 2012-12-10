@@ -1,6 +1,6 @@
 class Cart < ActiveRecord::Base
   attr_accessor :store
-  attr_accessible :store_id, :user_id
+  attr_accessible :user_id
 
   has_many :line_items, :dependent => :destroy
   has_many :products, :through => :line_items

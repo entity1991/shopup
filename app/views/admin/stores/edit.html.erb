@@ -1,3 +1,18 @@
-<%= render 'form' %>
-
-<%= link_to 'Delete Store', admin_store_path(@store), :method => :delete, :confirm => "Are You sure?", :class => "red button" %>
+<%= form_for([:admin, @store]) do |f| %>
+  <div class="form_fields">
+    <div>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+    <div>
+      <%= f.label :domain %>
+      <%= f.text_field :domain %>
+    </div>
+    <%= image_tag @store.capture, :class => "editing" %>
+    <div>
+      <%= f.submit %>
+      <%= link_to 'Delete Store', admin_store_path(@store), :method => :delete, :confirm => "Are You sure?", :class => "red button" %>
+    </div>
+    </div>
+  <span class="error_messages"><%= render 'shared/error_messages', :object => f.object %></span>
+<% end %>

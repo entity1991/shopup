@@ -27,6 +27,7 @@ class Admin::StoresController < Admin::ApplicationController
   def create
     @store = Store.new(params[:store])
     if @store.save and @store.update_attribute("owner_id", current_user.id)
+      @store.take_capture
       redirect_to admin_store_path(@store), notice: 'Store was successfully created.'
     else
       render "new"
@@ -55,7 +56,12 @@ class Admin::StoresController < Admin::ApplicationController
   end
 
   def destroy
-    @store = Store.find(params[:id]).destroy
+    @store = Store.find(params[:id])
+    capture =  @store.capture_full_path
+    if File.exist? capture
+      File.delete capture
+    end
+    @store.destroy
     redirect_to root_path
   end
 

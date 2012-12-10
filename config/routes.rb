@@ -34,7 +34,6 @@ ShopUp::Application.routes.draw do
   end
 
   root :to => "pages#home"
-
   post "/sessions/change_locale", :as=> "locale"
 
   match '/contact',              :to => 'pages#contact'

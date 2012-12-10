@@ -485,4 +485,28 @@ textarea.edit_file_content{
   margin-bottom: 7px;
 }
 
+.img_wrapper{
+  box-shadow: 0 0 20px -2px rgba(17, 17, 17, 0.50);
+  overflow: hidden;
+  & > *{
+    display: block;
+  }
+}
+
+img.editing{
+  cursor: pointer;
+  &:hover{
+    background-color: #f5f5f5;
+  }
+}
+
+.change_image{
+  z-index: 2000;
+  width: 100%;
+  height: 40px;
+  color: #4870ad;
+  text-align: center;
+  padding: 10px;
+}
+
 

@@ -16,5 +16,9 @@
 <% end %>
 <div class="cleaner"></div>
 <% @opened_stores.each do |store|%>
-  <a class="home_store_box" href="<%= stores_store_catalog_path(store) %>"><%= store.name %></a>
+  <a class="home_store_box" href="<%= stores_store_catalog_path(store) %>">
+    <%= store.name %>
+    <%= image_tag store.capture%>
+  </a>
 <% end %>
+

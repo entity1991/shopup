@@ -24,10 +24,20 @@ j(document).ready(function(){
         j('.flash').remove();
     });
 
-//    j("#store_managing_menu a").click(function(){
-//        j("#store_managing_menu a").removeClass("active_tab");
-//        j(this).addClass("active_tab");
-//    });
+
+    j("img.editing").mouseover(function(){
+        j(this).wrap("<div class='img_wrapper'  style='width:" + j(this).css("width") + "'></div>");
+        j(this).after("<div class='change_image' style='width:" + j(this).css("width") + "'>change another</div>");
+        j(this).parent().css("height", j(this).css("height"));
+        j(".change_image").animate({marginTop: "-=" + j(".change_image").css("height") }, 150);
+        j(this).mouseout(function(){
+            j(this).next("div.change_image").remove();
+            if (j(this).parent().attr("class") == "img_wrapper"){
+                j(this).unwrap();
+            }
+        });
+    });
+
 
 });
 
