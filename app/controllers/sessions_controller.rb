@@ -29,10 +29,14 @@ class SessionsController < ApplicationController
     redirect_to :back
   end
 
-  def profile
-    @user = current_user
-    @submit_value = "Save"
-    @title = "Profile"
+  def change_editor_theme
+    session[:theme] = params[:id]
+    render :text => nil, :status => 200
+  end
+
+  def change_ln
+    session[:ln] = params[:id]
+    render :text => nil, :status => 200
   end
 
   private

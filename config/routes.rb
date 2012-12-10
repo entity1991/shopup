@@ -36,6 +36,8 @@ ShopUp::Application.routes.draw do
   root :to => "pages#home"
 
   post "/sessions/change_locale", :as=> "locale"
+  match "/change_editor_theme/:id", :to => "sessions#change_editor_theme", :via => :get, :as => "change_editor_theme"
+  match "/change_ln/:id", :to => "sessions#change_ln", :via => :get, :as => "change_ln"
 
   match '/contact',              :to => 'pages#contact'
   match '/about',                :to => 'pages#about'

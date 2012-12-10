@@ -26,6 +26,8 @@ class Admin::AssetsController < Admin::ApplicationController
   end
 
   def edit
+    @theme = session[:theme] || "default"
+    @ln = session[:ln] ?  session[:ln] : true
     @asset = Asset.find params[:id]
     @asset_type = @asset.type
     if @asset.stylesheet? or @asset.javascript?
@@ -58,7 +60,10 @@ class Admin::AssetsController < Admin::ApplicationController
     else
 
     end
-    redirect_to admin_store_asset_path(@store, @asset), :notice => "Asset was successfully updated."
+    respond_to do |format|
+      format.html {redirect_to admin_store_asset_path(@store, @asset), :notice => "Asset was successfully updated."}
+      format.js { render :nothing => true}
+    end
   end
 
   def new

@@ -170,6 +170,7 @@ label{
     }
   }
   .button{
+    box-shadow: 0px 0px 2px rgba(133, 133, 133, 0.80);
     height: 30px;
     border-radius: 3px;
     padding: 8px 12px;
@@ -198,7 +199,6 @@ label{
     }
     &.grey{
       color: #777;
-      text-shadow: 1px 1px 0px #afafaf;
       background: url("button-bg.jpg");
     }
   }
@@ -544,7 +544,7 @@ label{
   padding-left: 35px !important;
 }
 
-textarea.edit_file_content{
+textarea.editor_content{
   height: 500px;
   width: 100%;
   max-width: 100%;
@@ -556,6 +556,90 @@ textarea.edit_file_content{
   margin-bottom: 7px;
 }
 
+//code editor
 
+#editor_header{
+  background-color: #ededed;
+  color: rgba(94, 99, 104, 0.56);
+  border-top: 1px solid #d3d3d3;
+  font-family: arial;
+  font-size: 0.9em;
+  padding: 3px 7px;
+  position: relative;
+}
+
+.editor_icon{
+  float: right;
+  cursor: pointer;
+  height: 16px;
+  width: 16px;
+  margin-left: 5px;
+  &:hover{
+    box-shadow: 0px 0px 5px rgba(133, 133, 133, 0.80);
+    border-radius: 3px;
+  }
+}
+
+#settings, #help{
+  float: right;
+  height: 18px;
+}
+
+#settings_window_toggler{
+  background: url("icons/wrench.png") no-repeat center;
+  background-size: 90%;
+}
+
+#settings_window, #help_window{
+  padding: 2px;
+  height: 250px;
+  width: 500px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.99);
+  border-radius: 3px;
+  background-color: white;
+  display: none;
+  position: relative;
+  top: 10px;
+  right: 0;
+  z-index: 10000;
+  overflow-y: auto;
+  cursor: default;
+  margin-left: -497px;
+}
+
+#help_window_toggler{
+  background: url("icons/question-white.png") no-repeat center;
+}
+
+#editor_footer{
+  background-color: #ededed;
+  color: rgba(94, 99, 104, 0.56);
+  border-bottom: 1px solid #d3d3d3;
+  font-family: arial;
+  font-size: 0.9em;
+  padding: 5px 15px;
+  input[type="submit"], .button, a, #message{
+    margin: 2px;
+    height: 18px !important;
+    padding-top: 0;
+    font-size: 1em;
+    padding: 0 12px 2px;
+  }
+  #message{
+    width: 200px;
+    text-align: center;
+    font-weight: bold;
+    overflow: hidden;
+    color: #777;
+    opacity: 0;
+  }
+}
+
+.unactive{
+  color: rgba(119, 119, 119, 0.52) !important;
+  cursor: wait !important;
+  text-shadow: 1px 1px 0px #afafaf !important;
+  background: url("button-bg.jpg") !important;
+}
 
 
