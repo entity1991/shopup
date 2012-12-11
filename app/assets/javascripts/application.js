@@ -2,7 +2,6 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-//= require_tree
 
 j = jQuery.noConflict();
 
@@ -36,20 +35,6 @@ j(document).ready(function(){
         opacity: 0
     }, 5000, function() {
         j('.flash').remove();
-    });
-
-
-    j("img.editing").mouseover(function(){
-        j(this).wrap("<div class='img_wrapper'  style='width:" + j(this).css("width") + "'></div>");
-        j(this).after("<div class='change_image' style='width:" + j(this).css("width") + "'>change another</div>");
-        j(this).parent().css("height", j(this).css("height"));
-        j(".change_image").animate({marginTop: "-=" + j(".change_image").css("height") }, 150);
-        j(this).mouseout(function(){
-            j(this).next("div.change_image").remove();
-            if (j(this).parent().attr("class") == "img_wrapper"){
-                j(this).unwrap();
-            }
-        });
     });
 
     //code editor

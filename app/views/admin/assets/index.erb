@@ -1,26 +1,33 @@
-<div class="assets_box">
-  <h4>Images</h4><hr>
-  <% @images.each do |image| %>
-    <%= image_tag image.file.url(:small) %>
-    <%= link_to 'X', admin_store_asset_path(@store, image), :method => :delete, :confirm => "Are You sure?"%>
-  <% end %>
+<div id="assets_menu">
+  <%= link_to 'Add a new file', new_admin_store_asset_path, :class => "button grey" %>
+  <div class="assets_box">
+    <div class="assets_box_title">Images</div>
+    <% @images.each do |image| %>
+      <div class="asset_item">
+        <%= image.file_file_name %>
+        <%= link_to image_tag("icons/delete.png"), admin_store_asset_path(@store, image), :method => :delete, :confirm => "Are You sure?", :class => "link-icon"%>
+      </div>
+    <% end %>
+  </div>
+  <div class="assets_box">
+    <div class="assets_box_title">Stylesheets</div>
+    <% @stylesheets.each do |stylesheet| %>
+      <div class="asset_item">
+        <%= link_to stylesheet.file_file_name, admin_store_asset_path(@store, stylesheet)%>
+        <%= link_to image_tag("icons/delete.png"), admin_store_asset_path(@store, stylesheet), :method => :delete, :confirm => "Are You sure?", :class => "link-icon" %>
+        <%= link_to image_tag("icons/pencil.png") , edit_admin_store_asset_path(@store, stylesheet), :class => "link-icon" %><br>
+      </div>
+    <% end %>
+  </div>
+  <div class="assets_box">
+    <div class="assets_box_title">Javascripts</div>
+    <% @javascripts.each do |javascript| %>
+      <div class="asset_item">
+        <%= link_to javascript.file_file_name, admin_store_asset_path(@store, javascript)%>
+        <%= link_to image_tag("icons/delete.png"), admin_store_asset_path(@store, javascript), :method => :delete, :confirm => "Are You sure?", :class => "link-icon" %>
+        <%= link_to image_tag("icons/pencil.png"), edit_admin_store_asset_path(@store, javascript), :class => "link-icon" %><br>
+      </div>
+    <% end %>
+  </div>
+  <div class="cleaner"></div>
 </div>
-<div class="assets_box">
-  <h4>Stylesheets</h4><hr>
-  <% @stylesheets.each do |stylesheet| %>
-    <%= link_to stylesheet.file_file_name, admin_store_asset_path(@store, stylesheet)%>
-    <%= link_to 'X', admin_store_asset_path(@store, stylesheet), :method => :delete, :confirm => "Are You sure?", :class => "float_r" %>
-    <%= link_to '[ ]', edit_admin_store_asset_path(@store, stylesheet), :class => "float_r" %><br>
-  <% end %>
-</div>
-<div class="assets_box">
-  <h4>Javascripts</h4><hr>
-  <% @javascripts.each do |javascript| %>
-    <%= link_to javascript.file_file_name, admin_store_asset_path(@store, javascript)%>
-    <%= link_to 'X', admin_store_asset_path(@store, javascript), :method => :delete, :confirm => "Are You sure?", :class => "float_r" %>
-    <%= link_to '[ ]', edit_admin_store_asset_path(@store, javascript), :class => "float_r" %><br>
-  <% end %>
-</div>
-
-<%= link_to '+', new_admin_store_asset_path, :class => "float_r add_item" %>
-<div class="cleaner"></div>

@@ -12,7 +12,7 @@ class Admin::ApplicationController < ApplicationController
   end
 
   def get_current_store
-    @store = Store.find(params[:store_id])
+    @store = Store.find(params[:store_id] || params[:id])
   end
 
 end

@@ -4,7 +4,7 @@
       <% if current_user.stores.count == 0%>
         <%= link_to "Create your stores now!", new_admin_store_path %>
       <% else %>
-        <%= link_to "Go to your stores", admin_store_path(current_user.stores.first) %>
+        <%= link_to "Go to your store now!", "#", :id => "stores_list_toggler"%>
       <% end %>
     </div>
   <% end %>
@@ -21,6 +21,13 @@
       <%= link_to t('Sign_up'), signup_path %>
     <% end %>
   </div>
+</div>
+<div id="stores_list">
+  <% current_user.stores.each do |store| %>
+    <%= link_to store.name, admin_store_path(store), :id =>
+        ("active_store" if store.id.to_s == (params[:store_id] ? params[:store_id] : params[:id])) %>
+  <% end %>
+  <%= link_to "+", new_admin_store_path, :id => "new_store" %>
 </div>
 
 

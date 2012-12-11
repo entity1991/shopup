@@ -8,7 +8,7 @@
       <%= f.label :domain %>
       <%= f.text_field :domain %>
     </div>
-    <%= image_tag @store.capture, :class => "editing" %>
+    <%= image_tag @store.capture%>
     <div>
       <%= f.submit %>
       <%= link_to 'Delete Store', admin_store_path(@store), :method => :delete, :confirm => "Are You sure?", :class => "red button" %>
