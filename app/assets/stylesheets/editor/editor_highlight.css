@@ -7,7 +7,7 @@
 
 .CodeMirror-scroll {
   overflow: auto;
-  height: 300px;
+  height: 400px;
   position: relative;
   outline: none;
 }
@@ -163,3 +163,59 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
 }
 
 /*Cusom styles*/
+
+.CodeMirror {background: #f8f8f8;}
+.activeLine {background: rgba(147, 147, 147, 0.13) !important;}
+.CodeMirror-fullscreen {
+  display: block;
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  z-index: 9999;
+}
+.CodeMirror-completions {
+  position: absolute;
+  z-index: 10;
+  overflow: hidden;
+  -webkit-box-shadow: 2px 3px 5px rgba(0,0,0,.2);
+  -moz-box-shadow: 2px 3px 5px rgba(0,0,0,.2);
+  box-shadow: 2px 3px 5px rgba(0,0,0,.2);
+}
+.CodeMirror-completions select {
+  background: #fafafa;
+  outline: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: monospace;
+}
+span.CodeMirror-matchhighlight { background: rgba(225, 240, 215, 0.83)}
+.CodeMirror-focused span.CodeMirror-matchhighlight { background: #b8d5b0; !important }
+
+.CodeMirror-dialog {
+  position: relative;
+}
+
+.CodeMirror-dialog > div {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  background: white;
+  border-bottom: 1px solid #eee;
+  z-index: 15;
+  padding: .1em .8em;
+  overflow: hidden;
+  color: #333;
+}
+
+.CodeMirror-dialog input {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 20em;
+  color: inherit;
+  font-family: monospace;
+}
+
+.CodeMirror-dialog button {
+  font-size: 70%;
+}

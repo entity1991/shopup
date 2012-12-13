@@ -13,6 +13,7 @@ ShopUp::Application.routes.draw do
       resources :fields
       resources :assets do
         match "download", :to => "assets#download", :as => "download", :via => "get"
+        match "load_asset", :to => "assets#load_asset", :as => "load_asset", :via => "get"
       end
 
       get 'statistic'

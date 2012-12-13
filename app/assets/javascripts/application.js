@@ -10,18 +10,10 @@ j(document).ready(function(){
     j("html").click(function(e){
         autoHiding(e, "signin_window");
         autoHiding(e, "stores_list");
-        autoHiding(e, "settings_window");
-        autoHiding(e, "help_window");
     });
 
     j("#stores_list_toggler").click(function(){
         j("#stores_list").toggle();
-    });
-    j("#settings_window_toggler").click(function(){
-        j("#settings_window").toggle();
-    });
-    j("#help_window_toggler").click(function(){
-        j("#help_window").toggle();
     });
 
     j("#store_name").keypress(function(){
@@ -39,12 +31,46 @@ j(document).ready(function(){
 
     //code editor
 
-    j("#editor_settings").click(function(){
-        j("#settings_window").css("display", "block")
+    j(".editor_icon").click(function(){
+        j("#editor_right_menu").show();
     });
-    j("#editor_help").click(function(){
+    j("#settings_window_icon").click(function(){
+        j("#editor_right_menu .editor_right_window").hide();
+        j("#settings_window").show();
+    });
+    j("#help_window_icon").click(function(){
+        j("#editor_right_menu .editor_right_window").hide();
+        j("#help_window").show();
+    });
+    j("#editor_menu_close").click(function(){
+        j(this).parent().css("display", "none");
+    });
 
+    if(theme != "default"){
+      j("#select_theme option[value='default']").removeAttr("selected");
+      j("#select_theme option[value=" + theme + "]").attr("selected", "selected");
+    }
+    var input = document.getElementById("select_theme");
+    j("#select_theme").change(function(){
+        var selected_theme = input.options[input.selectedIndex].innerHTML;
+        theme = selected_theme;
+        for(var e in editors){
+            editors[e].setOption("theme", selected_theme);
+        }
+        j.get("/change_editor_theme/" + selected_theme);
     });
+
+    if(ln == "true"){
+        j("#editor_toggle_ln").attr("checked", true);
+    }
+    j("#editor_toggle_ln").click(function(){
+        for(var e in editors){
+            editors[e].setOption("lineNumbers", this.checked);
+        }
+        ln = this.checked.toString();
+        j.get("/change_ln/" + this.checked);
+    });
+    //end of code editor
 
 });
 
@@ -55,7 +81,6 @@ function toggleSigninWindow(){
 }
 
 function autoHiding(e, id){
-
     if(j("#" + id).css("display") != "none"){
         if (!hasParent(e.target, id) && e.target.id != id && e.target.id != id + "_toggler") {
             j('#' + id).hide();
@@ -73,35 +98,164 @@ function hasParent(element, parentId){
     return isParent;
 }
 
-//code editor
-function quick_save(store_id, asset_id){
-    j.ajax({
-        url: "/admin/stores/" + store_id + "/assets/" + asset_id,
-        type:"put",
-        data: {asset: {file_content: editor.getValue()}},
-        dataType: "json",
-        beforeSend: function () {
-            j("#editor_quick_save").addClass("unactive");
-        },
-        complete: function(){
-            j("#editor_quick_save").removeClass("unactive");
-        },
-        error: function(err){
-            show_editor_message("Something went wrong!");
-        },
-        success: function(data) {
-            show_editor_message("Successfully saved!")
+//todo code editor - move to new js file
+
+var editors = {};
+var editor_vars = {};
+var theme = "default";
+var ln = true;
+var store;
+
+function loadAsset(store_id, asset_id){
+    if(j(".asset_item.selected_asset#asset_" + asset_id).length == 0){
+        store = store_id;
+        j(".editor_content").next(".CodeMirror").hide();
+        j(".asset_item").removeClass("selected_asset");
+        j("#asset_" + asset_id).addClass("selected_asset");
+        j("#editor_footer #message").html("");
+        if(j("#editor_" + asset_id).length == 0){
+            j.ajax({
+                url: "/admin/stores/" + store_id + "/assets/" + asset_id + "/load_asset",
+                type:"get",
+                data: {asset_id: asset_id},
+                dataType: "json",
+                success: function(data) {
+                    j(".editor_title").html(data.name);
+                    var editor_content = "<textarea id='editor_" + asset_id + "' class='editor_content'>" + data.content + "</textarea>";
+                    j("#editor_right_menu").after(editor_content);
+                    if(j("#editor_footer").length == 0){
+                        var editor_footer =
+                            "<div id='editor_footer'>"+
+                                "<div class='button green float_r' id='editor_save_all'>Save all</div>"+
+                                "<div class='button grey float_r' id='editor_quick_save'>Quick save</div>"+
+                                "<div id='message' class='float_r'></div>"+
+                                "<div id='editor_autoformat' class='button grey'>Autoformat</div>"+
+                            "</div>"
+                        j("#editor_" + asset_id).after(editor_footer);
+                    }
+                    initializeEditor("editor_" + asset_id, data.type);
+                }
+            });
+        } else {
+            j(".editor_title").html(j("#asset_" + asset_id).html());
+            j("#editor_" + asset_id).next(".CodeMirror").show();
         }
-   });
+    }
 }
 
-function show_editor_message(msg){
-    j("#editor_footer #message").html(msg).css("opacity", "1");
-    setTimeout( function(){
-        j("#editor_footer #message").animate({opacity: 0}, 5000, function(){
-            j("#editor_footer #message").html("").css("opacity", "1");
+function initializeEditor(id, mode){
+    editor_vars[id] = {changed: false, asset_id: id.split("_")[1]};
+    editors[id] = CodeMirror.fromTextArea(document.getElementById(id), {
+      lineNumbers: true,
+      lineWrapping: true,// ?
+      mode: mode,
+      tabSize: 4,
+      indentUnit: 4,    // ?
+      indentWithTabs: true, // ?
+      onCursorActivity: function() {
+        editors[id].setLineClass(hlLine, null, null);
+        hlLine = editors[id].setLineClass(editors[id].getCursor().line, null, "activeLine");
+        editors[id].matchHighlight("CodeMirror-matchhighlight");
+      },
+      extraKeys: {
+        "F11": function(cm) {
+          setFullScreen(cm, !isFullScreen(cm));
+        },
+        "Esc": function(cm) {
+          if (isFullScreen(cm)) setFullScreen(cm, false);
+        },
+        "Ctrl-Space": "autocomplete"
+      },
+      onChange: function(){
+          if(editor_vars[id].changed == false){
+              var selected_asset = j(".asset_item.selected_asset");
+              selected_asset.html("<span class='star'>*</span>" + selected_asset.html());
+              j(".editor_title").html("<span class='star'>*</span>" + j(".editor_title").html());
+              editor_vars[id].changed = true;
+          }
+      }
+
+    });
+
+    var hlLine = editors[id].setLineClass(0, "activeLine");
+
+    editors[id].setOption("theme", theme);
+
+    if(ln == "false")
+      editors[id].setOption("lineNumbers", false);
+
+    CodeMirror.connect(window, "resize", function() {
+      var showing = document.body.getElementsByClassName("CodeMirror-fullscreen")[0];
+      if (!showing) return;
+      showing.CodeMirror.getScrollerElement().style.height = winHeight() + "px";
+    });
+    //simple hint
+    CodeMirror.commands.autocomplete = function(cm) {
+      CodeMirror.simpleHint(cm, CodeMirror.javascriptHint);
+    };
+
+    j("#editor_autoformat").click(function(){
+        if(isCurrentAsset()){
+            editors[id].autoFormatRange({ch:0, line:0}, {ch:0, line:10000});
+        }
+    });
+
+    j("#editor_quick_save").click(function(){
+        if (editor_vars[id].changed == true && isCurrentAsset()){
+            saveAsset(id);
+        } else {
+            showEditorMessage("No changes were found!");
+        }
+    });
+    j("#editor_save_all").click(function(){
+        if (editor_vars[id].changed == true){
+            saveAsset(id);
+        }else {
+            showEditorMessage("No changes were found!");
+        }
+    });
+
+    function showEditorMessage(msg){
+        j("#editor_footer #message").html(msg);
+    }
+    function isCurrentAsset(){
+        return (j(".asset_item.selected_asset#asset_" + editor_vars[id].asset_id).length != 0)
+    }
+    function saveAsset(id){
+        j.ajax({
+            url: "/admin/stores/" + store + "/assets/" + editor_vars[id].asset_id,
+            type:"put",
+            data: {asset: {file_content: editors[id].getValue()}},
+            dataType: "json",
+            error: function(){
+                showEditorMessage("Something went wrong!");
+            },
+            success: function(data) {
+                showEditorMessage("Successfully saved!");
+                j(".asset_item#asset_" + editor_vars[id].asset_id + " .star").remove();
+                j(".editor_title .star").remove();
+                editor_vars[id].changed = false;
+            }
         });
-    }, 5000);
+    }
+    function isFullScreen(cm) {
+      return /\bCodeMirror-fullscreen\b/.test(cm.getWrapperElement().className);
+    }
+    function winHeight() {
+      return window.innerHeight || (document.documentElement || document.body).clientHeight;
+    }
+    function setFullScreen(cm, full) {
+      var wrap = cm.getWrapperElement(), scroll = cm.getScrollerElement();
+      if (full) {
+        wrap.className += " CodeMirror-fullscreen";
+        scroll.style.height = winHeight() + "px";
+        document.documentElement.style.overflow = "hidden";
+      } else {
+        wrap.className = wrap.className.replace(" CodeMirror-fullscreen", "");
+        scroll.style.height = "";
+        document.documentElement.style.overflow = "";
+      }
+      cm.refresh();
+    }
 }
-
-
+//todo end of code editor

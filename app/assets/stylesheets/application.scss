@@ -462,7 +462,8 @@ label{
 }
 
 #assets_menu{
-  width: 200px;
+  float: left;
+  width: 25%;
   padding: 1px 0 10px;
   border-right: 1px solid #b5b5b5;
   border-radius: 5px 0 0 5px;
@@ -504,7 +505,95 @@ label{
       &:hover{
         background-color: rgba(235, 232, 242, 0.70);
       }
+      &.selected_asset{
+        color: #468c46;
+      }
     }
+  }
+}
+#assets_ide{
+  display: block;
+  float: left;
+  width: 75%;
+  min-height: 450px;
+  #editor_header{
+    background-color: #ededed;
+    color: rgba(94, 99, 104, 0.56);
+    border-top: 1px solid #d3d3d3;
+    font-family: arial;
+    font-size: 0.9em;
+    padding: 3px 7px;
+    position: relative;
+    height: 25px;
+    .editor_icon{
+      float: right;
+      cursor: pointer;
+      height: 16px;
+      width: 16px;
+      margin-left: 5px;
+      &:hover{
+        box-shadow: 0px 0px 5px rgba(133, 133, 133, 0.80);
+        border-radius: 3px;
+      }
+    }
+    #help_window_icon{
+      background: url("icons/question-white.png") no-repeat center;
+    }
+    #settings_window_icon{
+      background: url("icons/wrench.png") no-repeat center;
+      background-size: 90%;
+    }
+  }
+
+  #editor_right_menu{
+    padding: 2px;
+    height: 380px;
+    width: 200px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.99);
+    border-radius: 3px;
+    background-color: white;
+    display: none;
+    float: right;
+    margin: 10px;
+    z-index: 10000;
+    overflow-y: auto;
+    cursor: default;
+    #editor_menu_close{
+      float: right;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  }
+
+  #editor_footer{
+    background-color: #ededed;
+    height: 32px;
+    color: rgba(94, 99, 104, 0.56);
+    border-bottom: 1px solid #d3d3d3;
+    font-family: arial;
+    font-size: 0.9em;
+    padding: 5px 15px;
+    input[type="submit"], .button, a, #message{
+      margin: 2px;
+      height: 18px !important;
+      padding-top: 0;
+      font-size: 1em;
+      padding: 0 12px 2px;
+    }
+    #message{
+      width: 200px;
+      text-align: center;
+      font-weight: bold;
+      overflow: hidden;
+      color: #777;
+    }
+  }
+  .codePreview{
+    background-color: #ececec;
+    border-radius: 10px;
+    cursor: default;
+    padding: 10px;
+    overflow-x: auto;
   }
 }
 
@@ -587,113 +676,6 @@ label{
   padding-left: 35px !important;
 }
 
-textarea.editor_content{
-  height: 500px;
-  width: 100%;
-  max-width: 100%;
-  box-shadow: 0px 0px 2px rgba(133, 133, 133, 0.80);
-  border: 1px solid #808080;
-  border-radius: 3px;
-  padding: 5px;
-  color: #444;
-  margin-bottom: 7px;
-}
-
-//code editor
-
-#editor_header{
-  background-color: #ededed;
-  color: rgba(94, 99, 104, 0.56);
-  border-top: 1px solid #d3d3d3;
-  font-family: arial;
-  font-size: 0.9em;
-  padding: 3px 7px;
-  position: relative;
-}
-
-.editor_icon{
-  float: right;
-  cursor: pointer;
-  height: 16px;
-  width: 16px;
-  margin-left: 5px;
-  &:hover{
-    box-shadow: 0px 0px 5px rgba(133, 133, 133, 0.80);
-    border-radius: 3px;
-  }
-}
-
-#settings, #help{
-  float: right;
-  height: 18px;
-}
-
-#settings_window_toggler{
-  background: url("icons/wrench.png") no-repeat center;
-  background-size: 90%;
-}
-
-#settings_window, #help_window{
-  padding: 2px;
-  height: 250px;
-  width: 500px;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.99);
-  border-radius: 3px;
-  background-color: white;
-  display: none;
-  position: relative;
-  top: 10px;
-  right: 0;
-  z-index: 10000;
-  overflow-y: auto;
-  cursor: default;
-  margin-left: -497px;
-}
-
-#help_window_toggler{
-  background: url("icons/question-white.png") no-repeat center;
-}
-
-#editor_footer{
-  background-color: #ededed;
-  color: rgba(94, 99, 104, 0.56);
-  border-bottom: 1px solid #d3d3d3;
-  font-family: arial;
-  font-size: 0.9em;
-  padding: 5px 15px;
-  input[type="submit"], .button, a, #message{
-    margin: 2px;
-    height: 18px !important;
-    padding-top: 0;
-    font-size: 1em;
-    padding: 0 12px 2px;
-  }
-  #message{
-    width: 200px;
-    text-align: center;
-    font-weight: bold;
-    overflow: hidden;
-    color: #777;
-    opacity: 0;
-  }
-}
-
-.unactive{
-  color: rgba(119, 119, 119, 0.52) !important;
-  cursor: wait !important;
-  text-shadow: 1px 1px 0px #afafaf !important;
-  background: url("button-bg.jpg") !important;
-}
-
-.codePreview{
-  background-color: #ececec;
-  border-radius: 10px;
-  cursor: default;
-  padding: 10px;
-  overflow-x: auto;
-}
-//end of code editor
-
 .link-icon{
   img{
     height: 0.85em;
@@ -701,5 +683,10 @@ textarea.editor_content{
     margin: 0.07em 0.2em;
     float: right;
   }
+}
+.star{
+  text-decoration: none !important;
+  font-size: 1em;
+  color: #EE5F5B;
 }
 

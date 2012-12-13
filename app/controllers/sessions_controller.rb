@@ -30,12 +30,12 @@ class SessionsController < ApplicationController
   end
 
   def change_editor_theme
-    session[:theme] = params[:id]
+    session[:editor_theme] = params[:id]
     render :text => nil, :status => 200
   end
 
   def change_ln
-    session[:ln] = params[:id]
+    session[:editor_ln] = params[:id]
     render :text => nil, :status => 200
   end
 

@@ -5,31 +5,12 @@ class Admin::AssetsController < Admin::ApplicationController
     @images = @assets.images
     @stylesheets = @assets.stylesheets
     @javascripts = @assets.javascripts
+    @editor_theme = session[:editor_theme] || "default"
+    @editor_ln = session[:editor_ln] ?  session[:editor_ln] : true
   end
 
-  def show
-    @asset = Asset.find params[:id]
-    if @asset.stylesheet? or @asset.javascript?
-      @lines = []
-      file_name = "./public/assets/store_assets/" + @asset.id.to_s + "/original/" + @asset.file_file_name
-      if File.exist? file_name
-        file_lines = File.open(file_name).readlines
-        file_lines.each do |line|
-          @lines << line
-        end
-      else
-
-      end
-    else
-
-    end
-  end
-
-  def edit
-    @theme = session[:theme] || "default"
-    @ln = session[:ln] ?  session[:ln] : true
-    @asset = Asset.find params[:id]
-    @asset_type = @asset.type
+  def load_asset
+    @asset = Asset.find params[:asset_id]
     if @asset.stylesheet? or @asset.javascript?
       @lines = ""
       file_name = "./public/assets/store_assets/" + @asset.id.to_s + "/original/" + @asset.file_file_name
@@ -44,6 +25,11 @@ class Admin::AssetsController < Admin::ApplicationController
     else
 
     end
+    render :json => {
+        name: @asset.file_file_name,
+        type: @asset.type,
+        content: @lines
+    }
   end
 
   def update
@@ -62,7 +48,7 @@ class Admin::AssetsController < Admin::ApplicationController
     end
     respond_to do |format|
       format.html {redirect_to admin_store_asset_path(@store, @asset), :notice => "Asset was successfully updated."}
-      format.js { render :nothing => true}
+      format.json { render :json => {}, :status => 200}
     end
   end
 
