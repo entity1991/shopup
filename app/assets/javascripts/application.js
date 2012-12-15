@@ -31,7 +31,7 @@ j(document).ready(function(){
 
     //code editor
 
-    j(".editor_icon").click(function(){
+    j(".right_window_opener").click(function(){
         j("#editor_right_menu").show();
     });
     j("#settings_window_icon").click(function(){
@@ -42,7 +42,8 @@ j(document).ready(function(){
         j("#editor_right_menu .editor_right_window").hide();
         j("#help_window").show();
     });
-    j("#editor_menu_close").click(function(){
+
+    j("#right_editor_menu_close").click(function(){
         j(this).parent().css("display", "none");
     });
 
@@ -64,17 +65,38 @@ j(document).ready(function(){
         j("#editor_toggle_ln").attr("checked", true);
     }
     j("#editor_toggle_ln").click(function(){
-        for(var e in editors){
-            editors[e].setOption("lineNumbers", this.checked);
+        for(var id in editors){
+            editors[id].setOption("lineNumbers", this.checked);
         }
         ln = this.checked.toString();
-        j.get("/change_ln/" + this.checked);
+        j.get("/change_editor_ln/" + this.checked);
+    });
+
+    j("#editor_font_size").val(font_size);
+    j(".CodeMirror").css("font-size", ((parseInt(font_size))/10).toString() + "em");
+    j("#editor_font_size").change(function(){
+        font_size = this.value;
+        j(".CodeMirror").css("font-size", ((parseInt(this.value))/10).toString() + "em");
+        j.get("/change_editor_font_size/" + this.value);
     });
     //end of code editor
 
 });
 
 //functions
+
+function changeUndoRedoColor(editor_id){
+    if(editors[editor_id].historySize().redo > 0){
+      j("#arrow_redo_icon").addClass("arrow_redo_icon_active");
+    } else{
+      j("#arrow_redo_icon").removeClass("arrow_redo_icon_active");
+    }
+    if(editors[editor_id].historySize().undo > 0){
+      j("#arrow_undo_icon").addClass("arrow_undo_icon_active");
+    } else{
+      j("#arrow_undo_icon").removeClass("arrow_undo_icon_active");
+    }
+}
 
 function toggleSigninWindow(){
     j("#signin_window").toggle();
@@ -104,6 +126,7 @@ var editors = {};
 var editor_vars = {};
 var theme = "default";
 var ln = true;
+var font_size = "1";
 var store;
 
 function loadAsset(store_id, asset_id){
@@ -123,6 +146,8 @@ function loadAsset(store_id, asset_id){
                     j(".editor_title").html(data.name);
                     var editor_content = "<textarea id='editor_" + asset_id + "' class='editor_content'>" + data.content + "</textarea>";
                     j("#editor_right_menu").after(editor_content);
+                    j("#arrow_redo_icon").removeClass("arrow_redo_icon_active");
+                    j("#arrow_undo_icon").removeClass("arrow_undo_icon_active");
                     if(j("#editor_footer").length == 0){
                         var editor_footer =
                             "<div id='editor_footer'>"+
@@ -139,6 +164,7 @@ function loadAsset(store_id, asset_id){
         } else {
             j(".editor_title").html(j("#asset_" + asset_id).html());
             j("#editor_" + asset_id).next(".CodeMirror").show();
+            changeUndoRedoColor("editor_" + asset_id);
         }
     }
 }
@@ -164,7 +190,10 @@ function initializeEditor(id, mode){
         "Esc": function(cm) {
           if (isFullScreen(cm)) setFullScreen(cm, false);
         },
-        "Ctrl-Space": "autocomplete"
+        "Ctrl-Space": "autocomplete",
+        "Ctrl-S": function(){
+            quickSave();
+        }
       },
       onChange: function(){
           if(editor_vars[id].changed == false){
@@ -173,9 +202,10 @@ function initializeEditor(id, mode){
               j(".editor_title").html("<span class='star'>*</span>" + j(".editor_title").html());
               editor_vars[id].changed = true;
           }
+          changeUndoRedoColor(id);
       }
-
     });
+    j(".CodeMirror").css("font-size", ((parseInt(font_size))/10).toString() + "em");
 
     var hlLine = editors[id].setLineClass(0, "activeLine");
 
@@ -201,17 +231,23 @@ function initializeEditor(id, mode){
     });
 
     j("#editor_quick_save").click(function(){
-        if (editor_vars[id].changed == true && isCurrentAsset()){
-            saveAsset(id);
-        } else {
-            showEditorMessage("No changes were found!");
-        }
+        quickSave();
     });
     j("#editor_save_all").click(function(){
-        if (editor_vars[id].changed == true){
-            saveAsset(id);
-        }else {
-            showEditorMessage("No changes were found!");
+        saveAll();
+    });
+    j("#full_screen_icon").click(function(){
+        setFullScreen(editors[id], !isFullScreen(editors[id]));
+        editors[id].focus();
+    });
+    j("#arrow_redo_icon").click(function(){
+        if(isCurrentAsset()){
+            editors[id].redo();
+        }
+    });
+    j("#arrow_undo_icon").click(function(){
+        if(isCurrentAsset()){
+            editors[id].undo();
         }
     });
 
@@ -220,6 +256,20 @@ function initializeEditor(id, mode){
     }
     function isCurrentAsset(){
         return (j(".asset_item.selected_asset#asset_" + editor_vars[id].asset_id).length != 0)
+    }
+    function quickSave(){
+        if (editor_vars[id].changed == true && isCurrentAsset()){
+            saveAsset(id);
+        } else {
+            showEditorMessage("No changes were found!");
+        }
+    }
+    function saveAll(){
+        if (editor_vars[id].changed == true){
+            saveAsset(id);
+        }else {
+            showEditorMessage("No changes were found!");
+        }
     }
     function saveAsset(id){
         j.ajax({
@@ -235,6 +285,9 @@ function initializeEditor(id, mode){
                 j(".asset_item#asset_" + editor_vars[id].asset_id + " .star").remove();
                 j(".editor_title .star").remove();
                 editor_vars[id].changed = false;
+                editors[id].clearHistory();
+                j("#arrow_redo_icon").removeClass("arrow_redo_icon_active");
+                j("#arrow_undo_icon").removeClass("arrow_undo_icon_active");
             }
         });
     }
@@ -247,6 +300,7 @@ function initializeEditor(id, mode){
     function setFullScreen(cm, full) {
       var wrap = cm.getWrapperElement(), scroll = cm.getScrollerElement();
       if (full) {
+        scrollTo(0, 0);
         wrap.className += " CodeMirror-fullscreen";
         scroll.style.height = winHeight() + "px";
         document.documentElement.style.overflow = "hidden";

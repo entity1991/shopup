@@ -7,6 +7,7 @@ class Admin::AssetsController < Admin::ApplicationController
     @javascripts = @assets.javascripts
     @editor_theme = session[:editor_theme] || "default"
     @editor_ln = session[:editor_ln] ?  session[:editor_ln] : true
+    @editor_font_size = session[:editor_font_size] || "10"
   end
 
   def load_asset

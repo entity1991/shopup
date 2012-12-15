@@ -24,7 +24,7 @@ p, h1, h2, h3, h4, h5, h6, a {
 
 body {
   margin: 0;
-  font-family: 'Asap', sans-serif;
+  font-family: 'verdana', sans-serif;
   background-image: url("main-bg.jpg");
   font-size: 0.85em;
 }
@@ -531,37 +531,96 @@ label{
       height: 16px;
       width: 16px;
       margin-left: 5px;
+      background-repeat: no-repeat;
+      background-position: center;
       &:hover{
         box-shadow: 0px 0px 5px rgba(133, 133, 133, 0.80);
         border-radius: 3px;
       }
     }
+    #full_screen_icon{
+      background-image: url("icons/arrow_out.png");
+      background-size: 85%;
+    }
     #help_window_icon{
-      background: url("icons/question-white.png") no-repeat center;
+      background-image: url("icons/question-white.png");
     }
     #settings_window_icon{
-      background: url("icons/wrench.png") no-repeat center;
+      background-image: url("icons/wrench.png");
       background-size: 90%;
+    }
+    #arrow_redo_icon{
+      background-image: url("icons/arrow_redo_grey.png");
+    }
+    .arrow_redo_icon_active{
+      background-image: url("icons/arrow_redo.png") !important;
+    }
+    #arrow_undo_icon{
+      background-image: url("icons/arrow_undo_grey.png");
+    }
+    .arrow_undo_icon_active{
+      background-image: url("icons/arrow_undo.png") !important;
     }
   }
 
   #editor_right_menu{
-    padding: 2px;
-    height: 380px;
+    padding: 30px 5px 5px;
+    font-size: 0.8em;
+    height: 400px;
     width: 200px;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.99);
-    border-radius: 3px;
-    background-color: white;
+    box-shadow: 0px 0px 5px #dbdbdb inset;
+    background-color: #f4f4f4;
     display: none;
     float: right;
-    margin: 10px;
     z-index: 10000;
     overflow-y: auto;
     cursor: default;
-    #editor_menu_close{
+    line-height: 2em;
+    input[type=checkbox]{
+      height: 1em;
+      margin-top: 5px;
+    }
+    input[type="range"] {
+      -webkit-appearance: none;
+      background-color: grey;
+      height: 2px;
+      padding: 0;
+      width: 47%;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      cursor: pointer;
+      -webkit-appearance: none;
+      position: relative;
+      top: -1px;
+      z-index: 1;
+      width: 11px;
+      height: 11px;
+      -webkit-border-radius: 40px;
+      -moz-border-radius: 40px;
+      border-radius: 40px;
+      background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ebf1f6), color-stop(50%,#abd3ee), color-stop(51%,#89c3eb), color-stop(100%,#d5ebfb));
+    }
+    #right_editor_menu_close{
+      margin-top: -26px;
       float: right;
       cursor: pointer;
-      font-weight: bold;
+      background: url("icons/cross_small.png") right;
+      height: 16px;
+      width: 16px;
+    }
+    #settings_window{
+
+      & > .title{
+        width: 46%;
+        display: inline-block;
+      }
+    }
+    #help_window{
+      padding-left: 10px;
+      & .hotkeys{
+        font-weight: bold;
+        font-size: 0.9em;
+      }
     }
   }
 
@@ -686,7 +745,7 @@ label{
 }
 .star{
   text-decoration: none !important;
-  font-size: 1em;
+  font-size: 0.9em;
   color: #EE5F5B;
 }
 

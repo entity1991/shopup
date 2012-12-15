@@ -34,8 +34,13 @@ class SessionsController < ApplicationController
     render :text => nil, :status => 200
   end
 
-  def change_ln
+  def change_editor_ln
     session[:editor_ln] = params[:id]
+    render :text => nil, :status => 200
+  end
+
+  def change_editor_font_size
+    session[:editor_font_size] = params[:id]
     render :text => nil, :status => 200
   end
 
