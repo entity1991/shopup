@@ -1,77 +1,78 @@
-<div id="assets_menu">
-  <%= link_to 'Add a new file', new_admin_store_asset_path, :class => "button grey" %>
-  <div class="assets_box">
-    <div class="assets_box_title">Images</div>
-    <% @images.each do |image| %>
-      <div class="asset_item">
-        <%= image.file_file_name %>
-        <%= link_to image_tag("icons/delete.png"), admin_store_asset_path(@store, image), :method => :delete, :confirm => "Are You sure?", :class => "link-icon"%>
+<div id="ide_windows">
+  <div id="assets_menu">
+    <%= link_to 'Add a new file', new_admin_store_asset_path, :class => "button grey" %>
+    <div class="assets_box">
+      <div class="assets_box_title">Images</div>
+      <% @images.each do |image| %>
+        <div class="asset_item">
+          <%= image.file_file_name %>
+          <%= link_to image_tag("icons/delete.png"), admin_store_asset_path(@store, image), :method => :delete, :confirm => "Are You sure?", :class => "link-icon"%>
+        </div>
+      <% end %>
+    </div>
+    <div class="assets_box">
+      <div class="assets_box_title">Stylesheets</div>
+      <% @stylesheets.each do |stylesheet| %>
+        <%= link_to_function stylesheet.file_file_name, "loadAsset(#{@store.id}, #{stylesheet.id})", :class => "asset_item", :id => "asset_#{stylesheet.id}" %>
+      <% end %>
+    </div>
+    <div class="assets_box">
+      <div class="assets_box_title">Javascripts</div>
+      <% @javascripts.each do |javascript| %>
+        <%= link_to_function javascript.file_file_name, "loadAsset(#{@store.id}, #{javascript.id})", :class => "asset_item", :id => "asset_#{javascript.id}" %>
+      <% end %>
+    </div>
+    <div class="cleaner"></div>
+  </div>
+  <div id="assets_ide">
+    <div id="editor_header">
+      <span class="editor_title">No files are open</span>
+      <div id="full_screen_icon" class="editor_icon" title="Full screen"></div>
+      <div id="help_window_icon" class="editor_icon right_window_opener" title="Help"></div>
+      <div id="settings_window_icon" class="editor_icon right_window_opener" title="Settings"></div>
+      <div id="arrow_redo_icon" class="editor_icon" title="Redo"></div>
+      <div id="arrow_undo_icon" class="editor_icon" title="Undo"></div>
+    </div>
+    <div id="editor_right_menu">
+      <div id="right_editor_menu_close"></div>
+      <div id="help_window" class="editor_right_window">
+        <h3>Hotkeys</h3>
+        <span class="hotkeys">Ctrl-S</span> - Quick save<br>
+        <span class="hotkeys">Ctrl-Z</span> - Undo<br>
+        <span class="hotkeys">Shift-Ctrl-Z</span> - Redo<br>
+        <span class="hotkeys">Ctrl-F</span> - Start searching<br>
+        <span class="hotkeys">Ctrl-G</span> - Find next<br>
+        <span class="hotkeys">Shift-Ctrl-G</span> - Find previous<br>
+        <span class="hotkeys">Shift-Ctrl-F</span> - Replace<br>
+        <span class="hotkeys">Shift-Ctrl-R</span> - Replace all<br>
+        <span class="hotkeys">F11</span> - Toggle full screen<br>
+        <span class="hotkeys">Esc</span> - Exit full screen<br>
       </div>
-    <% end %>
-  </div>
-  <div class="assets_box">
-    <div class="assets_box_title">Stylesheets</div>
-    <% @stylesheets.each do |stylesheet| %>
-      <%= link_to_function stylesheet.file_file_name, "loadAsset(#{@store.id}, #{stylesheet.id})", :class => "asset_item", :id => "asset_#{stylesheet.id}" %>
-    <% end %>
-  </div>
-  <div class="assets_box">
-    <div class="assets_box_title">Javascripts</div>
-    <% @javascripts.each do |javascript| %>
-      <%= link_to_function javascript.file_file_name, "loadAsset(#{@store.id}, #{javascript.id})", :class => "asset_item", :id => "asset_#{javascript.id}" %>
-    <% end %>
-  </div>
-  <div class="cleaner"></div>
-</div>
-<div id="assets_ide">
-  <div id="editor_header">
-    <span class="editor_title">No files are open</span>
-    <div id="full_screen_icon" class="editor_icon" title="Full screen"></div>
-    <div id="help_window_icon" class="editor_icon right_window_opener" title="Help"></div>
-    <div id="settings_window_icon" class="editor_icon right_window_opener" title="Settings"></div>
-    <div id="arrow_redo_icon" class="editor_icon" title="Redo"></div>
-    <div id="arrow_undo_icon" class="editor_icon" title="Undo"></div>
-  </div>
-  <div id="editor_right_menu">
-    <div id="right_editor_menu_close"></div>
-    <div id="help_window" class="editor_right_window">
-      <h3>Hotkeys</h3>
-      <span class="hotkeys">Ctrl-S</span> - Quick save<br>
-      <span class="hotkeys">Ctrl-Z</span> - Undo<br>
-      <span class="hotkeys">Shift-Ctrl-Z</span> - Redo<br>
-      <span class="hotkeys">Ctrl-F</span> - Start searching<br>
-      <span class="hotkeys">Ctrl-G</span> - Find next<br>
-      <span class="hotkeys">Shift-Ctrl-G</span> - Find previous<br>
-      <span class="hotkeys">Shift-Ctrl-F</span> - Replace<br>
-      <span class="hotkeys">Shift-Ctrl-R</span> - Replace all<br>
-      <span class="hotkeys">F11</span> - Toggle full screen<br>
-      <span class="hotkeys">Esc</span> - Exit full screen<br>
-    </div>
-    <div id="settings_window" class="editor_right_window">
-      <span class="title">Select a theme:</span>
-      <select id="select_theme">
-        <option value="default">default</option>
-        <option value="ambiance">ambiance</option>
-        <option value="blackboard">blackboard</option>
-        <option value="cobalt">cobalt</option>
-        <option value="eclipse">eclipse</option>
-        <option value="elegant">elegant</option>
-        <option value="erlang-dark">erlang-dark</option>
-        <option value="lesser-dark">lesser-dark</option>
-        <option value="monokai">monokai</option>
-        <option value="neat">neat</option>
-        <option value="night">night</option>
-        <option value="rubyblue">rubyblue</option>
-        <option value="twilight">twilight</option>
-        <option value="vibrant-ink">vibrant-ink</option>
-        <option value="xq-dark">xq-dark</option>
-      </select><br>
-      <span class="title">Line numbers:</span> <input type="checkbox" id="editor_toggle_ln"><br>
-      <span class="title">Font size:</span> <input type="range" min="9" max="15" value="10" id="editor_font_size"><br>
+      <div id="settings_window" class="editor_right_window">
+        <span class="title">Select a theme:</span>
+        <select id="select_theme">
+          <option value="default">default</option>
+          <option value="ambiance">ambiance</option>
+          <option value="blackboard">blackboard</option>
+          <option value="cobalt">cobalt</option>
+          <option value="eclipse">eclipse</option>
+          <option value="elegant">elegant</option>
+          <option value="erlang-dark">erlang-dark</option>
+          <option value="lesser-dark">lesser-dark</option>
+          <option value="monokai">monokai</option>
+          <option value="neat">neat</option>
+          <option value="night">night</option>
+          <option value="rubyblue">rubyblue</option>
+          <option value="twilight">twilight</option>
+          <option value="vibrant-ink">vibrant-ink</option>
+          <option value="xq-dark">xq-dark</option>
+        </select><br>
+        <span class="title">Line numbers:</span> <input type="checkbox" id="editor_toggle_ln"><br>
+        <span class="title">Font size:</span> <input type="range" min="9" max="15" value="10" id="editor_font_size"><br>
+      </div>
     </div>
   </div>
 </div>
-
 <script>
   theme = "<%= @editor_theme %>";
   ln = "<%= @editor_ln %>";

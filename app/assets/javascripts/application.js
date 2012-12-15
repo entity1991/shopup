@@ -31,6 +31,19 @@ j(document).ready(function(){
 
     //code editor
 
+    j(window).resize(function () {
+//        if (fullscreen == true){
+//            var header_height = parseInt(j("#editor_header").css("height").replace("px", ""));
+//            var footer_height = parseInt(j("#editor_footer").css("height").replace("px", ""));
+//            j("#editor_right_menu").css("height", (winHeight()-header_height-footer_height) + "px");
+//            for(var e in editors){
+//                j(editors[e].getTextArea()).next(".CodeMirror").find(".CodeMirror-scroll")
+//                    .css("height", (winHeight()-header_height-footer_height) + "px");
+//                editors[e].refresh();
+//            }
+//        }
+    });
+
     j(".right_window_opener").click(function(){
         j("#editor_right_menu").show();
     });
@@ -45,6 +58,7 @@ j(document).ready(function(){
 
     j("#right_editor_menu_close").click(function(){
         j(this).parent().css("display", "none");
+        refreshEditor();
     });
 
     if(theme != "default"){
@@ -65,9 +79,7 @@ j(document).ready(function(){
         j("#editor_toggle_ln").attr("checked", true);
     }
     j("#editor_toggle_ln").click(function(){
-        for(var id in editors){
-            editors[id].setOption("lineNumbers", this.checked);
-        }
+        for(var id in editors) editors[id].setOption("lineNumbers", this.checked);
         ln = this.checked.toString();
         j.get("/change_editor_ln/" + this.checked);
     });
@@ -78,6 +90,7 @@ j(document).ready(function(){
         font_size = this.value;
         j(".CodeMirror").css("font-size", ((parseInt(this.value))/10).toString() + "em");
         j.get("/change_editor_font_size/" + this.value);
+        refreshEditor();
     });
     //end of code editor
 
@@ -96,6 +109,15 @@ function changeUndoRedoColor(editor_id){
     } else{
       j("#arrow_undo_icon").removeClass("arrow_undo_icon_active");
     }
+}
+function refreshEditor(){
+    for(var e in editors){
+        editors[e].refresh();
+    }
+}
+
+function winHeight() {
+  return window.innerHeight || (document.documentElement || document.body).clientHeight;
 }
 
 function toggleSigninWindow(){
@@ -128,6 +150,7 @@ var theme = "default";
 var ln = true;
 var font_size = "1";
 var store;
+var fullscreen = false;
 
 function loadAsset(store_id, asset_id){
     if(j(".asset_item.selected_asset#asset_" + asset_id).length == 0){
@@ -236,6 +259,8 @@ function initializeEditor(id, mode){
     j("#editor_save_all").click(function(){
         saveAll();
     });
+
+    setFullScreen(editors[id], fullscreen == true);
     j("#full_screen_icon").click(function(){
         setFullScreen(editors[id], !isFullScreen(editors[id]));
         editors[id].focus();
@@ -294,22 +319,28 @@ function initializeEditor(id, mode){
     function isFullScreen(cm) {
       return /\bCodeMirror-fullscreen\b/.test(cm.getWrapperElement().className);
     }
-    function winHeight() {
-      return window.innerHeight || (document.documentElement || document.body).clientHeight;
-    }
+
     function setFullScreen(cm, full) {
-      var wrap = cm.getWrapperElement(), scroll = cm.getScrollerElement();
-      if (full) {
-        scrollTo(0, 0);
-        wrap.className += " CodeMirror-fullscreen";
-        scroll.style.height = winHeight() + "px";
-        document.documentElement.style.overflow = "hidden";
-      } else {
-        wrap.className = wrap.className.replace(" CodeMirror-fullscreen", "");
-        scroll.style.height = "";
-        document.documentElement.style.overflow = "";
-      }
-      cm.refresh();
+        var wrap = cm.getWrapperElement()
+        if (full) {
+            scrollTo(0, 0);
+            j("#ide_windows").addClass("fullscreen");
+            var header_height = parseInt(j("#editor_header").css("height").replace("px", ""));
+            var footer_height = parseInt(j("#editor_footer").css("height").replace("px", ""));
+            j(".CodeMirror-scroll, #editor_right_menu").css("height", (winHeight()-header_height-footer_height) + "px");
+            j("#full_screen_icon").addClass("fullscreen").attr("title", "Minimaze");
+            wrap.className += " CodeMirror-fullscreen";
+            document.documentElement.style.overflow = "hidden";
+            fullscreen = true;
+        } else {
+            j("#ide_windows").removeClass("fullscreen");
+            j(".CodeMirror-scroll, #editor_right_menu").css("height", "400px");
+            j("#full_screen_icon").removeClass("fullscreen").attr("title", "Full screen");
+            wrap.className = wrap.className.replace(" CodeMirror-fullscreen", "");
+            document.documentElement.style.overflow = "";
+            fullscreen = false;
+        }
+        cm.refresh();
     }
 }
 //todo end of code editor

@@ -22,12 +22,14 @@
     <% end %>
   </div>
 </div>
-<div id="stores_list">
-  <% current_user.stores.each do |store| %>
-    <%= link_to store.name, admin_store_path(store), :id =>
-        ("active_store" if store.id.to_s == (params[:store_id] ? params[:store_id] : params[:id])) %>
-  <% end %>
-  <%= link_to "+", new_admin_store_path, :id => "new_store" %>
-</div>
+<% if signed_in?%>
+  <div id="stores_list">
+    <% current_user.stores.each do |store| %>
+      <%= link_to store.name, admin_store_path(store), :id =>
+          ("active_store" if store.id.to_s == (params[:store_id] ? params[:store_id] : params[:id])) %>
+    <% end %>
+    <%= link_to "+", new_admin_store_path, :id => "new_store" %>
+  </div>
+<% end %>
 
 

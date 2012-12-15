@@ -166,13 +166,7 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
 
 .CodeMirror {background: #f8f8f8;}
 .activeLine {background: rgba(147, 147, 147, 0.13) !important;}
-.CodeMirror-fullscreen {
-  display: block;
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  z-index: 9999;
-}
+.CodeMirror-fullscreen {}
 .CodeMirror-completions {
   position: absolute;
   z-index: 10;
