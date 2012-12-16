@@ -2,6 +2,7 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
+//= require lib/remotipart/jquery.remotipart
 
 j = jQuery.noConflict();
 
@@ -30,6 +31,15 @@ j(document).ready(function(){
     });
 
     //code editor
+
+    j("#new_file").click(function(){
+        j("#new_assets_window").toggle();
+    });
+    j("form#new_asset").submit(function() {
+         if (j(this).find("#asset_file").val() == ""){
+             return false;
+         }
+    });
 
     j(window).resize(function () {
 //        if (fullscreen == true){
@@ -69,8 +79,8 @@ j(document).ready(function(){
     j("#select_theme").change(function(){
         var selected_theme = input.options[input.selectedIndex].innerHTML;
         theme = selected_theme;
-        for(var e in editors){
-            editors[e].setOption("theme", selected_theme);
+        for(var id in editors){
+            editors[id].setOption("theme", selected_theme);
         }
         j.get("/change_editor_theme/" + selected_theme);
     });

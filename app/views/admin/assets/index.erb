@@ -1,7 +1,6 @@
 <div id="ide_windows">
   <div id="assets_menu">
-    <%= link_to 'Add a new file', new_admin_store_asset_path, :class => "button grey" %>
-    <div class="assets_box">
+    <div class="assets_box" id="images">
       <div class="assets_box_title">Images</div>
       <% @images.each do |image| %>
         <div class="asset_item">
@@ -10,19 +9,28 @@
         </div>
       <% end %>
     </div>
-    <div class="assets_box">
+    <div class="assets_box" id="stylesheets">
       <div class="assets_box_title">Stylesheets</div>
       <% @stylesheets.each do |stylesheet| %>
         <%= link_to_function stylesheet.file_file_name, "loadAsset(#{@store.id}, #{stylesheet.id})", :class => "asset_item", :id => "asset_#{stylesheet.id}" %>
       <% end %>
     </div>
-    <div class="assets_box">
+    <div class="assets_box" id="javascripts">
       <div class="assets_box_title">Javascripts</div>
       <% @javascripts.each do |javascript| %>
         <%= link_to_function javascript.file_file_name, "loadAsset(#{@store.id}, #{javascript.id})", :class => "asset_item", :id => "asset_#{javascript.id}" %>
       <% end %>
     </div>
     <div class="cleaner"></div>
+    <div class="button grey" id="new_file">Create a new file</div>
+    <div id="new_assets_window">
+      <%= form_for([:admin, @store, @asset], :remote => true, :html => {:multipart => true}) do |f| %>
+          <h3>You can choose some javascript, css or image file</h3>
+          <%= f.file_field :file, :multiple => true %>
+          <%= f.submit "Upload"%>
+        <span class="error_messages"></span>
+      <% end %>
+    </div>
   </div>
   <div id="assets_ide">
     <div id="editor_header">

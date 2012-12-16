@@ -1,0 +1,18 @@
+<%= remotipart_response do %>
+  j("#images").append(
+    '<% @new_images.each do |image| %>' +
+      '<div class="asset_item">' +
+        '<%= image.file_file_name %>' +
+        '<%= link_to image_tag("icons/delete.png"), admin_store_asset_path(@store, image), :method => :delete, :confirm => "Are You sure?", :class => "link-icon"%>' +
+      '</div>' +
+    '<% end if @new_images%>');
+  j("#stylesheets").append(
+    '<% @new_stylesheets.each do |stylesheet| %>' +
+      '<%= link_to_function stylesheet.file_file_name, "loadAsset(#{@store.id}, #{stylesheet.id})", :class => "asset_item", :id => "asset_#{stylesheet.id}" %>' +
+    '<% end if @new_stylesheets%>');
+  j("#javascripts").append(
+    '<% @new_javascripts.each do |javascript| %>' +
+      '<%= link_to_function javascript.file_file_name, "loadAsset(#{@store.id}, #{javascript.id})", :class => "asset_item", :id => "asset_#{javascript.id}" %>' +
+    '<% end if @new_javascripts%>');
+  j("form #asset_file").val("");
+<% end %>

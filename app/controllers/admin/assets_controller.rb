@@ -5,6 +5,7 @@ class Admin::AssetsController < Admin::ApplicationController
     @images = @assets.images
     @stylesheets = @assets.stylesheets
     @javascripts = @assets.javascripts
+    @asset = Asset.new
     @editor_theme = session[:editor_theme] || "default"
     @editor_ln = session[:editor_ln] ?  session[:editor_ln] : true
     @editor_font_size = session[:editor_font_size] || "10"
@@ -53,16 +54,31 @@ class Admin::AssetsController < Admin::ApplicationController
     end
   end
 
-  def new
-    @asset = Asset.new
-  end
-
   def create
-    @asset = @store.assets.build(params[:asset])
-    if @asset.save
-      redirect_to admin_store_assets_path, notice: 'Asset was successfully created.'
-    else
-      render action: "new"
+    if params[:asset]
+      uploaded_asset = params[:asset]
+      @errors = 0
+      @new_images = []
+      @new_stylesheets = []
+      @new_javascripts = []
+      params[:asset][:file].each do |file|
+        uploaded_asset[:file] = file
+        @asset = @store.assets.build(uploaded_asset)
+        if @asset.save
+          if @asset.image?
+            @new_images << @asset
+          elsif @asset.stylesheet?
+            @new_stylesheets << @asset
+          elsif @asset.javascript?
+            @new_javascripts << @asset
+          end
+        else
+          @errors +=1
+        end
+      end
+      respond_to do |format|
+        format.js
+      end
     end
   end
 

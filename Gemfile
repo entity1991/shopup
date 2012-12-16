@@ -11,6 +11,7 @@ gem 'paperclip'
 gem 'will_paginate'
 gem 'selenium-webdriver'
 gem 'rmagick'
+gem "remotipart", "~> 1.0.2"
 
 # Gems used only for assets and not required
 # in production environments by default.
