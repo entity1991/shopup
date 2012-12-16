@@ -42,6 +42,35 @@ label{
   margin-top: 5px;
 }
 
+.file_wrapper{
+  position: relative;
+  height: 25px;
+  max-width: 100px;
+  overflow: hidden;
+  display: inline-block;
+  .file{
+    opacity: 0;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    z-index: 2;
+  }
+  button{
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+    background: -webkit-linear-gradient(bottom, #ccc 0%, #e4e4e4 100%);
+    background: -moz-linear-gradient(bottom, #ccc 0%, #e4e4e4 100%);
+    border: none;
+    color: #666;
+    padding: 3px 5px;
+    border-radius: 5px;
+    position: relative;
+    top: 0;
+    z-index: 1;
+  }
+}
+
 #header {
   position: relative;
   top: 0;
@@ -160,6 +189,7 @@ label{
       color: #fff;
       text-shadow: 1px 1px 0px #499249;
       background: -webkit-linear-gradient(top, #62C462, #51A351);
+      background: -moz-linear-gradient(top, #62C462, #51A351);
       margin: 10px;
       white-space: nowrap;
       cursor: pointer;
@@ -185,18 +215,22 @@ label{
     &.yellow{
       text-shadow: 1px 1px 0px #9b7b2c;
       background: -webkit-linear-gradient(top, #FFFEB8, #C49C38);
+      background: -moz-linear-gradient(top, #FFFEB8, #C49C38);
     }
     &.blue{
       text-shadow: 1px 1px 0px #2a87a2;
       background: -webkit-linear-gradient(top, #5BC0DE, #2F96B4);
+      background: -moz-linear-gradient(top, #5BC0DE, #2F96B4);
     }
     &.green{
       text-shadow: 1px 1px 0px #499249;
       background: -webkit-linear-gradient(top, #62C462, #51A351);
+      background: -moz-linear-gradient(top, #62C462, #51A351);
     }
     &.red{
       text-shadow: 1px 1px 0px #ac312b;
       background: -webkit-linear-gradient(top, #EE5F5B, #BD362F);
+      background: -moz-linear-gradient(top, #EE5F5B, #BD362F);
     }
     &.grey{
       color: #777;
@@ -353,16 +387,19 @@ label{
 .add_item{
   color: #468c46;
   background: -webkit-linear-gradient(top, #62C462, #51A351);
+  background: -moz-linear-gradient(top, #62C462, #51A351);
 }
 
 .remove_item{
   color: #a9302a;
   background: -webkit-linear-gradient(top, #EE5F5B, #BD362F);
+  background: -moz-linear-gradient(top, #EE5F5B, #BD362F);
 }
 
 .edit_item{
   color: #277c95;
   background: -webkit-linear-gradient(top, #5BC0DE, #2F96B4);
+  background: -moz-linear-gradient(top, #5BC0DE, #2F96B4);
 }
 
 .home_store_box{
@@ -430,6 +467,7 @@ label{
   cursor: default;
   th{
     background: -webkit-linear-gradient(top,#FAFAFA,#EFEFEF);
+    background: -moz-linear-gradient(top,#FAFAFA,#EFEFEF);
     height: 30px;
   }
   tr:hover{
@@ -483,10 +521,9 @@ label{
 #assets_menu{
   float: left;
   width: 25%;
-  border-right: 1px solid #b5b5b5;
-  border-radius: 5px 0 0 5px;
-  box-shadow: -2px 0px 2px rgba(133, 133, 133, 0.80);
+  border-right: 1px solid transparent;
   background-color: #f4f4f4;
+  overflow-x: hidden;
   .button{
     margin: 5px;
     display: block;
@@ -497,39 +534,88 @@ label{
     display: block;
     width: 100%;
     .assets_box_title{
-      font-family: Verdana;
-      font-weight: 700;
-      font-size: 0.85em;
       padding: 0.4em;
-      background-color: #e2e2e2;
-      color: #616161;
-      border-bottom: 1px solid #b5b5b5;
-      border-top: 1px solid  #b5b5b5;
+      background: -webkit-linear-gradient(bottom, #888 0%, #666 100%);
+      background: -moz-linear-gradient(bottom, #888 0%, #666 100%);
+      color: silver;
+      height: 28px;
+      margin: 2px 0;
+      border-left: 5px solid #555;
       cursor: default;
+      .assets_box_toggler{
+        height: 15px;
+        width: 15px;
+        background-image: url("icons/bullet_arrow_up.png");
+        background-position: center;
+        background-size: contain;
+        display: inline-block;
+        float: right;
+        cursor: pointer;
+        margin-top: 2px;
+        &:hover{
+          background-color: #505050;
+          border-radius: 3px;
+          box-shadow: 0px 0px 5px rgba(101, 101, 101, 0.80);
+        }
+        &.hidden{
+          background-image: url("icons/bullet_arrow_down.png");
+        }
+      }
+    }
+    .assets_box_title:first-child{
+      margin-top: 0;
     }
     .asset_item{
-      border-bottom: 1px solid #90bdc6;
-      background-color: #f8f8ff;
-      padding: 2px;
+      font-size: 0.9em;
+      height: 22px;
+      border-bottom: 1px solid white;
+      background: -webkit-linear-gradient(bottom, #ddd 0%, #eee 100%);
+      background: -moz-linear-gradient(bottom, #ddd 0%, #eee 100%);
+      padding: 3px 2px 2px 7px;
       display: block;
       cursor: pointer;
-      &:nth-child(2n+1){
-        background-color: rgba(241, 238, 248, 0.72);
-      }
-      &:last-child{
-        border-bottom: none;
-      }
+      color: #555;
       &:hover{
-        background-color: rgba(235, 232, 242, 0.70);
+        background: -webkit-linear-gradient(bottom, #c0c0c0 0%, #ddd 100%);
+        background: -moz-linear-gradient(bottom, #c0c0c0 0%, #ddd 100%);
       }
       &.selected_asset{
-        color: #468c46;
+        background: -moz-linear-gradient(top, rgba(114, 227, 114, 0.67), rgba(96, 195, 96, 0.73));
+        background: -webkit-linear-gradient(top, rgba(114, 227, 114, 0.67), rgba(96, 195, 96, 0.73));
       }
+      & .new_asset_plus {
+        height: 15px;
+        max-width: 40px;
+        margin-right: 5px;
+        display: inline-block;
+        float: right;
+        color: #499249;
+        font-size: 0.7em;
+      }
+    }
+    .no_assets{
+      font-size: 0.9em;
+      height: 28px;
+      text-align: center;
+      background: -webkit-linear-gradient(bottom, rgba(229, 229, 229, 0.66) 0%, rgba(243, 243, 243, 0.66) 100%);
+      background: -moz-linear-gradient(bottom, rgba(229, 229, 229, 0.66) 0%, rgba(243, 243, 243, 0.66) 100%);
+      padding: 5px;
+      display: block;
+      color: #555;
+      cursor: default;
     }
   }
   #new_assets_window{
     font-size: 0.8em;
     padding: 3px;
+    form#new_asset input[type=submit]{
+      height: 25px;
+      display: inline;
+      margin: 1px;
+    }
+    #uploaded_assets_list{
+
+    }
   }
 }
 #assets_ide{
@@ -538,14 +624,16 @@ label{
   width: 75%;
   min-height: 450px;
   #editor_header{
-    background-color: #ededed;
-    color: rgba(94, 99, 104, 0.56);
-    border-top: 1px solid #d3d3d3;
+    background: -webkit-linear-gradient(bottom, #ddd 0%, #eee 100%);
+    background: -moz-linear-gradient(bottom, #ddd 0%, #eee 100%);
+    color: #444;
+    border: 1px solid #d3d3d3;
     font-family: arial;
     font-size: 0.9em;
-    padding: 3px 7px;
+    padding: 5px;
     position: relative;
-    height: 25px;
+    height: 28px;
+    cursor: default;
     .editor_icon{
       float: right;
       cursor: pointer;
@@ -624,6 +712,7 @@ label{
       -moz-border-radius: 40px;
       border-radius: 40px;
       background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ebf1f6), color-stop(50%,#abd3ee), color-stop(51%,#89c3eb), color-stop(100%,#d5ebfb));
+      background-image: -moz-gradient(linear, left top, left bottom, color-stop(0%,#ebf1f6), color-stop(50%,#abd3ee), color-stop(51%,#89c3eb), color-stop(100%,#d5ebfb));
     }
     #right_editor_menu_close{
       margin-top: -26px;
@@ -650,13 +739,14 @@ label{
   }
 
   #editor_footer{
-    background-color: #ededed;
-    height: 32px;
+    background: -webkit-linear-gradient(top, #ccc 0%, #e4e4e4 100%);
+    background: -moz-linear-gradient(top, #ccc 0%, #e4e4e4 100%);
+    height: 28px;
     color: rgba(94, 99, 104, 0.56);
-    border-bottom: 1px solid #d3d3d3;
+    border: 1px solid #d3d3d3;
     font-family: arial;
     font-size: 0.9em;
-    padding: 5px 15px;
+    padding: 3px 15px;
     input[type="submit"], .button, a, #message{
       margin: 2px;
       height: 18px !important;
@@ -681,8 +771,6 @@ label{
   }
 }
 
-// items list
-
 .container_holder {
   position: relative;
   margin-bottom: 20px;
@@ -691,6 +779,7 @@ label{
   border-bottom: 1px solid #cccccc;
   -webkit-transition: box-shadow 1s ease;
   background: -webkit-linear-gradient(top, #e4e4e4 0%, rgba(255, 255, 255, 0) 30%);
+  background: -moz-linear-gradient(top, #e4e4e4 0%, rgba(255, 255, 255, 0) 30%);
   &:hover .actions{
     display: block;
   }
@@ -725,6 +814,7 @@ label{
   }
   .remove_container_item{
     background: -webkit-linear-gradient(top, #e5e5e5 0%, rgb(189, 189, 189) 100%);
+    background: -moz-linear-gradient(top, #e5e5e5 0%, rgb(189, 189, 189) 100%);
     border-radius: 7px;
     padding: 3px;
     border: 1px solid #959595;

@@ -2,33 +2,49 @@
   <div id="assets_menu">
     <div class="assets_box" id="images">
       <div class="assets_box_title">Images</div>
-      <% @images.each do |image| %>
-        <div class="asset_item">
-          <%= image.file_file_name %>
-          <%= link_to image_tag("icons/delete.png"), admin_store_asset_path(@store, image), :method => :delete, :confirm => "Are You sure?", :class => "link-icon"%>
-        </div>
-      <% end %>
+      <div class="asset_items">
+        <%if @images.length != 0%>
+          <% @images.each do |image| %>
+            <div class="asset_item">
+              <%= image.file_file_name %>
+            </div>
+          <% end %>
+        <% else %>
+          <div class="no_assets">No images</div>
+        <% end %>
+      </div>
     </div>
     <div class="assets_box" id="stylesheets">
       <div class="assets_box_title">Stylesheets</div>
-      <% @stylesheets.each do |stylesheet| %>
-        <%= link_to_function stylesheet.file_file_name, "loadAsset(#{@store.id}, #{stylesheet.id})", :class => "asset_item", :id => "asset_#{stylesheet.id}" %>
-      <% end %>
+      <div class="asset_items">
+        <%if @stylesheets.length != 0%>
+          <% @stylesheets.each do |stylesheet| %>
+            <%= link_to_function stylesheet.file_file_name, "loadAsset(#{@store.id}, #{stylesheet.id})", :class => "asset_item", :id => "asset_#{stylesheet.id}" %>
+          <% end %>
+        <% else %>
+          <div class="no_assets">No CSS files</div>
+        <% end %>
+      </div>
     </div>
     <div class="assets_box" id="javascripts">
       <div class="assets_box_title">Javascripts</div>
-      <% @javascripts.each do |javascript| %>
-        <%= link_to_function javascript.file_file_name, "loadAsset(#{@store.id}, #{javascript.id})", :class => "asset_item", :id => "asset_#{javascript.id}" %>
-      <% end %>
+      <div class="asset_items">
+        <%if @javascripts.length != 0%>
+          <% @javascripts.each do |javascript| %>
+            <%= link_to_function javascript.file_file_name, "loadAsset(#{@store.id}, #{javascript.id})", :class => "asset_item", :id => "asset_#{javascript.id}" %>
+          <% end %>
+        <% else %>
+          <div class="no_assets">No JS files</div>
+        <% end %>
+      </div>
     </div>
-    <div class="cleaner"></div>
-    <div class="button grey" id="new_file">Create a new file</div>
+
     <div id="new_assets_window">
       <%= form_for([:admin, @store, @asset], :remote => true, :html => {:multipart => true}) do |f| %>
           <h3>You can choose some javascript, css or image file</h3>
           <%= f.file_field :file, :multiple => true %>
-          <%= f.submit "Upload"%>
-        <span class="error_messages"></span>
+          <%= f.submit "Upload", :style => "display: none;"%>
+        <div id="uploaded_assets_list">This will be list of uploaded assets</div>
       <% end %>
     </div>
   </div>

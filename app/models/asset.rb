@@ -20,7 +20,9 @@ class Asset < ActiveRecord::Base
   scope :javascripts, where( :file_content_type => %w(application/javascript))
 
   def image?
-    self.file_content_type == %w(image/jpeg image/png image/jpg)
+    self.file_content_type == "image/jpeg" ||
+    self.file_content_type == "image/png" ||
+    self.file_content_type == "image/jpg"
   end
 
   def stylesheet?
