@@ -1,5 +1,5 @@
 class Asset < ActiveRecord::Base
-  ACCEPTED_CONTENT_TYPES = %w(image/jpeg image/png image/jpg text/css application/javascript)
+  ACCEPTED_CONTENT_TYPES = ["image/jpeg", "image/png", "image/jpg", "text/css", "application/javascript"]
 
   attr_accessor :file_content
   attr_accessible :file

@@ -8,6 +8,8 @@
 <% if params[:controller] == "admin/assets" %>
   <%= javascript_include_tag 'lib/editor_highlight', :media => 'all' %>
   <%= javascript_include_tag 'admin/assets', :media => 'all' %>
+
   <%= stylesheet_link_tag 'editor/editor_highlight', :media => 'all' %>
   <%= stylesheet_link_tag 'editor/editor_themes', :media => 'all' %>
+  <%= stylesheet_link_tag 'admin/assets', :media => 'all' %>
 <% end %>

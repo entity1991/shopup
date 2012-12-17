@@ -5,6 +5,7 @@ var ln = true;
 var font_size = "1";
 var store;
 var fullscreen = false;
+var accepted_content_types;
 
 j(document).ready(function(){
     j(".assets_box_title").append("<div class='assets_box_toggler'></div>");
@@ -22,11 +23,41 @@ j(document).ready(function(){
              return false;
          }
     });
+    j("#new_asset_title").click(function(){
+        j("#new_assets_tabs").toggle();
+    });
+    j(".new_assets_tab").click(function(){
+        j(".new_assets_tab").removeClass("active_tab");
+        j(this).addClass("active_tab");
+    });
+    j("#create_assets_tab").click(function(){
+        j("#upload_assets_window").hide();
+        j("#create_assets_window").show();
+    });
+    j("#upload_assets_tab").click(function(){
+        j("#upload_assets_window").show();
+        j("#create_assets_window").hide();
+    });
     j("form #asset_file").change(function(){
+        j("#uploaded_assets_list").html("");
         if(this.value != ""){
             j("form#new_asset input[type=submit]").show();
-
-            document.getElementById("asset_file");
+            var files = document.getElementById("asset_file").files;
+            for(var file in files){
+                if (files[file].hasOwnProperty("type")){
+                    var file_accepted = false;
+                    for (var i = 0; i < accepted_content_types.length; i ++){
+                        if (accepted_content_types[i] == files[file].type){
+                            j("#uploaded_assets_list").append("<span class='accepted'>" + files[file].name + "</span>" + "<br>");
+                            file_accepted = true;
+                            break;
+                        }
+                    }
+                    if(file_accepted == false){
+                        j("#uploaded_assets_list").append("<span class='delayed'>" + files[file].name + "</span>" + "<br>");
+                    }
+                }
+            }
         }
         else{
             j("form#new_asset input[type=submit]").hide();
@@ -34,16 +65,16 @@ j(document).ready(function(){
     });
 
     j(window).resize(function () {
-//        if (fullscreen == true){
-//            var header_height = parseInt(j("#editor_header").css("height").replace("px", ""));
-//            var footer_height = parseInt(j("#editor_footer").css("height").replace("px", ""));
-//            j("#editor_right_menu").css("height", (winHeight()-header_height-footer_height) + "px");
-//            for(var e in editors){
-//                j(editors[e].getTextArea()).next(".CodeMirror").find(".CodeMirror-scroll")
-//                    .css("height", (winHeight()-header_height-footer_height) + "px");
-//                editors[e].refresh();
-//            }
-//        }
+        if (fullscreen == true){
+            var header_height = parseInt(j("#editor_header").css("height").replace("px", ""));
+            var footer_height = parseInt(j("#editor_footer").css("height").replace("px", ""));
+            j("#editor_right_menu").css("height", (winHeight()-header_height-footer_height) + "px");
+            for(var id in editors){
+                j(editors[id].getTextArea()).next(".CodeMirror")
+                    .css("height", (winHeight()-header_height-footer_height) + "px");
+                editors[id].refresh();
+            }
+        }
     });
 
     j(".right_window_opener").click(function(){
@@ -156,6 +187,7 @@ function loadAsset(store_id, asset_id){
                                 "<div id='editor_autoformat' class='button grey'>Autoformat</div>"+
                             "</div>"
                         j("#editor_" + asset_id).after(editor_footer);
+                        j("#full_screen_icon").show();
                     }
                     initializeEditor("editor_" + asset_id, data.type);
                 }

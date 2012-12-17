@@ -38,14 +38,25 @@
         <% end %>
       </div>
     </div>
-
+    <div class="cleaner"></div>
     <div id="new_assets_window">
-      <%= form_for([:admin, @store, @asset], :remote => true, :html => {:multipart => true}) do |f| %>
-          <h3>You can choose some javascript, css or image file</h3>
-          <%= f.file_field :file, :multiple => true %>
-          <%= f.submit "Upload", :style => "display: none;"%>
-        <div id="uploaded_assets_list">This will be list of uploaded assets</div>
-      <% end %>
+      <div id="new_assets_tabs">
+        <div id="create_assets_tab" class="new_assets_tab active_tab">Create</div>
+        <div id="upload_assets_tab" class="new_assets_tab">Upload</div>
+        <div class="cleaner"></div>
+        <div id="upload_assets_window" style="display:none;">
+          <%= form_for([:admin, @store, @asset], :remote => true, :html => {:multipart => true}) do |f| %>
+              <h4>You can choose some javascript, css or image file</h4><br>
+              <%= f.file_field :file, :multiple => true %>
+              <%= f.submit "Upload", :style => "display: none;"%>
+            <div id="uploaded_assets_list"></div>
+          <% end %>
+        </div>
+        <div id="create_assets_window">
+          Create
+        </div>
+      </div>
+      <div id="new_asset_title">New asset</div>
     </div>
   </div>
   <div id="assets_ide">
@@ -101,4 +112,5 @@
   theme = "<%= @editor_theme %>";
   ln = "<%= @editor_ln %>";
   font_size = "<%= @editor_font_size %>"
+  accepted_content_types = j.parseJSON('<%= accepted_content_types %>')
 </script>

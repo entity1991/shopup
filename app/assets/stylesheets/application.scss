@@ -27,6 +27,7 @@ body {
   font-family: 'verdana', sans-serif;
   background-image: url("main-bg.jpg");
   font-size: 0.85em;
+  cursor: default;
 }
 
 a{
@@ -64,7 +65,7 @@ label{
     border: none;
     color: #666;
     padding: 3px 5px;
-    border-radius: 5px;
+    border-radius: 3px;
     position: relative;
     top: 0;
     z-index: 1;
@@ -265,7 +266,6 @@ label{
       width: 25%;
       float: left;
       font-size: 14px;
-      cursor: default;
       a{
         text-align: center;
         width: 90px;
@@ -437,7 +437,6 @@ label{
 }
 .cart_store_name{
   border-radius: 5px 5px 0 0;
-  cursor: default;
   font-weight: bold;
   text-transform: uppercase;
   color: #468c46;
@@ -464,7 +463,6 @@ label{
   border-radius: 3px;
   width: 100%;
   border-collapse: collapse;
-  cursor: default;
   th{
     background: -webkit-linear-gradient(top,#FAFAFA,#EFEFEF);
     background: -moz-linear-gradient(top,#FAFAFA,#EFEFEF);
@@ -479,7 +477,6 @@ label{
 }
 
 .cart_total_price{
-  cursor: default;
   display: inline-block;
   background-color: #EFEFEF;
   border-radius: 0 0 10px 10px;
@@ -496,278 +493,6 @@ label{
     font-size: 1.15em;
     color: #468c46;
     font-weight: bold;
-  }
-}
-
-#ide_windows.fullscreen{
-  z-index: 9000;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background-image: url("main-bg.jpg");
-  #assets_menu{
-    width: 20%;
-    height: 100%;
-    overflow-y: auto;
-  }
-  #assets_ide{
-    background-color: #f8f8f8;
-    height: 100%;
-    width: 80%;
-  }
-}
-#assets_menu{
-  float: left;
-  width: 25%;
-  border-right: 1px solid transparent;
-  background-color: #f4f4f4;
-  overflow-x: hidden;
-  .button{
-    margin: 5px;
-    display: block;
-  }
-  .assets_box{
-    padding: 0;
-    float: left;
-    display: block;
-    width: 100%;
-    .assets_box_title{
-      padding: 0.4em;
-      background: -webkit-linear-gradient(bottom, #888 0%, #666 100%);
-      background: -moz-linear-gradient(bottom, #888 0%, #666 100%);
-      color: silver;
-      height: 28px;
-      margin: 2px 0;
-      border-left: 5px solid #555;
-      cursor: default;
-      .assets_box_toggler{
-        height: 15px;
-        width: 15px;
-        background-image: url("icons/bullet_arrow_up.png");
-        background-position: center;
-        background-size: contain;
-        display: inline-block;
-        float: right;
-        cursor: pointer;
-        margin-top: 2px;
-        &:hover{
-          background-color: #505050;
-          border-radius: 3px;
-          box-shadow: 0px 0px 5px rgba(101, 101, 101, 0.80);
-        }
-        &.hidden{
-          background-image: url("icons/bullet_arrow_down.png");
-        }
-      }
-    }
-    .assets_box_title:first-child{
-      margin-top: 0;
-    }
-    .asset_item{
-      font-size: 0.9em;
-      height: 22px;
-      border-bottom: 1px solid white;
-      background: -webkit-linear-gradient(bottom, #ddd 0%, #eee 100%);
-      background: -moz-linear-gradient(bottom, #ddd 0%, #eee 100%);
-      padding: 3px 2px 2px 7px;
-      display: block;
-      cursor: pointer;
-      color: #555;
-      &:hover{
-        background: -webkit-linear-gradient(bottom, #c0c0c0 0%, #ddd 100%);
-        background: -moz-linear-gradient(bottom, #c0c0c0 0%, #ddd 100%);
-      }
-      &.selected_asset{
-        background: -moz-linear-gradient(top, rgba(114, 227, 114, 0.67), rgba(96, 195, 96, 0.73));
-        background: -webkit-linear-gradient(top, rgba(114, 227, 114, 0.67), rgba(96, 195, 96, 0.73));
-      }
-      & .new_asset_plus {
-        height: 15px;
-        max-width: 40px;
-        margin-right: 5px;
-        display: inline-block;
-        float: right;
-        color: #499249;
-        font-size: 0.7em;
-      }
-    }
-    .no_assets{
-      font-size: 0.9em;
-      height: 28px;
-      text-align: center;
-      background: -webkit-linear-gradient(bottom, rgba(229, 229, 229, 0.66) 0%, rgba(243, 243, 243, 0.66) 100%);
-      background: -moz-linear-gradient(bottom, rgba(229, 229, 229, 0.66) 0%, rgba(243, 243, 243, 0.66) 100%);
-      padding: 5px;
-      display: block;
-      color: #555;
-      cursor: default;
-    }
-  }
-  #new_assets_window{
-    font-size: 0.8em;
-    padding: 3px;
-    form#new_asset input[type=submit]{
-      height: 25px;
-      display: inline;
-      margin: 1px;
-    }
-    #uploaded_assets_list{
-
-    }
-  }
-}
-#assets_ide{
-  display: block;
-  float: left;
-  width: 75%;
-  min-height: 450px;
-  #editor_header{
-    background: -webkit-linear-gradient(bottom, #ddd 0%, #eee 100%);
-    background: -moz-linear-gradient(bottom, #ddd 0%, #eee 100%);
-    color: #444;
-    border: 1px solid #d3d3d3;
-    font-family: arial;
-    font-size: 0.9em;
-    padding: 5px;
-    position: relative;
-    height: 28px;
-    cursor: default;
-    .editor_icon{
-      float: right;
-      cursor: pointer;
-      height: 16px;
-      width: 16px;
-      margin-left: 5px;
-      background-repeat: no-repeat;
-      background-position: center;
-      &:hover{
-        box-shadow: 0px 0px 5px rgba(133, 133, 133, 0.80);
-        border-radius: 3px;
-      }
-    }
-    #full_screen_icon{
-      background-image: url("icons/arrow_out.png");
-      background-size: 85%;
-      &.fullscreen{
-        background-image: url("icons/arrow_in.png") !important;
-        background-size: 90%;
-      }
-    }
-    #help_window_icon{
-      background-image: url("icons/question-white.png");
-    }
-    #settings_window_icon{
-      background-image: url("icons/wrench.png");
-      background-size: 90%;
-    }
-    #arrow_redo_icon{
-      background-image: url("icons/arrow_redo_grey.png");
-    }
-    .arrow_redo_icon_active{
-      background-image: url("icons/arrow_redo.png") !important;
-    }
-    #arrow_undo_icon{
-      background-image: url("icons/arrow_undo_grey.png");
-    }
-    .arrow_undo_icon_active{
-      background-image: url("icons/arrow_undo.png") !important;
-    }
-  }
-
-  #editor_right_menu{
-    padding: 30px 5px 5px;
-    font-size: 0.8em;
-    height: 400px;
-    width: 200px;
-    box-shadow: 0px 0px 5px #dbdbdb inset;
-    background-color: #f4f4f4;
-    display: none;
-    float: right;
-    z-index: 10000;
-    overflow-y: auto;
-    cursor: default;
-    line-height: 2em;
-    input[type=checkbox]{
-      height: 1em;
-      margin-top: 5px;
-    }
-    input[type="range"] {
-      -webkit-appearance: none;
-      background-color: grey;
-      height: 2px;
-      padding: 0;
-      width: 47%;
-    }
-    input[type="range"]::-webkit-slider-thumb {
-      cursor: pointer;
-      -webkit-appearance: none;
-      position: relative;
-      top: -1px;
-      z-index: 1;
-      width: 11px;
-      height: 11px;
-      -webkit-border-radius: 40px;
-      -moz-border-radius: 40px;
-      border-radius: 40px;
-      background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ebf1f6), color-stop(50%,#abd3ee), color-stop(51%,#89c3eb), color-stop(100%,#d5ebfb));
-      background-image: -moz-gradient(linear, left top, left bottom, color-stop(0%,#ebf1f6), color-stop(50%,#abd3ee), color-stop(51%,#89c3eb), color-stop(100%,#d5ebfb));
-    }
-    #right_editor_menu_close{
-      margin-top: -26px;
-      float: right;
-      cursor: pointer;
-      background: url("icons/cross_small.png") right;
-      height: 16px;
-      width: 16px;
-    }
-    #settings_window{
-
-      & > .title{
-        width: 46%;
-        display: inline-block;
-      }
-    }
-    #help_window{
-      padding-left: 10px;
-      & .hotkeys{
-        font-weight: bold;
-        font-size: 0.9em;
-      }
-    }
-  }
-
-  #editor_footer{
-    background: -webkit-linear-gradient(top, #ccc 0%, #e4e4e4 100%);
-    background: -moz-linear-gradient(top, #ccc 0%, #e4e4e4 100%);
-    height: 28px;
-    color: rgba(94, 99, 104, 0.56);
-    border: 1px solid #d3d3d3;
-    font-family: arial;
-    font-size: 0.9em;
-    padding: 3px 15px;
-    input[type="submit"], .button, a, #message{
-      margin: 2px;
-      height: 18px !important;
-      padding-top: 0;
-      font-size: 1em;
-      padding: 0 12px 2px;
-    }
-    #message{
-      width: 200px;
-      text-align: center;
-      font-weight: bold;
-      overflow: hidden;
-      color: #777;
-    }
-  }
-  .codePreview{
-    background-color: #ececec;
-    border-radius: 10px;
-    cursor: default;
-    padding: 10px;
-    overflow-x: auto;
   }
 }
 

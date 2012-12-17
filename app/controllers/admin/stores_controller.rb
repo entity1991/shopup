@@ -2,7 +2,7 @@ class Admin::StoresController < Admin::ApplicationController
 
   before_filter :authenticate
   skip_before_filter :owner?, :only => [:new, :create]
-  skip_before_filter :current_store, :except => [:orders, :statistic]
+  skip_before_filter :get_current_store, :only => [:new, :create]
 
   def show
     @store = Store.find(params[:id])
@@ -30,7 +30,7 @@ class Admin::StoresController < Admin::ApplicationController
       @store.take_capture
       redirect_to admin_store_path(@store), notice: 'Store was successfully created.'
     else
-      render "new"
+      render action: "new"
     end
   end
 
