@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
 
+  TEMPORARY_EMPTY_FILE_PATH = "./temp/temporary_clear_file_for_paperclip.txt"
+
   before_filter :set_i18n_locale_from_session
 
   protect_from_forgery

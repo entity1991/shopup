@@ -41,7 +41,7 @@ j(document).ready(function(){
     j("form #asset_file").change(function(){
         j("#uploaded_assets_list").html("");
         if(this.value != ""){
-            j("form#new_asset input[type=submit]").show();
+            j("form#new_asset input[name=upload]").show();
             var files = document.getElementById("asset_file").files;
             for(var file in files){
                 if (files[file].hasOwnProperty("type")){
@@ -60,7 +60,7 @@ j(document).ready(function(){
             }
         }
         else{
-            j("form#new_asset input[type=submit]").hide();
+            j("form#new_asset input[name=upload]").hide();
         }
     });
 

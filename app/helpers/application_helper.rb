@@ -19,7 +19,7 @@ module ApplicationHelper
 
   def is_action?(a)
       params[:action] == a
-    end
+  end
 
   def languages_select_tag(name = 'set_locale')
     languages = [%w(English en), %w(Russian ru), %w(Ukrainian ua)]

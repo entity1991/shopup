@@ -48,12 +48,16 @@
           <%= form_for([:admin, @store, @asset], :remote => true, :html => {:multipart => true}) do |f| %>
               <h4>You can choose some javascript, css or image file</h4><br>
               <%= f.file_field :file, :multiple => true %>
-              <%= f.submit "Upload", :style => "display: none;"%>
+              <%= f.submit "Upload", :name => "upload", :style => "display: none;"%>
             <div id="uploaded_assets_list"></div>
           <% end %>
         </div>
         <div id="create_assets_window">
-          Create
+          <%= form_for([:admin, @store, @asset], :remote => true) do |f| %>
+            Type name: <%= f.text_field :name %>
+            <%= f.select :type, %w(css js) %>
+            <%= f.submit "Create", :name => "create"%>
+          <% end %>
         </div>
       </div>
       <div id="new_asset_title">New asset</div>

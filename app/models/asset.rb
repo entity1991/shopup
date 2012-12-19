@@ -1,7 +1,7 @@
 class Asset < ActiveRecord::Base
-  ACCEPTED_CONTENT_TYPES = ["image/jpeg", "image/png", "image/jpg", "text/css", "application/javascript"]
+  ACCEPTED_CONTENT_TYPES = %w(image/jpeg image/png image/jpg text/css application/javascript)
 
-  attr_accessor :file_content
+  attr_accessor :file_content, :name, :type
   attr_accessible :file
 
   belongs_to :store
@@ -14,6 +14,7 @@ class Asset < ActiveRecord::Base
   validates_attachment_presence :file
   validates_attachment_size :file, :less_than => 5.megabytes
   validates_attachment_content_type :file, :content_type => ACCEPTED_CONTENT_TYPES
+  validates :name, :content_type, :presence => true
 
   scope :images, where( :file_content_type => %w(image/jpeg image/png image/jpg))
   scope :stylesheets, where( :file_content_type => %w(text/css))
