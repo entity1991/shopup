@@ -28,17 +28,23 @@ class Store < ActiveRecord::Base
   def take_capture
     path_to_saving_capture = CAPTURE_PATH + 'stores_captures/' + self.domain + '.png'
     begin
-      profile = Selenium::WebDriver::Firefox::Profile.new
-      driver = Selenium::WebDriver.for :firefox, :profile => profile
-      driver.navigate.to "http://facebook.com/"
-      driver.save_screenshot(path_to_saving_capture)
-      driver.quit()
-      large_snapshot = Magick::Image.read(path_to_saving_capture).first.resize_to_fill(CAPTURE_W, CAPTURE_H)
-      small_snapshot = Magick::Image.new(CAPTURE_W, CAPTURE_H).composite!(large_snapshot, 0, 0, Magick::OverCompositeOp)
-      small_snapshot.write(path_to_saving_capture)
-      self.update_attribute :capture, 'stores_captures/' + self.domain + '.png'
+      #todo need to refactoring by mechanize
+      #profile = Selenium::WebDriver::Firefox::Profile.new
+      #driver = Selenium::WebDriver.for :firefox, :profile => profile
+      #driver.navigate.to "http://facebook.com/"
+      #driver.save_screenshot(path_to_saving_capture)
+      #driver.quit()
+      #large_snapshot = Magick::Image.read(path_to_saving_capture).first.resize_to_fill(CAPTURE_W, CAPTURE_H)
+      #small_snapshot = Magick::Image.new(CAPTURE_W, CAPTURE_H).composite!(large_snapshot, 0, 0, Magick::OverCompositeOp)
+      #small_snapshot.write(path_to_saving_capture)
+      #self.update_attribute :capture, 'stores_captures/' + self.domain + '.png'
     rescue
     end
+  end
+
+  def create_default_assets
+    self.assets.create(file: File.new("./app/assets/javascripts/stores/application.js"))
+    self.assets.create(file: File.new("./app/assets/stylesheets/stores/application.css"))
   end
 
   #todo methods below refactor to scopes

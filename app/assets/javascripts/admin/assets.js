@@ -23,6 +23,11 @@ j(document).ready(function(){
              return false;
          }
     });
+    j("#create_assets_window input[name=create]").click(function(){
+        if(j("#create_assets_window #asset_name").val() == ""){
+            return false;
+        }
+    });
     j("#new_asset_title").click(function(){
         j("#new_assets_tabs").toggle();
     });
@@ -75,6 +80,22 @@ j(document).ready(function(){
                 editors[id].refresh();
             }
         }
+    });
+
+    j("#toc_icon").toggle(function(){
+        j("#assets_menu").animate({width: "25%"}, 500);
+        j("#assets_ide").animate({width: "75%"}, 500);
+        j(this).html("<");
+        j(".remove_asset").show();
+    }, function(){
+        j("#assets_menu").animate({width: "20%"}, 500);
+        j("#assets_ide").animate({width: "80%"}, 500);
+        j(this).html(">");
+        j(".remove_asset").hide();
+    });
+
+    j("#toc_icon").click(function(){
+        j("#assets_menu").css("overflow-y", "auto");
     });
 
     j(".right_window_opener").click(function(){
@@ -180,13 +201,14 @@ function loadAsset(store_id, asset_id){
                     j("#arrow_undo_icon").removeClass("arrow_undo_icon_active");
                     if(j("#editor_footer").length == 0){
                         var editor_footer =
+                            "<div class='cleaner'>"+
                             "<div id='editor_footer'>"+
                                 "<div class='button green float_r' id='editor_save_all'>Save all</div>"+
                                 "<div class='button grey float_r' id='editor_quick_save'>Quick save</div>"+
                                 "<div id='message' class='float_r'></div>"+
                                 "<div id='editor_autoformat' class='button grey'>Autoformat</div>"+
                             "</div>"
-                        j("#editor_" + asset_id).after(editor_footer);
+                        j("#editor_" + asset_id).parent("#assets_ide").after(editor_footer);
                         j("#full_screen_icon").show();
                     }
                     initializeEditor("editor_" + asset_id, data.type);
@@ -335,14 +357,14 @@ function initializeEditor(id, mode){
             j("#ide_windows").addClass("fullscreen");
             var header_height = parseInt(j("#editor_header").css("height").replace("px", ""));
             var footer_height = parseInt(j("#editor_footer").css("height").replace("px", ""));
-            j(".CodeMirror-scroll, #editor_right_menu").css("height", (winHeight()-header_height-footer_height) + "px");
+            j(".CodeMirror-scroll, #editor_right_menu, #assets_menu").css("height", (winHeight()-header_height-footer_height) + "px");
             j("#full_screen_icon").addClass("fullscreen").attr("title", "Minimaze");
             wrap.className += " CodeMirror-fullscreen";
             document.documentElement.style.overflow = "hidden";
             fullscreen = true;
         } else {
             j("#ide_windows").removeClass("fullscreen");
-            j(".CodeMirror-scroll, #editor_right_menu").css("height", "400px");
+            j(".CodeMirror-scroll, #editor_right_menu, #assets_menu").css("height", "450px");
             j("#full_screen_icon").removeClass("fullscreen").attr("title", "Full screen");
             wrap.className = wrap.className.replace(" CodeMirror-fullscreen", "");
             document.documentElement.style.overflow = "";

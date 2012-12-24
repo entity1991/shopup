@@ -1,4 +1,13 @@
 <div id="ide_windows">
+  <div id="editor_header">
+    <div id="toc_icon" class="editor_icon float_l" title="TOC">></div>
+    <span class="editor_title">No files are open</span>
+    <div id="full_screen_icon" class="editor_icon float_r" title="Full screen"></div>
+    <div id="help_window_icon" class="editor_icon right_window_opener float_r" title="Help"></div>
+    <div id="settings_window_icon" class="editor_icon right_window_opener float_r" title="Settings"></div>
+    <div id="arrow_redo_icon" class="editor_icon float_r" title="Redo"></div>
+    <div id="arrow_undo_icon" class="editor_icon float_r" title="Undo"></div>
+  </div>
   <div id="assets_menu">
     <div class="assets_box" id="images">
       <div class="assets_box_title">Images</div>
@@ -19,7 +28,10 @@
       <div class="asset_items">
         <%if @stylesheets.length != 0%>
           <% @stylesheets.each do |stylesheet| %>
-            <%= link_to_function stylesheet.file_file_name, "loadAsset(#{@store.id}, #{stylesheet.id})", :class => "asset_item", :id => "asset_#{stylesheet.id}" %>
+            <div class="asset_item" id="asset_<%= stylesheet.id%>">
+              <%= link_to_function stylesheet.file_file_name, "loadAsset(#{@store.id}, #{stylesheet.id})" %>
+              <%= link_to "Delete", admin_store_asset_path(@store, stylesheet), :class => "remove_asset", confirm: 'Are you sure?', :method=> :delete, :remote => true %>
+            </div>
           <% end %>
         <% else %>
           <div class="no_assets">No CSS files</div>
@@ -31,7 +43,10 @@
       <div class="asset_items">
         <%if @javascripts.length != 0%>
           <% @javascripts.each do |javascript| %>
-            <%= link_to_function javascript.file_file_name, "loadAsset(#{@store.id}, #{javascript.id})", :class => "asset_item", :id => "asset_#{javascript.id}" %>
+            <div class="asset_item" id="asset_<%= javascript.id%>">
+              <%= link_to_function javascript.file_file_name, "loadAsset(#{@store.id}, #{javascript.id})" %>
+              <%= link_to "Delete", admin_store_asset_path(@store, javascript), :class => "remove_asset", confirm: 'Are you sure?', :method=> :delete, :remote => true %>
+            </div>
           <% end %>
         <% else %>
           <div class="no_assets">No JS files</div>
@@ -54,7 +69,7 @@
         </div>
         <div id="create_assets_window">
           <%= form_for([:admin, @store, @asset], :remote => true) do |f| %>
-            Type name: <%= f.text_field :name %>
+            <%= f.text_field :name, :placeholder => "Type name" %>
             <%= f.select :type, %w(css js) %>
             <%= f.submit "Create", :name => "create"%>
           <% end %>
@@ -64,14 +79,6 @@
     </div>
   </div>
   <div id="assets_ide">
-    <div id="editor_header">
-      <span class="editor_title">No files are open</span>
-      <div id="full_screen_icon" class="editor_icon" title="Full screen"></div>
-      <div id="help_window_icon" class="editor_icon right_window_opener" title="Help"></div>
-      <div id="settings_window_icon" class="editor_icon right_window_opener" title="Settings"></div>
-      <div id="arrow_redo_icon" class="editor_icon" title="Redo"></div>
-      <div id="arrow_undo_icon" class="editor_icon" title="Undo"></div>
-    </div>
     <div id="editor_right_menu">
       <div id="right_editor_menu_close"></div>
       <div id="help_window" class="editor_right_window">
@@ -111,10 +118,12 @@
       </div>
     </div>
   </div>
+
 </div>
 <script>
   theme = "<%= @editor_theme %>";
   ln = "<%= @editor_ln %>";
-  font_size = "<%= @editor_font_size %>"
-  accepted_content_types = j.parseJSON('<%= accepted_content_types %>')
+  font_size = "<%= @editor_font_size %>";
+  accepted_content_types = j.parseJSON('<%= accepted_content_types %>');
+  store = "<%= @store.id %>"
 </script>

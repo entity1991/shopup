@@ -20,7 +20,7 @@ j(document).ready(function(){
         j("#stores_list").toggle();
     });
 
-    j("#store_name").keypress(function(){
+    j("#store_name").keyup(function(){
         if (j(this).val().length == 30){
             return false
         }

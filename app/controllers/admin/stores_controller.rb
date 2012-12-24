@@ -25,12 +25,14 @@ class Admin::StoresController < Admin::ApplicationController
   end
 
   def create
-    @store = Store.new(params[:store])
-    if @store.save and @store.update_attribute("owner_id", current_user.id)
+    @store = current_user.stores.new(params[:store])
+    if @store.save
+      @store.create_default_assets
       @store.take_capture
       redirect_to admin_store_path(@store), notice: 'Store was successfully created.'
     else
-      render action: "new"
+      # todo refactoring to render
+      redirect_to :back
     end
   end
 

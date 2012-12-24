@@ -14,7 +14,6 @@ class Asset < ActiveRecord::Base
   validates_attachment_presence :file
   validates_attachment_size :file, :less_than => 5.megabytes
   validates_attachment_content_type :file, :content_type => ACCEPTED_CONTENT_TYPES
-  validates :name, :content_type, :presence => true
 
   scope :images, where( :file_content_type => %w(image/jpeg image/png image/jpg))
   scope :stylesheets, where( :file_content_type => %w(text/css))

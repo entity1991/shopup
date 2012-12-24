@@ -77,27 +77,29 @@ class Admin::AssetsController < Admin::ApplicationController
         end
       end
     elsif params[:create]
-      name = params[:asset][:name]
-      type = params[:asset][:type]
-      full_file_name = name + "." + type
-      @asset = @store.assets.new
-      @asset.update_attribute(:file, File.new(TEMPORARY_EMPTY_FILE_PATH))
-      old_file_path = path_to_asset @asset
-      new_file_path = "./public/assets/store_assets/" + @asset.id.to_s + "/original/" + full_file_name
-      File.rename(old_file_path, new_file_path)
-      if type == "css"
-        content_type = "text/css"
-      elsif type == "js"
-        content_type = "application/javascript"
-      else
-        content_type = "inode/x-empty"
-      end
-      @asset.update_attribute(:file_content_type, content_type)
-      @asset.update_attribute(:file_file_name, full_file_name)
-      if @asset.stylesheet?
-        @new_stylesheets << @asset
-      elsif @asset.javascript?
-        @new_javascripts << @asset
+      if params[:asset][:name] != ""
+        name = params[:asset][:name]
+        type = params[:asset][:type]
+        full_file_name = name + "." + type
+        @asset = @store.assets.new
+        @asset.update_attribute(:file, File.new(TEMPORARY_EMPTY_FILE_PATH))
+        old_file_path = path_to_asset @asset
+        new_file_path = "./public/assets/store_assets/" + @asset.id.to_s + "/original/" + full_file_name
+        File.rename(old_file_path, new_file_path)
+        if type == "css"
+          content_type = "text/css"
+        elsif type == "js"
+          content_type = "application/javascript"
+        else
+          content_type = "inode/x-empty"
+        end
+        @asset.update_attribute(:file_content_type, content_type)
+        @asset.update_attribute(:file_file_name, full_file_name)
+        if @asset.stylesheet?
+          @new_stylesheets << @asset
+        elsif @asset.javascript?
+          @new_javascripts << @asset
+        end
       end
     end
 
