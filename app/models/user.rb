@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_many :stores, :foreign_key => "owner_id", :dependent => :destroy
   has_one :cart, :dependent => :destroy
   has_many :comments
+  has_many :questions
 
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }
 

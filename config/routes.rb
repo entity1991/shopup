@@ -5,6 +5,7 @@ ShopUp::Application.routes.draw do
   resources :carts,      :only => [:index, :show, :destroy]
   resources :line_items, :only => [:create, :destroy]
   resources :orders,     :only => [:new, :create]
+  resources :questions,  :only => [:create]
 
   namespace :admin do
     resources :stores do

@@ -1,6 +1,30 @@
 <div id="ide_windows">
   <div id="editor_header">
-    <div id="toc_icon" class="editor_icon float_l" title="TOC">></div>
+
+    <div id="new_assets_window">
+      <div id="new_asset_title">New asset</div>
+      <div id="new_assets_tabs">
+        <div id="create_assets_tab" class="new_assets_tab active_tab">Create</div>
+        <div id="upload_assets_tab" class="new_assets_tab">Upload</div>
+        <div class="cleaner"></div>
+        <div id="upload_assets_window" style="display:none;">
+          <%= form_for([:admin, @store, @asset], :remote => true, :html => {:multipart => true}) do |f| %>
+            <h4>You can choose some javascript, css or image file</h4><br>
+            <%= f.file_field :file, :multiple => true %>
+            <%= f.submit "Upload", :name => "upload", :style => "display: none;"%>
+            <div id="uploaded_assets_list"></div>
+          <% end %>
+        </div>
+        <div id="create_assets_window">
+          <%= form_for([:admin, @store, @asset], :remote => true) do |f| %>
+            <%= f.text_field :name, :placeholder => "Type name" %>
+            <%= f.select :type, %w(css js) %>
+            <%= f.submit "Create", :name => "create"%>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
     <span class="editor_title">No files are open</span>
     <div id="full_screen_icon" class="editor_icon float_r" title="Full screen"></div>
     <div id="help_window_icon" class="editor_icon right_window_opener float_r" title="Help"></div>
@@ -28,10 +52,7 @@
       <div class="asset_items">
         <%if @stylesheets.length != 0%>
           <% @stylesheets.each do |stylesheet| %>
-            <div class="asset_item" id="asset_<%= stylesheet.id%>">
-              <%= link_to_function stylesheet.file_file_name, "loadAsset(#{@store.id}, #{stylesheet.id})" %>
-              <%= link_to "Delete", admin_store_asset_path(@store, stylesheet), :class => "remove_asset", confirm: 'Are you sure?', :method=> :delete, :remote => true %>
-            </div>
+            <%= link_to_function stylesheet.file_file_name, "loadAsset(#{@store.id}, #{stylesheet.id})", :class => "asset_item", :id => "asset_#{stylesheet.id}" %>
           <% end %>
         <% else %>
           <div class="no_assets">No CSS files</div>
@@ -43,10 +64,7 @@
       <div class="asset_items">
         <%if @javascripts.length != 0%>
           <% @javascripts.each do |javascript| %>
-            <div class="asset_item" id="asset_<%= javascript.id%>">
-              <%= link_to_function javascript.file_file_name, "loadAsset(#{@store.id}, #{javascript.id})" %>
-              <%= link_to "Delete", admin_store_asset_path(@store, javascript), :class => "remove_asset", confirm: 'Are you sure?', :method=> :delete, :remote => true %>
-            </div>
+            <%= link_to_function javascript.file_file_name, "loadAsset(#{@store.id}, #{javascript.id})", :class => "asset_item", :id => "asset_#{javascript.id}" %>
           <% end %>
         <% else %>
           <div class="no_assets">No JS files</div>
@@ -54,29 +72,6 @@
       </div>
     </div>
     <div class="cleaner"></div>
-    <div id="new_assets_window">
-      <div id="new_assets_tabs">
-        <div id="create_assets_tab" class="new_assets_tab active_tab">Create</div>
-        <div id="upload_assets_tab" class="new_assets_tab">Upload</div>
-        <div class="cleaner"></div>
-        <div id="upload_assets_window" style="display:none;">
-          <%= form_for([:admin, @store, @asset], :remote => true, :html => {:multipart => true}) do |f| %>
-              <h4>You can choose some javascript, css or image file</h4><br>
-              <%= f.file_field :file, :multiple => true %>
-              <%= f.submit "Upload", :name => "upload", :style => "display: none;"%>
-            <div id="uploaded_assets_list"></div>
-          <% end %>
-        </div>
-        <div id="create_assets_window">
-          <%= form_for([:admin, @store, @asset], :remote => true) do |f| %>
-            <%= f.text_field :name, :placeholder => "Type name" %>
-            <%= f.select :type, %w(css js) %>
-            <%= f.submit "Create", :name => "create"%>
-          <% end %>
-        </div>
-      </div>
-      <div id="new_asset_title">New asset</div>
-    </div>
   </div>
   <div id="assets_ide">
     <div id="editor_right_menu">
@@ -118,7 +113,14 @@
       </div>
     </div>
   </div>
+  <div class='cleaner'></div>
 
+  <div id='editor_footer'>
+    <div class='button green float_r' id='editor_save_all'>Save all</div>
+    <div class='button grey float_r' id='editor_quick_save'>Quick save</div>
+    <div id='message' class='float_r'></div>
+    <div id='editor_autoformat' class='button grey'>Autoformat</div>
+  </div>
 </div>
 <script>
   theme = "<%= @editor_theme %>";

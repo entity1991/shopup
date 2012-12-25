@@ -1,7 +1,7 @@
 class Stores::ApplicationController < ApplicationController
 
-  before_filter :current_store
-  before_filter :stylesheets, :javascripts
+  before_filter :current_store, :stylesheets, :javascripts
+  before_filter :is_open?
 
   layout "stores/application"
 
@@ -40,6 +40,13 @@ class Stores::ApplicationController < ApplicationController
       else
 
       end
+    end
+  end
+
+  def is_open?
+    unless @store.open?
+      flash[:error] = "Store is closed in this moment"
+      redirect_to root_path
     end
   end
 

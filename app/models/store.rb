@@ -57,4 +57,13 @@ class Store < ActiveRecord::Base
     self.assets.javascripts
   end
 
+  def usage_storage
+    self.assets.sum :file_file_size
+  end
+
+  def usage_storage_in_percentage
+    (usage_storage.to_f*100/storage_limit).round 2
+  end
+
 end
+

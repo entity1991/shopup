@@ -1,9 +1,9 @@
 <h3>
-  Do you need any help?  You can type the question...
+  Do you need any help? You can type here everything...
 </h3>
 
-<%= form_tag(:controller => "pages", :action => "help") do %>
-  <%= label_tag "Your question" %>
-  <%= text_area_tag :question %>
-  <%= submit_tag "Ask the Question" %>
+<%= form_for @question do |f|%>
+  <%= f.select :type, options_for_select(["Question", "Report a bug", "Other", "Feature request"])%>
+  <%= f.text_area :content, :id => "question" %>
+  <%= f.submit "Send message" %>
 <% end %>

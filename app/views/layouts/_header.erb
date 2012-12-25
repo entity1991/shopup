@@ -4,18 +4,18 @@
       <% if current_user.stores.count == 0%>
         <%= link_to "Create your stores now!", new_admin_store_path %>
       <% else %>
-        <%= link_to "g", "#", :id => "stores_list_toggler"%>
+        <%= link_to "", "#", :id => "stores_list_toggler"%>
       <% end %>
     </div>
   <% end %>
 
   <div class="float_r">
-    <%= link_to t('Home'), root_path %>
-    <%= link_to t('Help'), help_path %>
-    <%= link_to "Cart", carts_path %>
+    <%= link_to "", root_path, :id => "header_home", :title => t(:Home) %>
+    <%= link_to "", help_path, :id => "header_help", :title => t(:Help) %>
+    <%= link_to "", carts_path, :id => "header_cart", :title => t(:cart) %>
     <% if signed_in?%>
-      <%= link_to t('Profile'), profile_path %>
-      <%= link_to t('Sign_out'), signout_path, :method => :delete %>
+      <%= link_to "", profile_path, :id => "header_profile", :title => "Profile" %>
+      <%= link_to "", signout_path, :method => :delete, :id => "header_sign_out", :title => t(:Sign_out) %>
     <% else %>
       <%= link_to_function t('Sign_in'), "toggleSigninWindow()", :id => "signin_window_toggler"%>
       <%= link_to t('Sign_up'), signup_path %>
@@ -28,7 +28,7 @@
       <%= link_to store.name, admin_store_path(store), :id =>
           ("active_store" if store.id.to_s == (params[:store_id] ? params[:store_id] : params[:id])) %>
     <% end %>
-    <%= link_to "+", new_admin_store_path, :id => "new_store" %>
+    <%= link_to "Create new store", new_admin_store_path, :id => "new_store" %>
   </div>
 <% end %>
 

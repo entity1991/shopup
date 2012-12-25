@@ -1,14 +1,14 @@
 <div id="header">
   <div class="float_l">
-    <a id="stores_list_toggler">All</a>
-    <%= (link_to @store.name, stores_store_path(@store), :target => "_blank") if @store.id != nil %>
+    <a id="stores_list_toggler"></a>
+    <%= (link_to @store.name, stores_store_path(@store), :target => "_blank", :title => "Visit your store", :id => "goto_store") if @store.id != nil %>
   </div>
   <div class="float_r">
-    <%= link_to t('Home'), root_path %>
-    <%= link_to t('Help'), help_path %>
+    <%= link_to "", root_path, :id => "header_home", :title => t(:Home) %>
+    <%= link_to "", help_path, :id => "header_help", :title => t(:Help) %>
     <% if signed_in?%>
-      <%= link_to t('Profile'), profile_path %>
-      <%= link_to t('Sign_out'), signout_path, :method => :delete %>
+      <%= link_to "", profile_path, :id => "header_profile", :title => "Profile" %>
+      <%= link_to "", signout_path, :method => :delete, :id => "header_sign_out", :title => t(:Sign_out) %>
     <% else %>
       <%= link_to_function t('Sign_in'), "toggleSigninWindow()", :id => "sign_in"%>
       <%= link_to t('Sign_up'), signup_path %>
@@ -20,7 +20,7 @@
     <%= link_to store.name, admin_store_path(store), :id =>
         ("active_store" if store.id.to_s == (params[:store_id] ? params[:store_id] : params[:id])) %>
   <% end %>
-  <%= link_to "+", new_admin_store_path, :id => "new_store" %>
+  <%= link_to "Create new store", new_admin_store_path, :id => "new_store" %>
 </div>
 
 

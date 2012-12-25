@@ -28,8 +28,12 @@ j(document).ready(function(){
             return false;
         }
     });
-    j("#new_asset_title").click(function(){
-        j("#new_assets_tabs").toggle();
+    j("#new_asset_title").toggle(function(){
+        j("#new_assets_tabs").show();
+        j(this).addClass("on");
+    }, function(){
+        j("#new_assets_tabs").hide();
+        j(this).removeClass("on");
     });
     j(".new_assets_tab").click(function(){
         j(".new_assets_tab").removeClass("active_tab");
@@ -80,22 +84,6 @@ j(document).ready(function(){
                 editors[id].refresh();
             }
         }
-    });
-
-    j("#toc_icon").toggle(function(){
-        j("#assets_menu").animate({width: "25%"}, 500);
-        j("#assets_ide").animate({width: "75%"}, 500);
-        j(this).html("<");
-        j(".remove_asset").show();
-    }, function(){
-        j("#assets_menu").animate({width: "20%"}, 500);
-        j("#assets_ide").animate({width: "80%"}, 500);
-        j(this).html(">");
-        j(".remove_asset").hide();
-    });
-
-    j("#toc_icon").click(function(){
-        j("#assets_menu").css("overflow-y", "auto");
     });
 
     j(".right_window_opener").click(function(){
@@ -199,18 +187,10 @@ function loadAsset(store_id, asset_id){
                     j("#editor_right_menu").after(editor_content);
                     j("#arrow_redo_icon").removeClass("arrow_redo_icon_active");
                     j("#arrow_undo_icon").removeClass("arrow_undo_icon_active");
-                    if(j("#editor_footer").length == 0){
-                        var editor_footer =
-                            "<div class='cleaner'>"+
-                            "<div id='editor_footer'>"+
-                                "<div class='button green float_r' id='editor_save_all'>Save all</div>"+
-                                "<div class='button grey float_r' id='editor_quick_save'>Quick save</div>"+
-                                "<div id='message' class='float_r'></div>"+
-                                "<div id='editor_autoformat' class='button grey'>Autoformat</div>"+
-                            "</div>"
-                        j("#editor_" + asset_id).parent("#assets_ide").after(editor_footer);
+                    //  todo if first loading
                         j("#full_screen_icon").show();
-                    }
+                        j("#editor_footer > *").css("display", "inline-block");
+                    // end
                     initializeEditor("editor_" + asset_id, data.type);
                 }
             });

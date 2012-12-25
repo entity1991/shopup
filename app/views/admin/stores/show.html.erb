@@ -2,11 +2,14 @@
   You store is Open and him can see all users<br>
   <%= link_to "Close Store", close_admin_store_path(@store), :class => "button red" %>
 <% else %>
-  This store is closed<br>
+  This store is closed. Nobody can't see it<br>
   <%= link_to "Open Store",  open_admin_store_path(@store), :class => "button green"  %>
 <% end %>
-<br>
-If You want to see, how looks your store, <%= link_to "Go to him!", stores_store_catalog_path(@store), :target => "_blank", :class => "button blue" %>
+<br><br>
+Usage storage in your store is next:<br>
+<progress value="<%= @store.usage_storage%>" max="<%= @store.storage_limit %>"></progress>
+<%= @store.usage_storage_in_percentage %> %
+
 
 
 

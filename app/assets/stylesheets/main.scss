@@ -38,6 +38,15 @@ label{
   margin-top: 5px;
 }
 
+progress{
+  height: 30px;
+  box-shadow: 0px 0px 2px rgba(133, 133, 133, 0.80);
+  border: 1px solid #808080;
+  border-radius: 3px;
+  width: 200px;
+  background-color: red;
+}
+
 .file_wrapper{
   position: relative;
   height: 25px;
@@ -73,76 +82,119 @@ label{
   left: 0;
   width: 100%;
   height: 40px;
-  background-color: rgba(146, 147, 153, 0.64);
+    background-color: rgba(58, 118, 49, 0.67);
   text-shadow: 1px 1px 1px rgba(0, 0, 0, .1);
   box-shadow: 1px 1px 1px rgba(0, 0, 0, .1);
   text-transform: uppercase;
   font-size: 12px;
   a{
     cursor: pointer;
-    color: white;
     display: block;
     float: left;
-    padding: 5px;
-    height: 30px;      a
+    margin: 5px;
+    padding: 7px;
+    height: 30px;
+    width: 30px;
     -webkit-transition: background-color 0.5s ease;
-
-      background: url("list.png") no-repeat center;
-      color: red !important;
-
+    -webkit-transition: box-shadow 0.5s ease;
+    color: rgba(247, 247, 247, 0.92);
+    font-weight: bold;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    &:hover{
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(36, 103, 25, 0.78);
+    }
+    &#goto_store{
+      width: auto;
+    }
+    &#goto_store:hover{
+      color: white;
+      box-shadow: 0 0 5px rgba(36, 103, 25, 0.78) inset;
+    }
+    &#stores_list_toggler{
+      background-image: url("list.png");
+    }
+    &#header_home{
+      background-image: url("home.png");
+    }
+    &#header_help{
+      background-image: url("help.png");
+    }
+    &#header_cart{
+      background-image: url("cart.png");
+    }
+    &#header_profile{
+      background-image: url("vcard.png");
+    }
+    &#header_sign_out{
+      background-image: url("right.png");
+    }
   }
 }
 
 #stores_list{
   max-width: 520px;
+  max-height: 420px;
+  overflow-y: auto;
   display: none;
   text-align: left;
-  position: fixed;
-  top: 55px;
+  position: absolute;
+  top: 40px;
   left: 0px;
-  padding: 10px;
+  padding:  5px;
   z-index: 100;
-  background-color: #2a87a2;
-  box-shadow: 0 2px 2px 1px rgba(124, 124, 124, 0.62);
+  background-color: rgba(146, 172, 139, 1);
+  box-shadow: 1px 1px 1px 1px rgba(48, 124, 58, 0.61);
   border: 1px solid #CCC;
-  border-top-color: #525252;
+  border-top-color: green;
   border-left: none;
   border-radius: 0 0 10px 0;
-  text-shadow: #121212;
   a{
-    margin-top: 7px;
-    padding: 3px;
+    -webkit-transition: background-color 0.5s ease;
+    -webkit-transition: box-shadow 0.5s ease;
+    margin-top: 3px;
+    padding: 4px;
+    font-size: 0.7em;
     font-family: verdana;
     text-transform: uppercase;
-    color: #fff;
+    color: rgba(247, 247, 247, 0.92);
     display: block;
+    &:first-child{
+      margin-top: 30px;
+    }
     &:hover, &#active_store{
-      border-radius: 3px;
-      background-color: #5BC0DE;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(36, 103, 25, 0.78) inset;
+      color: white;
     }
     &#active_store{
       font-weight: bold;
     }
     &#new_store{
       float: right;
-      background-color: #62C462;
       border-radius: 3px;
-      width: 25px;
       text-align: center;
-      padding-top: -2px;
       font-weight: bold;
+      position: absolute;
+      top: 10px;
+      right: 5px;
+      height: 20px;
     }
   }
 }
 
 #main {
-  margin: 20px auto;
-  width: 972px;
+  margin: 0 auto 20px;
+  min-width: 972px;
+  width: 90%;
   min-height: 500px;
   color: #555;
-  background-color: rgba(255, 255, 255, 0.49);
-  padding: 0px 15px 50px;
-  box-shadow: 0 0 2px 1px rgba(124, 124, 124, 0.42);
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 10px 15px 50px;
+  box-shadow: 0 2px 2px 1px rgba(124, 124, 124, 0.42);
+  border-radius: 0 0 10px 10px  ;
   .flash_box{
     padding: 2px;
     display: block;
@@ -233,11 +285,11 @@ label{
     }
   }
   textarea#question{
-    height: 10em;
+    height: 20em;
     width: 100%;
     max-width: 100%;
-    box-shadow: 0px 0px 2px rgba(133, 133, 133, 0.80);
-    border: 1px solid #808080;
+    box-shadow: 0px 0px 5px rgba(133, 133, 133, 0.80);
+    border: 1px solid #a3a3a3;
     border-radius: 3px;
     padding: 5px;
     color: #444;
@@ -251,6 +303,7 @@ label{
   background-color: rgba(175, 175, 175, 0.52);
   box-shadow: 0 -2px 2px 1px rgba(124, 124, 124, 0.42);
   min-height: 50px;
+  color: #444;
   #content{
     padding: 10px;
     margin: auto;
@@ -265,7 +318,6 @@ label{
         width: 90px;
         height: 30px;
         border-radius: 20px;
-        color: #444;
         box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.8);
         text-shadow: 1px 1px 0px white;
         background: url("button-bg.jpg") repeat-x;
@@ -290,7 +342,7 @@ label{
   display: none;
   text-align: left;
   position: fixed;
-  top: 60px;
+  top: 45px;
   right: 5px;
   padding: 10px;
   z-index: 100;
