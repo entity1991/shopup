@@ -6,6 +6,7 @@ var font_size = "1";
 var store;
 var fullscreen = false;
 var accepted_content_types;
+var assets = {};
 
 j(document).ready(function(){
     j(".assets_box_title").append("<div class='assets_box_toggler'></div>");
@@ -28,12 +29,92 @@ j(document).ready(function(){
             return false;
         }
     });
+
+    j("#managing_assets_title").toggle(function(){
+        j("#managing_assets_window").show();
+        var h = 0;
+        if (fullscreen == false) h = 508;
+            else h = winHeight();
+        var bodyHeight = h - 30;
+        j("#managing_assets_window #managing_assets_body").css("max-height", bodyHeight + "px");
+        j("#managing_assets_window").animate({height: h}, 500, function(){});
+    }, function(){
+        j("#managing_assets_window").animate({height: 0}, 500, function(){
+            j("#managing_assets_window").hide();
+        });
+    });
+    j(".managing_assets_row").live("click", function(e){
+        if(e.target != "[object HTMLInputElement]"){
+            j("#asset_detail").show();
+            var id = j(this).attr("id").replace(/\D/g, "");
+            var asset_detail =
+                "<input type='button' value='Delete' class='asset_delete button red' id='" + id + "'><br>" +
+                "<h3>" + assets[id].name + "</h3><br>" +
+                "<span class='asset_property'>Size</span>" + assets[id].size + "<br>" +
+                "<span class='asset_property'>Content type</span>" + assets[id].content_type + "<br>" +
+                "<span class='asset_property'>Created at</span>" + assets[id].created_at + "<br>" +
+                "<span class='asset_property'>Updated at</span>" + assets[id].updated_at + "<br>"+
+                "<hr>" +
+                "<span class='asset_property'>Name</span>" +
+                "<input id='asset_name_rename' value='" + (assets[id].name).replace(/[.]\w*$/g, "") + "'>" +
+                "<input id='asset_type_rename' type='hidden' value='" + (assets[id].name).match(/[.]\w*$/g) + "'>" +
+                "<input type='button' value='OK' class='asset_name_submit' id='" + id + "'><br>"
+            j("#asset_detail").html(asset_detail);
+        }
+    });
+    j(".asset_name_submit").live("click", function(){
+        var name = document.getElementById("asset_name_rename").value;
+        var type = document.getElementById("asset_type_rename").value;
+        var new_name = name + type;
+        var id = this.getAttribute("id");
+        if (name != ""){
+            j.get("/admin/stores/" + store + "/assets/" + id + "/rename?new_name=" + new_name);
+            j(".managing_assets_row#managing_asset_" + id).find(".asset_row_name").html(new_name);
+            j(".asset_items #asset_" + id).html(new_name);
+            j("#asset_detail h3").html(new_name);
+        }
+    });
+    j(".asset_delete").live("click", function(){
+        var id = this.getAttribute("id");
+        j.post("/admin/stores/" + store + "/assets/" + id, {_method: 'delete'});
+        j(".managing_assets_row#managing_asset_" + id).remove();
+        j(".asset_items #asset_" + id).remove();
+        j("#asset_detail").html("").hide();
+    });
+    j(".toggle_active").live("click", function(){
+        var id = j(j(this).parents(".managing_assets_row")[0]).attr("id").replace(/\D/g, "");
+        if (this.checked){
+            j.get("/admin/stores/" + store + "/assets/" + id + "/activate");
+        } else{
+            j.get("/admin/stores/" + store + "/assets/" + id + "/deactivate");
+        }
+    });
+    j("#selected_all_assets").click(function(){
+        j("#asset_list input[type=checkbox].selected").attr("checked", this.checked);
+        if (this.checked){
+            j(".managing_assets_row").addClass("selected");
+            j("#selected_assets").show();
+        } else{
+            j(".managing_assets_row").removeClass("selected");
+            j("#selected_assets").hide();
+        }
+    });
+    j("#asset_list .selected").live("click", function(){
+        if (this.checked){
+            j(j(this).parents(".managing_assets_row")[0]).addClass("selected");
+            j("#selected_assets").show();
+        }else{
+            j(j(this).parents(".managing_assets_row")[0]).removeClass("selected");
+            if(j(".managing_assets_row.selected").length == 0){
+                j("#selected_assets").hide();
+            }
+        }
+    });
+
     j("#new_asset_title").toggle(function(){
         j("#new_assets_tabs").show();
-        j(this).addClass("on");
     }, function(){
         j("#new_assets_tabs").hide();
-        j(this).removeClass("on");
     });
     j(".new_assets_tab").click(function(){
         j(".new_assets_tab").removeClass("active_tab");
@@ -182,7 +263,7 @@ function loadAsset(store_id, asset_id){
                 data: {asset_id: asset_id},
                 dataType: "json",
                 success: function(data) {
-                    j(".editor_title").html(data.name);
+                    j("#editor_title").html(data.name);
                     var editor_content = "<textarea id='editor_" + asset_id + "' class='editor_content'>" + data.content + "</textarea>";
                     j("#editor_right_menu").after(editor_content);
                     j("#arrow_redo_icon").removeClass("arrow_redo_icon_active");
@@ -195,7 +276,7 @@ function loadAsset(store_id, asset_id){
                 }
             });
         } else {
-            j(".editor_title").html(j("#asset_" + asset_id).html());
+            j("#editor_title").html(j("#asset_" + asset_id).html());
             j("#editor_" + asset_id).next(".CodeMirror").show();
             changeUndoRedoColor("editor_" + asset_id);
         }
@@ -232,7 +313,7 @@ function initializeEditor(id, mode){
           if(editor_vars[id].changed == false){
               var selected_asset = j(".asset_item.selected_asset");
               selected_asset.html("<span class='star'>*</span>" + selected_asset.html());
-              j(".editor_title").html("<span class='star'>*</span>" + j(".editor_title").html());
+              j("#editor_title").html("<span class='star'>*</span>" + j("#editor_title").html());
               editor_vars[id].changed = true;
           }
           changeUndoRedoColor(id);
@@ -318,7 +399,7 @@ function initializeEditor(id, mode){
             success: function(data) {
                 showEditorMessage("Successfully saved!");
                 j(".asset_item#asset_" + editor_vars[id].asset_id + " .star").remove();
-                j(".editor_title .star").remove();
+                j("#editor_title .star").remove();
                 editor_vars[id].changed = false;
                 editors[id].clearHistory();
                 j("#arrow_redo_icon").removeClass("arrow_redo_icon_active");

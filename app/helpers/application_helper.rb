@@ -29,6 +29,24 @@ module ApplicationHelper
     end
   end
 
+  #todo make as Fixnum extension, which return string
+  def to_storage(bytes)
+    case bytes
+      when 0
+        "empty"
+      when 1..1023
+        bytes.to_s + " b"
+      when 1024..1048576
+        (bytes.to_f/1024).round(2).to_s + " Kb"
+      when 1048577..1073741823
+        (bytes.to_f/1024/1024).round(2).to_s + " Mb"
+      when 1073741823..1009511627775
+        (bytes.to_f/1024/1024/1024).round(2).to_s + " Gb"
+      else
+        "No data"
+    end
+  end
+
   def cut_long_string(content, length)
     clipped_string = sanitize(raw(content.split.map{ |s| wrap_long_string(s) }.join(' ')))
     content.length < length ? clipped_string : clipped_string[0..length-1] + "..."

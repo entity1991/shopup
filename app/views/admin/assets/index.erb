@@ -2,30 +2,77 @@
   <div id="editor_header">
 
     <div id="new_assets_window">
-      <div id="new_asset_title">New asset</div>
-      <div id="new_assets_tabs">
-        <div id="create_assets_tab" class="new_assets_tab active_tab">Create</div>
-        <div id="upload_assets_tab" class="new_assets_tab">Upload</div>
-        <div class="cleaner"></div>
-        <div id="upload_assets_window" style="display:none;">
-          <%= form_for([:admin, @store, @asset], :remote => true, :html => {:multipart => true}) do |f| %>
-            <h4>You can choose some javascript, css or image file</h4><br>
-            <%= f.file_field :file, :multiple => true %>
-            <%= f.submit "Upload", :name => "upload", :style => "display: none;"%>
-            <div id="uploaded_assets_list"></div>
-          <% end %>
+      <div id="new_asset_title"></div>
+    </div>
+    <div id="new_assets_tabs">
+            <div id="create_assets_tab" class="new_assets_tab active_tab">Create</div>
+            <div id="upload_assets_tab" class="new_assets_tab">Upload</div>
+            <div class="cleaner"></div>
+            <div id="upload_assets_window" style="display:none;">
+              <%= form_for([:admin, @store, @asset], :remote => true, :html => {:multipart => true}) do |f| %>
+                <h4>You can choose some javascript, css or image file</h4><br>
+                <%= f.file_field :file, :multiple => true %>
+                <%= f.submit "Upload", :name => "upload", :style => "display: none;"%>
+                <div id="uploaded_assets_list"></div>
+              <% end %>
+            </div>
+            <div id="create_assets_window">
+              <%= form_for([:admin, @store, @asset], :remote => true) do |f| %>
+                <%= f.text_field :name, :placeholder => "Type name" %>
+                <%= f.select :type, %w(css js) %>
+                <%= f.submit "Create", :name => "create"%>
+              <% end %>
+            </div>
+          </div>
+    <div id="managing_assets">
+      <div id="managing_assets_title"></div>
+    </div>
+    <div id="managing_assets_window">
+      <div id="managing_assets_header">
+        <div class="w33"></div>
+        <div style="width: 66%;">
+          <div style="width: 35%;" class="float_l">Name</div>
+          <div style="width: 35%;" class="float_l">Size</div>
+          <div style="width: 15%;" class="float_l">Active</div>
+          <div style="width: 15%;" class="float_l"><input type="checkbox" id="selected_all_assets" title="Select all"></div>
         </div>
-        <div id="create_assets_window">
-          <%= form_for([:admin, @store, @asset], :remote => true) do |f| %>
-            <%= f.text_field :name, :placeholder => "Type name" %>
-            <%= f.select :type, %w(css js) %>
-            <%= f.submit "Create", :name => "create"%>
+      </div>
+      <div id="managing_assets_body">
+        <div class="w33" id="asset_options">
+          <div id="asset_detail"></div>
+          <div id="selected_assets"></div>
+          <div id="storage_usage"><h3 class="center">Storage usage</h3></div>
+        </div>
+        <div class="w67 float_l" id="asset_list">
+          <% @assets.each do |asset|%>
+            <div class="managing_assets_row" id="managing_asset_<%= asset.id %>">
+              <div class="asset_row_name"><%= asset.file_file_name %></div>
+              <div class="asset_row_size"><%= to_storage asset.file_file_size %></div>
+              <div class="asset_row_active">
+                <% if asset.active %>
+                  <input type="checkbox" class="toggle_active" checked="checked">
+                <% else %>
+                  <input type="checkbox" class="toggle_active">
+                <% end %>
+              </div>
+              <div class="asset_row_selected"><input type="checkbox" class="selected"></div>
+            </div>
+            <script>
+              assets["<%= asset.id %>"] = {
+                name:"<%= asset.file_file_name%>",
+                size:"<%= to_storage asset.file_file_size%>",
+                content_type:"<%= asset.file_content_type%>",
+                created_at:"<%= asset.created_at%>",
+                updated_at:"<%= asset.updated_at%>",
+                active:"<%= asset.active%>"
+              }
+            </script>
           <% end %>
         </div>
       </div>
     </div>
 
-    <span class="editor_title">No files are open</span>
+    <span id="editor_title">No files are open</span>
     <div id="full_screen_icon" class="editor_icon float_r" title="Full screen"></div>
     <div id="help_window_icon" class="editor_icon right_window_opener float_r" title="Help"></div>
     <div id="settings_window_icon" class="editor_icon right_window_opener float_r" title="Settings"></div>
@@ -116,12 +163,13 @@
   <div class='cleaner'></div>
 
   <div id='editor_footer'>
-    <div class='button green float_r' id='editor_save_all'>Save all</div>
-    <div class='button grey float_r' id='editor_quick_save'>Quick save</div>
+    <div class='button green float_r' id='editor_save_all' title="Save all"><span></span></div>
+    <div class='button grey float_r' id='editor_quick_save' title="Quick save"><span></span></div>
     <div id='message' class='float_r'></div>
-    <div id='editor_autoformat' class='button grey'>Autoformat</div>
+    <div id='editor_autoformat' class='button grey' title="Autoformat"><span></span></div>
   </div>
 </div>
+
 <script>
   theme = "<%= @editor_theme %>";
   ln = "<%= @editor_ln %>";

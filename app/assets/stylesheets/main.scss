@@ -5,11 +5,27 @@
 .float_r { float: right }
 .center { text-align: center;}
 .block {display: block;}
+.invisible {display: none;}
+
+.w10{
+  width: 10%;;
+}
+.w20{
+  width: 20%;;
+}
+.w33{
+  width: 33%;;
+}
+.w67{
+  width: 67%;;
+}
+
 
 *{
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
+  -webkit-transition: background-color 0.5s ease;
 }
 
 p, h1, h2, h3, h4, h5, h6, a {
@@ -45,6 +61,26 @@ progress{
   border-radius: 3px;
   width: 200px;
   background-color: red;
+}
+table{
+  border: 1px solid #e1e1e1;
+  border-radius: 3px;
+  width: 100%;
+  border-collapse: collapse;
+  th{
+    background: -webkit-linear-gradient(top,#FAFAFA,#EFEFEF);
+    background: -moz-linear-gradient(top,#FAFAFA,#EFEFEF);
+    height: 30px;
+  }
+  tr{
+    background-color: white;
+  }
+  tr:hover{
+
+  }
+  tr td{
+    border: 1px solid #e1e1e1;
+  }
 }
 
 .file_wrapper{
@@ -144,7 +180,7 @@ progress{
   top: 40px;
   left: 0px;
   padding:  5px;
-  z-index: 100;
+  z-index: 20000;
   background-color: rgba(146, 172, 139, 1);
   box-shadow: 1px 1px 1px 1px rgba(48, 124, 58, 0.61);
   border: 1px solid #CCC;
@@ -503,23 +539,6 @@ progress{
   cursor: poiner;
   padding-right: 10px;
   padding-left: 10px;
-}
-.order, .cart table{
-  border: 1px solid #e1e1e1;
-  border-radius: 3px;
-  width: 100%;
-  border-collapse: collapse;
-  th{
-    background: -webkit-linear-gradient(top,#FAFAFA,#EFEFEF);
-    background: -moz-linear-gradient(top,#FAFAFA,#EFEFEF);
-    height: 30px;
-  }
-  tr:hover{
-    background: #EFEFEF;
-  }
-  tr td{
-    border: 1px solid #e1e1e1;
-  }
 }
 
 .cart_total_price{

@@ -13,8 +13,11 @@ ShopUp::Application.routes.draw do
       resources :categories
       resources :fields
       resources :assets, :except => [:new, :show, :edit] do
-        match "download", :to => "assets#download", :as => "download", :via => "get"
+        match "download",   :to => "assets#download",   :as => "download",   :via => "get"
         match "load_asset", :to => "assets#load_asset", :as => "load_asset", :via => "get"
+        match "activate",   :to => "assets#activate",   :as => "activate",   :via => "get"
+        match "deactivate", :to => "assets#deactivate", :as => "deactivate", :via => "get"
+        match "rename",     :to => "assets#rename",     :as => "rename",     :via => "get"
       end
 
       get 'statistic'

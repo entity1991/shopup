@@ -42,6 +42,7 @@ class Admin::AssetsController < Admin::ApplicationController
         File.open(file_name, 'w')do |file|
           file.write params[:asset][:file_content]
         end
+        @asset.update_attribute(:file_file_size, File.new(path_to_asset @asset).size)
       else
 
       end
@@ -58,6 +59,7 @@ class Admin::AssetsController < Admin::ApplicationController
     @new_images = []
     @new_stylesheets = []
     @new_javascripts = []
+    @new_assets =[]
 
     if params[:upload]
       if params[:asset]
@@ -66,6 +68,7 @@ class Admin::AssetsController < Admin::ApplicationController
           uploaded_asset[:file] = file
           @asset = @store.assets.build(uploaded_asset)
           if @asset.save
+            @new_assets << @asset
             if @asset.image?
               @new_images << @asset
             elsif @asset.stylesheet?
@@ -95,6 +98,7 @@ class Admin::AssetsController < Admin::ApplicationController
         end
         @asset.update_attribute(:file_content_type, content_type)
         @asset.update_attribute(:file_file_name, full_file_name)
+        @new_assets << @asset
         if @asset.stylesheet?
           @new_stylesheets << @asset
         elsif @asset.javascript?
@@ -115,6 +119,24 @@ class Admin::AssetsController < Admin::ApplicationController
     else
       redirect_to admin_store_assets_path, notice: 'Something went wrong'
     end
+  end
+
+  def rename
+    @asset = Asset.find params[:asset_id]
+    @asset.update_attribute(:file_file_name, params[:new_name])
+    render :text => nil, :status => 200
+  end
+
+  def activate
+    @asset = Asset.find params[:asset_id]
+    @asset.update_attribute(:active, 1)
+    render :text => nil, :status => 200
+  end
+
+  def deactivate
+    @asset = Asset.find params[:asset_id]
+    @asset.update_attribute(:active, 0)
+    render :text => nil, :status => 200
   end
 
   def download

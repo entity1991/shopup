@@ -12,7 +12,7 @@ class Stores::ApplicationController < ApplicationController
   end
 
   def stylesheets
-    @styles = current_store.stylesheets
+    @styles = current_store.stylesheets.active
     @css_lines = []
     @styles.each do |css|
       file_name = "./public/assets/store_assets/" + css.id.to_s + "/original/" + css.file_file_name
@@ -28,7 +28,7 @@ class Stores::ApplicationController < ApplicationController
   end
 
   def javascripts
-    @javascripts = current_store.javascripts
+    @javascripts = current_store.javascripts.active
     @js_lines = []
     @javascripts.each do |js|
       file_name = "./public/assets/store_assets/" + js.id.to_s + "/original/" + js.file_file_name

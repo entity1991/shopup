@@ -1,30 +1,57 @@
 <%= remotipart_response do %>
-  <% if @new_images.length != 0%>
-    j("#images .asset_items").append(
-      '<% @new_images.each do |image| %>' +
-        '<div class="asset_item just_now_added_asset">' +
-          '<%= image.file_file_name %>' +
-        '</div>' +
-      '<% end%>');
-    j("#images .asset_items").show();
-    j("#images .no_assets").remove();
+  <% if @new_assets.length != 0 %>
+    <% if @new_images.length != 0%>
+      j("#images .asset_items").append(
+        '<% @new_images.each do |image| %>' +
+          '<div class="asset_item just_now_added_asset">' +
+            '<%= image.file_file_name %>' +
+          '</div>' +
+        '<% end%>'
+      );
+      j("#images .asset_items").show();
+      j("#images .no_assets").remove();
+    <% end %>
+    <% if @new_stylesheets.length != 0%>
+      j("#stylesheets .asset_items").append(
+        '<% @new_stylesheets.each do |stylesheet| %>' +
+          '<%= link_to_function stylesheet.file_file_name, "loadAsset(#{@store.id}, #{stylesheet.id})", :class => "asset_item just_now_added_asset", :id => "asset_#{stylesheet.id}" %>' +
+        '<% end%>'
+      );
+      j("#stylesheets .asset_items").show();
+      j("#stylesheets .no_assets").remove();
+    <% end %>
+    <% if @new_javascripts.length != 0%>
+      j("#javascripts .asset_items").append(
+        '<% @new_javascripts.each do |javascript| %>' +
+          '<%= link_to_function javascript.file_file_name, "loadAsset(#{@store.id}, #{javascript.id})", :class => "asset_item just_now_added_asset", :id => "asset_#{javascript.id}" %>' +
+        '<% end%>'
+      );
+      j("#javascripts .asset_items").show();
+      j("#javascripts .no_assets").remove();
+    <% end %>
+
+    j("#asset_list").append(
+      "<% @new_assets.each do |asset| %>" +
+        "<div class='managing_assets_row' id='managing_asset_<%= asset.id %>'>" +
+          "<div class='asset_row_name'><%= asset.file_file_name %></div>" +
+          "<div class='asset_row_size'><%= to_storage asset.file_file_size %></div>" +
+          "<div class='asset_row_active'><input type='checkbox' class='toggle_active'></div>" +
+          "<div class='asset_row_selected'><input type='checkbox' class='selected'></div>" +
+        "</div>" +
+      "<% end%>"
+    );
+    <% @new_assets.each do |asset| %>
+    assets["<%= asset.id %>"] = {
+      name:"<%= asset.file_file_name%>",
+      size:"<%= to_storage asset.file_file_size%>",
+      content_type:"<%= asset.file_content_type%>",
+      created_at:"<%= asset.created_at%>",
+      updated_at:"<%= asset.updated_at%>",
+      active:"<%= asset.active%>"
+    };
+      <% end %>
   <% end %>
-  <% if @new_stylesheets.length != 0%>
-    j("#stylesheets .asset_items").append(
-      '<% @new_stylesheets.each do |stylesheet| %>' +
-        '<%= link_to_function stylesheet.file_file_name, "loadAsset(#{@store.id}, #{stylesheet.id})", :class => "asset_item just_now_added_asset", :id => "asset_#{stylesheet.id}" %>' +
-      '<% end%>');
-    j("#stylesheets .asset_items").show();
-    j("#stylesheets .no_assets").remove();
-  <% end %>
-  <% if @new_javascripts.length != 0%>
-    j("#javascripts .asset_items").append(
-      '<% @new_javascripts.each do |javascript| %>' +
-        '<%= link_to_function javascript.file_file_name, "loadAsset(#{@store.id}, #{javascript.id})", :class => "asset_item just_now_added_asset", :id => "asset_#{javascript.id}" %>' +
-      '<% end%>');
-    j("#javascripts .asset_items").show();
-    j("#javascripts .no_assets").remove();
-  <% end %>
+
   j("form #asset_file").val("");
   j("#uploaded_assets_list").html("");
   j("form#new_asset input[name=upload]").hide();

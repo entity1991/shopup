@@ -18,6 +18,7 @@ class Asset < ActiveRecord::Base
   scope :images, where( :file_content_type => %w(image/jpeg image/png image/jpg))
   scope :stylesheets, where( :file_content_type => %w(text/css))
   scope :javascripts, where( :file_content_type => %w(application/javascript))
+  scope :active, where( :active => 1)
 
   def image?
     self.file_content_type == "image/jpeg" ||
