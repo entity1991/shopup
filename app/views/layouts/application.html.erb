@@ -7,11 +7,9 @@
 </head>
 <body>
   <%= render 'layouts/header'%>
+  <%= render 'shared/flash_messages'%>
   <div id="main">
     <%= render 'shared/signin_window'  %>
-    <div class="flash_box">
-      <%= render 'shared/flash_messages'%>
-    </div>
     <%= yield  %>
     <div class="cleaner"></div>
   </div>

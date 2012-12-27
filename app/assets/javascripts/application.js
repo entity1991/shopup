@@ -27,10 +27,9 @@ j(document).ready(function(){
         j("#store_domain").val(this.value.replace(/[ -]/g, '_').replace(/[`~!@#$%^&*()+=|?.,<>]/g, '').toLowerCase());
     });
 
-    j('.flash').animate({
-        opacity: 0
-    }, 5000, function() {
-        j('.flash').remove();
+
+    j(".flash span").click(function(){
+        j(this).parent(".flash").remove();
     });
 });
 
