@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+
   attr_accessor :password #only virtual attribute(getter and setter)
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :avatar  #editable attribute
 
@@ -7,16 +9,14 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :questions
 
-  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }
+  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" },
+                             :path => ":rails_root/public/assets/users/:id/:style/:basename.:extension"
 
-  email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-
-  validates :first_name, :presence => true, :length => { :maximum => 50 }
-  validates :last_name,  :presence => true, :length => { :maximum => 50 }
-  validates :email,      :presence => true, :format => { :with => email_regex }, :uniqueness   => true
+  validates :first_name, :presence => true, :length => { :within => 3..20 }
+  validates :last_name,  :presence => true, :length => { :within => 3..20 }
+  validates :email,      :presence => true, :format => { :with => EMAIL_REGEX }, :uniqueness   => true
   validates :password,   :presence => true, :length => { :within => 6..40 },     :confirmation => true
 
-  validates_attachment_presence :avatar
   validates_attachment_size :avatar, :less_than => 5.megabytes
   validates_attachment_content_type :avatar, :content_type => %w(image/jpeg image/png image/jpg)
 

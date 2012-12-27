@@ -17,8 +17,8 @@
       <%= link_to "", profile_path, :id => "header_profile", :title => "Profile" %>
       <%= link_to "", signout_path, :method => :delete, :id => "header_sign_out", :title => t(:Sign_out) %>
     <% else %>
-      <%= link_to_function t('Sign_in'), "toggleSigninWindow()", :id => "signin_window_toggler"%>
-      <%= link_to t('Sign_up'), signup_path %>
+      <%= link_to_function "", "toggleSigninWindow()", :id => "signin_window_toggler", :title=> t('Sign_in')%>
+      <%= link_to "", signup_path, :id => "header_sign_up", :title => t('Sign_up') %>
     <% end %>
   </div>
 </div>

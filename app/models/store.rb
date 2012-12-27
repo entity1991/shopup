@@ -43,8 +43,8 @@ class Store < ActiveRecord::Base
   end
 
   def create_default_assets
-    self.assets.create(file: File.new("./app/assets/javascripts/stores/application.js"))
-    self.assets.create(file: File.new("./app/assets/stylesheets/stores/application.css"))
+    self.assets.create(file: File.new("./app/assets/javascripts/stores/application.js"), active: 1)
+    self.assets.create(file: File.new("./app/assets/stylesheets/stores/application.css"), active: 1)
   end
 
   #todo methods below refactor to scopes

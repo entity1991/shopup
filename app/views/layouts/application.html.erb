@@ -4,6 +4,7 @@
   <title><%= title %></title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <%= csrf_meta_tag %>
+  <%= render 'layouts/styles_&_scripts' %>
 </head>
 <body>
   <%= render 'layouts/header'%>
@@ -14,6 +15,5 @@
     <div class="cleaner"></div>
   </div>
   <div id="footer" class="cleaner"><%= render 'layouts/footer' %></div>
-  <%= render 'layouts/styles_&_scripts' %>
 </body>
 </html>
