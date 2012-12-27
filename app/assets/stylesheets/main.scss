@@ -20,7 +20,6 @@
   width: 67%;;
 }
 
-
 *{
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -35,7 +34,7 @@ p, h1, h2, h3, h4, h5, h6, a {
 
 body {
   margin: 0;
-  font-family: 'verdana', sans-serif;
+  font-family: 'helvetica', sans-serif;
   background-image: url("main-bg.jpg");
   font-size: 0.85em;
   cursor: default;
@@ -285,7 +284,6 @@ table{
       padding-right: 12px;
       border: none;
       text-align: center;
-      min-width: 90px;
       border-radius: 3px;
       color: #fff;
       text-shadow: 1px 1px 0px #499249;
@@ -421,11 +419,12 @@ table{
 }
 
 #store_managing_menu{
-  border-bottom: 2px solid #499249;
+  border-bottom: 1px solid #499249;
   padding-bottom: 7px;
   margin-bottom: 10px;
   a{
     font-family: verdana;
+    font-size: 0.95em;
     padding: 4px;
     &:hover{
       color: #499249;

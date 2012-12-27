@@ -2,7 +2,7 @@
   <div id="editor_header">
 
     <div id="new_assets_window">
-      <div id="new_asset_title"></div>
+      <div id="new_asset_title" title="New file"></div>
     </div>
     <div id="new_assets_tabs">
             <div id="create_assets_tab" class="new_assets_tab active_tab">Create</div>
@@ -10,7 +10,6 @@
             <div class="cleaner"></div>
             <div id="upload_assets_window" style="display:none;">
               <%= form_for([:admin, @store, @asset], :remote => true, :html => {:multipart => true}) do |f| %>
-                <h4>You can choose some javascript, css or image file</h4><br>
                 <%= f.file_field :file, :multiple => true %>
                 <%= f.submit "Upload", :name => "upload", :style => "display: none;"%>
                 <div id="uploaded_assets_list"></div>
@@ -18,7 +17,7 @@
             </div>
             <div id="create_assets_window">
               <%= form_for([:admin, @store, @asset], :remote => true) do |f| %>
-                <%= f.text_field :name, :placeholder => "Type name" %>
+                <%= f.text_field :name, :placeholder => "Type name here" %>
                 <%= f.select :type, %w(css js) %>
                 <%= f.submit "Create", :name => "create"%>
               <% end %>
@@ -158,6 +157,13 @@
         <span class="title">Line numbers:</span> <input type="checkbox" id="editor_toggle_ln"><br>
         <span class="title">Font size:</span> <input type="range" min="9" max="15" value="10" id="editor_font_size"><br>
       </div>
+    </div>
+    <div id="empty_editor">
+      Click file on the left menu to start editing.<br>
+      You can create new file or upload multiple files from your PC.<br>
+      You can also accept a different options in settings menu.<br>
+      <br>
+      Follow <%= link_to "this link", "#"%>, You can read documentation for this editor.
     </div>
   </div>
   <div class='cleaner'></div>

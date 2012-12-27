@@ -1,11 +1,9 @@
 #ide_windows{
   background-color: #f4f4f4;
-  border-left: 1px solid #d3d3d3;
-  border-right: 1px solid #d3d3d3;
   #editor_header{
-    background: -webkit-linear-gradient(top,#FAFAFA,#EFEFEF);
-    background: -moz-linear-gradient(top,#FAFAFA,#EFEFEF);
-    color: #555;
+    background: #e8e8e8;
+    border: 1px solid #ddd;
+    color: #777;
     font-family: arial;
     font-size: 1em;
     padding: 5px;
@@ -13,8 +11,7 @@
     text-align: center;
     height: 28px;
     #editor_title{
-      text-transform: uppercase;
-      margin-left: 20%;
+      margin-left: 25%;
     }
     .editor_icon{
       cursor: pointer;
@@ -23,10 +20,6 @@
       margin-left: 5px;
       background-repeat: no-repeat;
       background-position: center;
-      &:hover{
-        box-shadow: 0px 0px 5px rgba(133, 133, 133, 0.80);
-        border-radius: 3px;
-      }
     }
     #full_screen_icon{
       display: none;
@@ -100,7 +93,7 @@
         height: 30px;
         background: -webkit-linear-gradient(top,#FAFAFA,#EFEFEF);
         background: -moz-linear-gradient(top,#FAFAFA,#EFEFEF);
-        border-bottom: 1px solid white;
+        border-bottom: 1px solid #ddd;
         font-size: 1.2em;
         padding: 5px;
         & > div{
@@ -227,30 +220,27 @@
         color: #499249;
         font-weight: bold;
         height: 30px;
-        background: url("/assets/document_new.png") no-repeat center;
+        background: url("/assets/add.png") no-repeat center;
         background-size: 20%;
       }
     }
     #new_assets_tabs{
       display: none;
-      background-color: silver;
-      border: 1px solid silver;
-      border-radius: 5px;
-      box-shadow: 0px 0px 3px #499249;
+      background-color: #f5f5f5;
+      border: 1px solid #ddd;
       position: absolute;
       top: 100%;
       left: 0;
       width: 29%;
-      margin: 5px;
+      margin-left: 10px;
       z-index: 12000;
+      text-align: left;
       .new_assets_tab{
         width: 44%;
         height: 20px;
-        background-color: white;
-        border: 2px solid silver;
         border-top: none;
         border-radius: 0 0 5px 5px;
-        color: silver;
+        color: #ddd;
         display: inline-block;
         text-align: center;
         float: left;
@@ -270,7 +260,12 @@
       #upload_assets_window, #create_assets_window{
         margin-top: 2px;
         background-color: white;
-        padding: 3px;
+        padding: 5px;
+        input[type=submit]{
+          width: 60px ;
+          padding: 2px !important;
+          margin: 0;
+        }
       }
       #upload_assets_window{
         form#new_asset input[type=submit]{
@@ -302,9 +297,10 @@
   #assets_menu{
     float: left;
     width: 20%;
-    border-right: 1px solid #ffffff;
     overflow-x: hidden;
     height: 450px;
+    border-right: 1px solid #ddd;
+    border-left: 1px solid #ddd;
     .button{
       margin: 5px;
       display: block;
@@ -315,13 +311,12 @@
       display: block;
       width: 100%;
       .assets_box_title{
-        padding: 0.4em;
-        background: -webkit-linear-gradient(bottom, rgba(136, 136, 136, 0.50) 0%, rgba(102, 102, 102, 0.51) 100%);
-        background: -moz-linear-gradient(bottom, rgba(136, 136, 136, 0.50) 0%, rgba(102, 102, 102, 0.51) 100%);
+        padding: 0.4em 0.1em;
+        background-color: #ccc;
+        border-bottom: 1px solid #f0f0f0;
         color: #f0f0f0;
         height: 28px;
-        margin: 2px 0;
-        border-left: 5px solid #9a9a9a;
+        cursor: pointer;
         .assets_box_toggler{
           height: 15px;
           width: 15px;
@@ -329,14 +324,8 @@
           background-position: center;
           background-size: contain;
           display: inline-block;
-          float: right;
-          cursor: pointer;
+          float: left;
           margin-top: 2px;
-          &:hover{
-            background-color: rgba(87, 157, 35, 0.34);
-            border-radius: 3px;
-            box-shadow: 0px 0px 3px rgba(101, 101, 101, 0.80);
-          }
           &.hidden{
             background-image: url("/assets/icons/bullet_arrow_down.png");
           }
@@ -402,15 +391,27 @@
     float: left;
     width: 80%;
     min-height: 450px;
+    border-right: 1px solid #ddd;
+    #empty_editor{
+      width: 50%;
+      height: 250px;
+      margin-top: 100px;
+      margin-left: 25%;
+      text-align: center;
+      color: #aaa;
+      overflow: hidden;
+      text-shadow: none;
+      font-size: 1.1em;
+      a{
+        color: #4169e1;
+      }
+    }
     #editor_right_menu{
       padding: 30px 5px 5px;
       font-size: 0.8em;
       height: 450px;
       width: 200px;
-      border-top: 1px solid white;
-      border-right: 1px solid white;
-      border-bottom: 1px solid silver;
-      border-left: 1px solid silver;
+      border-left: 1px solid #ddd;
       background-color: rgba(237, 237, 237, 0.53);
       display: none;
       float: right;
@@ -473,8 +474,8 @@
   }
 
   #editor_footer{
-    background: -webkit-linear-gradient(top, #e8e8e8, #dfdfdf);
-    background: -moz-linear-gradient(top, #e8e8e8, #dfdfdf);
+    background: #e8e8e8;
+    border: 1px solid #ddd;
     height: 30px;
     color: rgba(94, 99, 104, 0.56);
     border-bottom: 1px solid #d3d3d3;

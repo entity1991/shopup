@@ -10,12 +10,12 @@ var assets = {};
 
 j(document).ready(function(){
     j(".assets_box_title").append("<div class='assets_box_toggler'></div>");
-    j(".assets_box_toggler").toggle(function(){
-        j(this).parent().next(".asset_items").hide();
-        j(this).addClass("hidden");
+    j(".assets_box_title").toggle(function(){
+        j(this).next(".asset_items").hide();
+        j(this).find(".assets_box_toggler").addClass("hidden");
     }, function(){
-        j(this).parent().next(".asset_items").show();
-        j(this).removeClass("hidden");
+        j(this).next(".asset_items").show();
+        j(this).find(".assets_box_toggler").removeClass("hidden");
         j("#uploaded_assets_list").html("");
     });
 
@@ -111,15 +111,25 @@ j(document).ready(function(){
         }
     });
 
-    j("#new_asset_title").toggle(function(){
-        j("#new_assets_tabs").show();
-    }, function(){
-        j("#new_assets_tabs").hide();
+    j("#new_asset_title").click(function(){
+        if(j("#new_assets_tabs").css("display") == "none")
+            j("#new_assets_tabs").show();
+        else
+            j("#new_assets_tabs").hide();
+
     });
     j(".new_assets_tab").click(function(){
         j(".new_assets_tab").removeClass("active_tab");
         j(this).addClass("active_tab");
     });
+    j("html").click(function(e){
+        if(j("#new_assets_tabs").css("display") != "none"){
+            if (!hasParent(e.target, "new_assets_tabs") && e.target.id != "new_assets_tabs" && e.target.id != "new_asset_title") {
+                j("#new_assets_tabs").hide();
+            }
+        }
+    });
+
     j("#create_assets_tab").click(function(){
         j("#upload_assets_window").hide();
         j("#create_assets_window").show();
@@ -159,6 +169,8 @@ j(document).ready(function(){
             var header_height = parseInt(j("#editor_header").css("height").replace("px", ""));
             var footer_height = parseInt(j("#editor_footer").css("height").replace("px", ""));
             j("#editor_right_menu").css("height", (winHeight()-header_height-footer_height) + "px");
+            j("#managing_assets_body #asset_list").css("max-height", (winHeight()-35).toString() + "px");
+            j("#managing_assets_body #asset_list").css("height", (winHeight()-35).toString() + "px");
             for(var id in editors){
                 j(editors[id].getTextArea()).next(".CodeMirror")
                     .css("height", (winHeight()-header_height-footer_height) + "px");
@@ -272,6 +284,7 @@ function loadAsset(store_id, asset_id){
                         j("#full_screen_icon").show();
                         j("#editor_footer > *").css("display", "inline-block");
                     // end
+                    j("#empty_editor").remove();
                     initializeEditor("editor_" + asset_id, data.type);
                 }
             });
@@ -420,6 +433,8 @@ function initializeEditor(id, mode){
             var footer_height = parseInt(j("#editor_footer").css("height").replace("px", ""));
             j(".CodeMirror-scroll, #editor_right_menu, #assets_menu").css("height", (winHeight()-header_height-footer_height) + "px");
             j("#full_screen_icon").addClass("fullscreen").attr("title", "Minimaze");
+            j("#managing_assets_body #asset_list").css("max-height", (winHeight()-35).toString() + "px");
+            j("#managing_assets_body #asset_list").css("height", (winHeight()-35).toString() + "px");
             wrap.className += " CodeMirror-fullscreen";
             document.documentElement.style.overflow = "hidden";
             fullscreen = true;
@@ -427,6 +442,8 @@ function initializeEditor(id, mode){
             j("#ide_windows").removeClass("fullscreen");
             j(".CodeMirror-scroll, #editor_right_menu, #assets_menu").css("height", "450px");
             j("#full_screen_icon").removeClass("fullscreen").attr("title", "Full screen");
+            j("#managing_assets_body #asset_list").css("max-height", "475px");
+            j("#managing_assets_body #asset_list").css("height", "475px");
             wrap.className = wrap.className.replace(" CodeMirror-fullscreen", "");
             document.documentElement.style.overflow = "";
             fullscreen = false;
