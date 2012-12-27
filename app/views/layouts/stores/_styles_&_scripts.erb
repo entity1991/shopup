@@ -2,14 +2,9 @@
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <script type="text/javascript" src="jquery.blend.js"></script>
 <![endif]-->
-
-<style>
-  <% @css_lines.each do |line| %>
-    <%= line -%>
-  <% end %>
-</style>
-<script>
-  <% @js_lines.each do |line| %>
-    <%= line -%>
-  <% end %>
-</script>
+<% @stylesheets.each do |style| %>
+  <link href="/assets/store_assets/<%= style.id %>/<%= style.file_file_name %>" media="all" rel="stylesheet" type="text/css">
+<% end %>
+<% @javascripts.each do |js| %>
+  <script type="text/javascript" src="/assets/store_assets/<%= js.id %>/<%= js.file_file_name %>"></script>
+<% end %>

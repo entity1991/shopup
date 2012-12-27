@@ -7,9 +7,9 @@ class Asset < ActiveRecord::Base
   belongs_to :store
 
   has_attached_file :file,
-                    :styles => lambda { |a| !(a.content_type =~ %r(image)).nil? ? {:small => "50x50>"} : {}},
-                    :url  => "/assets/store_assets/:id/:style/:basename.:extension",
-                    :path => ":rails_root/public/assets/store_assets/:id/:style/:basename.:extension"
+                    #:styles => lambda { |a| !(a.content_type =~ %r(image)).nil? ? {:small => "50x50>"} : {}},
+                    :url  => "/assets/store_assets/:id/:basename.:extension",
+                    :path => ":rails_root/public/assets/store_assets/:id/:basename.:extension"
 
   validates_attachment_presence :file
   validates_attachment_size :file, :less_than => 5.megabytes

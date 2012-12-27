@@ -9,7 +9,7 @@ j = jQuery.noConflict();
 j(document).ready(function(){
 
     j("input[type=file]").wrap("<div class='file_wrapper'></div>").after("<button>Select Files</button>");
-    j("input[type=file]").wrap("<div class='file'></div>")
+    j("input[type=file]").wrap("<div class='file'></div>");
 
     j("html").click(function(e){
         autoHiding(e, "signin_window");

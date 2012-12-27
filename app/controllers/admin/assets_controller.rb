@@ -87,7 +87,7 @@ class Admin::AssetsController < Admin::ApplicationController
         @asset = @store.assets.new
         @asset.update_attribute(:file, File.new(TEMPORARY_EMPTY_FILE_PATH))
         old_file_path = path_to_asset @asset
-        new_file_path = "./public/assets/store_assets/" + @asset.id.to_s + "/original/" + full_file_name
+        new_file_path = "./public/assets/store_assets/" + @asset.id.to_s + "/" + full_file_name
         File.rename(old_file_path, new_file_path)
         if type == "css"
           content_type = "text/css"
@@ -123,6 +123,9 @@ class Admin::AssetsController < Admin::ApplicationController
 
   def rename
     @asset = Asset.find params[:asset_id]
+    old_file_path = path_to_asset @asset
+    new_file_path = "./public/assets/store_assets/" + @asset.id.to_s + "/" + params[:new_name]
+    File.rename(old_file_path, new_file_path)
     @asset.update_attribute(:file_file_name, params[:new_name])
     render :text => nil, :status => 200
   end
@@ -143,7 +146,7 @@ class Admin::AssetsController < Admin::ApplicationController
     @asset = Asset.find(params[:asset_id])
     if @asset.stylesheet? or @asset.javascript?
       @lines = ""
-      file_name = "./public/assets/store_assets/" + @asset.id.to_s + "/original/" + @asset.file_file_name
+      file_name = "./public/assets/store_assets/" + @asset.id.to_s + "/" + @asset.file_file_name
       if File.exist? file_name
         file_lines = File.open(file_name).readlines
         file_lines.each do |line|
@@ -161,7 +164,7 @@ class Admin::AssetsController < Admin::ApplicationController
   private
 
   def path_to_asset(asset)
-    "./public/assets/store_assets/" + asset.id.to_s + "/original/" + asset.file_file_name
+    "./public/assets/store_assets/" + asset.id.to_s + "/" + asset.file_file_name
   end
 
 end

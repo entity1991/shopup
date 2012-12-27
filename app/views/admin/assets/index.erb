@@ -85,7 +85,7 @@
       <div class="asset_items">
         <%if @images.length != 0%>
           <% @images.each do |image| %>
-            <div class="asset_item">
+            <div class="asset_item" id="asset_<%= image.id %>" title="<%= 9**9 %>">
               <%= image.file_file_name %>
             </div>
           <% end %>

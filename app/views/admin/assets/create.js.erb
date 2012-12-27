@@ -3,7 +3,7 @@
     <% if @new_images.length != 0%>
       j("#images .asset_items").append(
         '<% @new_images.each do |image| %>' +
-          '<div class="asset_item just_now_added_asset">' +
+          '<div class="asset_item just_now_added_asset" id="asset_<%= image.id %>">' +
             '<%= image.file_file_name %>' +
           '</div>' +
         '<% end%>'
