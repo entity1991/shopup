@@ -18,7 +18,7 @@
             <div id="create_assets_window">
               <%= form_for([:admin, @store, @asset], :remote => true) do |f| %>
                 <%= f.text_field :name, :placeholder => "Type name here" %>
-                <%= f.select :type, %w(css js) %>
+                <%= f.select :ext, %w(css js) %>
                 <%= f.submit "Create", :name => "create"%>
               <% end %>
             </div>

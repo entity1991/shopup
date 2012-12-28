@@ -15,7 +15,7 @@ class Admin::AssetsController < Admin::ApplicationController
     @asset = Asset.find params[:asset_id]
     if @asset.stylesheet? or @asset.javascript?
       @lines = ""
-      file_name = path_to_asset @asset
+      file_name = @asset.path + @asset.file_file_name
       if File.exist? file_name
         file_lines = File.open(file_name).readlines
         file_lines.each do |line|
@@ -37,12 +37,12 @@ class Admin::AssetsController < Admin::ApplicationController
   def update
     @asset = Asset.find params[:id]
     if @asset.stylesheet? or @asset.javascript?
-      file_name = path_to_asset @asset
+      file_name = @asset.path + @asset.file_file_name
       if File.exist? file_name
         File.open(file_name, 'w')do |file|
           file.write params[:asset][:file_content]
         end
-        @asset.update_attribute(:file_file_size, File.new(path_to_asset @asset).size)
+        @asset.update_attribute(:file_file_size, File.new(@asset.path + @asset.file_file_name).size)
       else
 
       end
@@ -82,21 +82,21 @@ class Admin::AssetsController < Admin::ApplicationController
     elsif params[:create]
       if params[:asset][:name] != ""
         name = params[:asset][:name]
-        type = params[:asset][:type]
-        full_file_name = name + "." + type
+        ext = params[:asset][:ext]
+        full_file_name = name + "." + ext
         @asset = @store.assets.new
         @asset.update_attribute(:file, File.new(TEMPORARY_EMPTY_FILE_PATH))
-        old_file_path = path_to_asset @asset
-        new_file_path = "./public/assets/store_assets/" + @asset.id.to_s + "/" + full_file_name
-        File.rename(old_file_path, new_file_path)
-        if type == "css"
+        if ext == "css"
           content_type = "text/css"
-        elsif type == "js"
+        elsif ext == "js"
           content_type = "application/javascript"
         else
           content_type = "inode/x-empty"
         end
         @asset.update_attribute(:file_content_type, content_type)
+        old_file_path = "./public/assets/stores/" + @asset.store.domain + "/temp/" + @asset.file_file_name
+        new_file_path = @asset.path + full_file_name
+        File.rename(old_file_path, new_file_path)
         @asset.update_attribute(:file_file_name, full_file_name)
         @new_assets << @asset
         if @asset.stylesheet?
@@ -123,8 +123,8 @@ class Admin::AssetsController < Admin::ApplicationController
 
   def rename
     @asset = Asset.find params[:asset_id]
-    old_file_path = path_to_asset @asset
-    new_file_path = "./public/assets/store_assets/" + @asset.id.to_s + "/" + params[:new_name]
+    old_file_path = @asset.path + @asset.file_file_name
+    new_file_path = @asset.path + params[:new_name]
     File.rename(old_file_path, new_file_path)
     @asset.update_attribute(:file_file_name, params[:new_name])
     render :text => nil, :status => 200
@@ -146,7 +146,7 @@ class Admin::AssetsController < Admin::ApplicationController
     @asset = Asset.find(params[:asset_id])
     if @asset.stylesheet? or @asset.javascript?
       @lines = ""
-      file_name = "./public/assets/store_assets/" + @asset.id.to_s + "/" + @asset.file_file_name
+      file_name = @asset.path + @asset.file_file_name
       if File.exist? file_name
         file_lines = File.open(file_name).readlines
         file_lines.each do |line|
@@ -162,9 +162,5 @@ class Admin::AssetsController < Admin::ApplicationController
   end
 
   private
-
-  def path_to_asset(asset)
-    "./public/assets/store_assets/" + asset.id.to_s + "/" + asset.file_file_name
-  end
 
 end
