@@ -19,46 +19,7 @@ All Products
   <% end %>
 </div>
 
-<script>
 
-    function refresh_search_results(page){
-        page = page || 1;
-        keyword = j("#search").val();
-        category = j("#category_").val();
-        j.ajax({
-            url: "<%= admin_store_products_path(@store) %>",
-            type: 'GET',
-            data: {q : keyword, category_id : category, page : page, requestasync : "yes"},
-            beforeSend: function () {
-            },
-            complete: function(){
-            },
-            error: function(err){
-                alert("error");
-            },
-            success: function(data){
-                j("#products").html(data);
-            }
-        });
-    }
-
-    function go_to_page(element, page){
-       j(".current").removeClass("current");
-       j(element).addClass("current");
-       refresh_search_results(page);
-    }
-
-  j(document).ready(function(){
-      j("#search").keyup(function(){
-          refresh_search_results();
-      });
-      j("#category_").change(function(){
-          refresh_search_results();
-      });
-  });
-
-
-</script>
 
 
 
