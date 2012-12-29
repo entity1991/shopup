@@ -2,8 +2,8 @@
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <script type="text/javascript" src="jquery.blend.js"></script>
 <![endif]-->
-<%= stylesheet_link_tag 'main.scss', :media => 'all' %>
-<%= javascript_include_tag 'application', :media => 'all' %>
+<%= stylesheet_link_tag 'main.scss', controller_path, :media => 'all' %>
+<%= javascript_include_tag 'application', controller_path, :media => 'all' %>
 
 <% if params[:controller] == "admin/assets" %>
   <%= javascript_include_tag 'lib/editor_highlight', :media => 'all' %>

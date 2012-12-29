@@ -2,7 +2,7 @@ class Store < ActiveRecord::Base
 
   require "RMagick"
 
-  attr_accessible :domain, :name, :capture
+  attr_accessible :domain, :name, :capture, :active
 
   CAPTURE_PATH = './app/assets/images/'
   CAPTURE_W = 165

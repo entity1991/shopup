@@ -8,7 +8,7 @@
       <div class="container_right">
         <div class="container_title"><%= product.title %></div>
         <div class="product_price"><%= number_to_currency(product.price) %></div>
-        <div>Category: <%= product.category.name %></div>
+        <div>Category: <%= product.category.name if product.category %></div>
         <% product.field_contents.each do |field|%>
             <div>
               <%=  field.field.title %>: <%= field.content %>
