@@ -276,8 +276,8 @@ function loadAsset(store_id, asset_id){
                 dataType: "json",
                 success: function(data) {
                     j("#editor_title").html(data.name);
-                    var editor_content = "<textarea id='editor_" + asset_id + "' class='editor_content'>" + data.content + "</textarea>";
-                    j("#editor_right_menu").after(editor_content);
+                    var editor_content = "<textarea id='editor_" + asset_id + "' class='editor_content'>" + data.content;
+                    j("#editor_right_menu").after(editor_content.replace("</textarea>", "&lt;/textarea&gt;") + "</textarea>");
                     j("#arrow_redo_icon").removeClass("arrow_redo_icon_active");
                     j("#arrow_undo_icon").removeClass("arrow_undo_icon_active");
                     //  todo if first loading

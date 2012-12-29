@@ -18,7 +18,7 @@
             <div id="create_assets_window">
               <%= form_for([:admin, @store, @asset], :remote => true) do |f| %>
                 <%= f.text_field :name, :placeholder => "Type name here" %>
-                <%= f.select :ext, %w(css js) %>
+                <%= f.select :ext, %w(html erb js css) %>
                 <%= f.submit "Create", :name => "create"%>
               <% end %>
             </div>
@@ -79,17 +79,27 @@
     <div id="arrow_undo_icon" class="editor_icon float_r" title="Undo"></div>
   </div>
   <div id="assets_menu">
-    <div class="assets_box" id="images">
-      <div class="assets_box_title">Images</div>
+    <div class="assets_box" id="htmls">
+      <div class="assets_box_title">Pages</div>
       <div class="asset_items">
-        <%if @images.length != 0%>
-          <% @images.each do |image| %>
-            <div class="asset_item" id="asset_<%= image.id %>" title="<%= 9**9 %>">
-              <%= image.file_file_name %>
-            </div>
+        <%if @htmls.length != 0%>
+          <% @htmls.each do |html| %>
+            <%= link_to_function html.file_file_name, "loadAsset(#{@store.id}, #{html.id})", :class => "asset_item", :id => "asset_#{html.id}" %>
           <% end %>
         <% else %>
-          <div class="no_assets">No images</div>
+          <div class="no_assets">No Pages found</div>
+        <% end %>
+      </div>
+    </div>
+    <div class="assets_box" id="javascripts">
+      <div class="assets_box_title">Javascripts</div>
+      <div class="asset_items">
+        <%if @javascripts.length != 0%>
+          <% @javascripts.each do |javascript| %>
+            <%= link_to_function javascript.file_file_name, "loadAsset(#{@store.id}, #{javascript.id})", :class => "asset_item", :id => "asset_#{javascript.id}" %>
+          <% end %>
+        <% else %>
+          <div class="no_assets">No JS files</div>
         <% end %>
       </div>
     </div>
@@ -105,15 +115,17 @@
         <% end %>
       </div>
     </div>
-    <div class="assets_box" id="javascripts">
-      <div class="assets_box_title">Javascripts</div>
+    <div class="assets_box" id="images">
+      <div class="assets_box_title">Images</div>
       <div class="asset_items">
-        <%if @javascripts.length != 0%>
-          <% @javascripts.each do |javascript| %>
-            <%= link_to_function javascript.file_file_name, "loadAsset(#{@store.id}, #{javascript.id})", :class => "asset_item", :id => "asset_#{javascript.id}" %>
+        <%if @images.length != 0%>
+          <% @images.each do |image| %>
+            <div class="asset_item" id="asset_<%= image.id %>" title="<%= 9**9 %>">
+              <%= image.file_file_name %>
+            </div>
           <% end %>
         <% else %>
-          <div class="no_assets">No JS files</div>
+          <div class="no_assets">No images</div>
         <% end %>
       </div>
     </div>

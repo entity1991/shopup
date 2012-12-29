@@ -26,7 +26,7 @@ class Admin::StoresController < Admin::ApplicationController
 
   def create
     @store = current_user.stores.new(params[:store])
-    @store.storage_limit = 104857600 #100Mb
+    @store.storage_limit = 100.megabytes
     if @store.save
       @store.create_default_assets
       @store.take_capture

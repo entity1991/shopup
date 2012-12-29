@@ -5,6 +5,7 @@ class Admin::AssetsController < Admin::ApplicationController
     @images = @assets.images
     @stylesheets = @assets.stylesheets
     @javascripts = @assets.javascripts
+    @htmls = @assets.htmls
     @asset = Asset.new
     @editor_theme = session[:editor_theme] || "default"
     @editor_ln = session[:editor_ln] ?  session[:editor_ln] : true
@@ -13,7 +14,7 @@ class Admin::AssetsController < Admin::ApplicationController
 
   def load_asset
     @asset = Asset.find params[:asset_id]
-    if @asset.stylesheet? or @asset.javascript?
+    unless @asset.image?
       @lines = ""
       file_name = @asset.path + @asset.file_file_name
       if File.exist? file_name
@@ -36,7 +37,7 @@ class Admin::AssetsController < Admin::ApplicationController
 
   def update
     @asset = Asset.find params[:id]
-    if @asset.stylesheet? or @asset.javascript?
+    unless @asset.image?
       file_name = @asset.path + @asset.file_file_name
       if File.exist? file_name
         File.open(file_name, 'w')do |file|
@@ -60,6 +61,7 @@ class Admin::AssetsController < Admin::ApplicationController
     @new_stylesheets = []
     @new_javascripts = []
     @new_assets =[]
+    @new_htmls = []
 
     if params[:upload]
       if params[:asset]
@@ -75,6 +77,8 @@ class Admin::AssetsController < Admin::ApplicationController
               @new_stylesheets << @asset
             elsif @asset.javascript?
               @new_javascripts << @asset
+            elsif @asset.html?
+              @new_htmls << @asset
             end
           end
         end
@@ -90,6 +94,10 @@ class Admin::AssetsController < Admin::ApplicationController
           content_type = "text/css"
         elsif ext == "js"
           content_type = "application/javascript"
+        elsif ext == "html"
+          content_type = "text/html"
+        elsif ext == "erb"
+          content_type = "text/rhtml"
         else
           content_type = "inode/x-empty"
         end
@@ -103,6 +111,8 @@ class Admin::AssetsController < Admin::ApplicationController
           @new_stylesheets << @asset
         elsif @asset.javascript?
           @new_javascripts << @asset
+        elsif @asset.html?
+          @new_htmls << @asset
         end
       end
     end
@@ -143,22 +153,23 @@ class Admin::AssetsController < Admin::ApplicationController
   end
 
   def download
-    @asset = Asset.find(params[:asset_id])
-    if @asset.stylesheet? or @asset.javascript?
-      @lines = ""
-      file_name = @asset.path + @asset.file_file_name
-      if File.exist? file_name
-        file_lines = File.open(file_name).readlines
-        file_lines.each do |line|
-          @lines << line
-        end
-      else
-
-      end
-    else
-
-    end
-    send_data(@lines, disposition: "inline")
+    # todo need to refactoring. Also need to create download all in archive
+    #@asset = Asset.find(params[:asset_id])
+    #if @asset.stylesheet? or @asset.javascript?
+    #  @lines = ""
+    #  file_name = @asset.path + @asset.file_file_name
+    #  if File.exist? file_name
+    #    file_lines = File.open(file_name).readlines
+    #    file_lines.each do |line|
+    #      @lines << line
+    #    end
+    #  else
+    #
+    #  end
+    #else
+    #
+    #end
+    #send_data(@lines, disposition: "inline")
   end
 
   private
