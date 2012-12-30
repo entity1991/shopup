@@ -34,16 +34,16 @@ module ApplicationHelper
     case bytes
       when 0
         "empty"
-      when 1..1023
+      when 1..1.kilobyte-1
         bytes.to_s + " b"
-      when 1024..1048576
-        (bytes.to_f/1024).round(2).to_s + " Kb"
-      when 1048577..1073741823
-        (bytes.to_f/1024/1024).round(2).to_s + " Mb"
-      when 1073741823..1009511627775
-        (bytes.to_f/1024/1024/1024).round(2).to_s + " Gb"
+      when 1.kilobyte..1.megabyte-1
+        (bytes.to_f/1.kilobyte).round(2).to_s + " Kb"
+      when 1.megabyte..1.gigabyte-1
+        (bytes.to_f/1.megabyte).round(2).to_s + " Mb"
+      when 1.gigabyte..1.terabyte-1
+        (bytes.to_f/1.gigabyte).round(2).to_s + " Gb"
       else
-        "No data"
+        "File is very long"
     end
   end
 

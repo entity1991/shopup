@@ -1,4 +1,4 @@
-CodeMirror.defineMode("css", function(config) {
+CodeMirror.defineMode("stylesheet", function(config) {
   var indentUnit = config.indentUnit, type;
   
   var atMediaTypes = keySet([
@@ -462,4 +462,4 @@ CodeMirror.defineMode("css", function(config) {
   };
 });
 
-CodeMirror.defineMIME("text/css", "css");
+CodeMirror.defineMIME("text/css", "stylesheet");

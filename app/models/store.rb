@@ -45,10 +45,12 @@ class Store < ActiveRecord::Base
   def create_default_assets
     self.assets.create(file: File.new("./app/assets/javascripts/stores/application.js"), active: 1)
     self.assets.create(file: File.new("./app/assets/stylesheets/stores/application.css"), active: 1)
+    Dir["./app/views/stores/**/*"].each do |page|
+      self.assets.create(file: File.new(page), active: 1) if File.file? page
+    end
   end
 
   #todo methods below refactor to scopes
-
   def stylesheets
     self.assets.stylesheets
   end
