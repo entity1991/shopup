@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_one :cart, :dependent => :destroy
   has_many :comments
   has_many :questions
+  has_one :join_confirmation
 
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" },
                              :path => ":rails_root/public/assets/users/:id/:style/:basename.:extension"
@@ -21,6 +22,7 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :avatar, :content_type => %w(image/jpeg image/png image/jpg)
 
   before_save :encrypt_password
+  after_create :send_registration_email
 
   def has_password?(submitted_password)
     encrypted_password == encrypt(submitted_password)
@@ -28,8 +30,12 @@ class User < ActiveRecord::Base
 
   def self.authenticate(email, submitted_password)
     user = find_by_email(email)
-    return nil  if user.nil?
-    return user if user.has_password?(submitted_password)
+    if user
+      if user.join_confirmation == nil && user.has_password?(submitted_password)
+        return user
+        end
+    end
+    return nil
   end
 
   def self.authenticate_with_salt(id, cookie_salt)
@@ -39,6 +45,11 @@ class User < ActiveRecord::Base
 
   def full_name
     self.first_name + " " + self.last_name
+  end
+
+  def send_registration_email
+    self.join_confirmation = JoinConfirmation.create(:activation_code => Array.new(45){(97 + rand(26)).chr}.join)
+    MainMailer.registration_email(self).deliver
   end
 
   private

@@ -2,6 +2,7 @@ ShopUp::Application.routes.draw do
 
   resources :users,      :except => [:edit]
   resources :sessions,   :only => [:new, :create, :destroy]
+  match '/join_confirm', :to => 'sessions#join_confirm'
   resources :carts,      :only => [:index, :show, :destroy]
   resources :line_items, :only => [:create, :destroy]
   resources :orders,     :only => [:new, :create]
