@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
   def create
     user = User.authenticate(params[:session][:email], params[:session][:password])
     if user.nil?
-      flash.now[:error] = "Invalid email/password combination."
+      flash.now[:error] = "Invalid email/password combination or you are not activated user."
       @title = "Sign in"
       render "new"
     else
@@ -42,6 +42,16 @@ class SessionsController < ApplicationController
   def change_editor_font_size
     session[:editor_font_size] = params[:id]
     render :text => nil, :status => 200
+  end
+
+
+  def join_confirm
+    confirm = JoinConfirmation.find_by_activation_code params[:activation_code]
+    if confirm
+      confirm.destroy
+      flash[:success] = "Activation confirm successful. You can enter with you email/pass."
+      redirect_to root_path
+    end
   end
 
   private

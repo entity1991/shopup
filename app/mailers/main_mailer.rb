@@ -1,5 +1,5 @@
 class MainMailer < ActionMailer::Base
-  default from: "Administrator <ruslankuzma@gmail.com>"
+  default from: "Administrator <misha.skubenich@gmail.com>"
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
@@ -16,5 +16,10 @@ class MainMailer < ActionMailer::Base
     @order = order
     @store = store
     mail :to => store.owner.email, :subject => 'You have a new order'
+  end
+
+  def registration_email(user)
+    @user = user
+    mail :to => user.email, :subject => "You have been Invited!"
   end
 end

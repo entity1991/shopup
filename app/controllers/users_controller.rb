@@ -32,8 +32,6 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     @submit_value = "Sign up"
     if @user.save
-      sign_in @user
-      flash[:success] = "Welcome to Shop!"
       redirect_to root_path
     else
       @title = "Sign up"
