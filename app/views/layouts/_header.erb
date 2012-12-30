@@ -2,7 +2,7 @@
   <% if signed_in?%>
     <div class="float_l">
       <% if current_user.stores.count == 0%>
-        <%= link_to "Create your stores now!", new_admin_store_path %>
+        <%= link_to "Create your first store now!", new_admin_store_path, :id => "first_store" %>
       <% else %>
         <%= link_to "", "#", :id => "stores_list_toggler"%>
       <% end %>
@@ -31,5 +31,3 @@
     <%= link_to "Create new store", new_admin_store_path, :id => "new_store" %>
   </div>
 <% end %>
-
-

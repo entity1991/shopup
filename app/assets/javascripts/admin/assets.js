@@ -68,10 +68,20 @@ j(document).ready(function(){
         var new_name = name + type;
         var id = this.getAttribute("id");
         if (name != ""){
-            j.get("/admin/stores/" + store + "/assets/" + id + "/rename?new_name=" + new_name);
-            j(".managing_assets_row#managing_asset_" + id).find(".asset_row_name").html(new_name);
-            j(".asset_items #asset_" + id).html(new_name);
-            j("#asset_detail h3").html(new_name);
+            j.ajax({
+                url: "/admin/stores/" + store + "/assets/" + id + "/rename?new_name=" + new_name,
+                type:"get",
+                dataType: "text",
+                success: function(success) {
+                    if (success == "true"){
+                        j(".managing_assets_row#managing_asset_" + id).find(".asset_row_name").html(new_name);
+                        j(".asset_items #asset_" + id).html(new_name);
+                        j("#asset_detail h3").html(new_name);
+                    } else {
+                        alert("Error. This name of asset already exist!")
+                    }
+                }
+            });
         }
     });
     j(".asset_delete").live("click", function(){
@@ -276,8 +286,8 @@ function loadAsset(store_id, asset_id){
                 dataType: "json",
                 success: function(data) {
                     j("#editor_title").html(data.name);
-                    var editor_content = "<textarea id='editor_" + asset_id + "' class='editor_content'>" + data.content;
-                    j("#editor_right_menu").after(editor_content.replace("</textarea>", "&lt;/textarea&gt;") + "</textarea>");
+                    j("#editor_right_menu").after("<textarea id='editor_" + asset_id + "' class='editor_content'>" +
+                        data.content.replace("</textarea>", "&lt;/textarea&gt;") + "</textarea>");
                     j("#arrow_redo_icon").removeClass("arrow_redo_icon_active");
                     j("#arrow_undo_icon").removeClass("arrow_undo_icon_active");
                     //  todo if first loading
@@ -300,7 +310,7 @@ function initializeEditor(id, mode){
     editor_vars[id] = {changed: false, asset_id: id.split("_")[1]};
     editors[id] = CodeMirror.fromTextArea(document.getElementById(id), {
       lineNumbers: true,
-      lineWrapping: true,// ?
+      lineWrapping: false,
       mode: mode,
       tabSize: 4,
       indentUnit: 4,    // ?

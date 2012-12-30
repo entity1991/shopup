@@ -147,6 +147,9 @@ table{
     &:hover{
       box-shadow: 0 0 5px rgba(245, 245, 245, 0.76);
     }
+    &#first_store{
+      width: auto;
+    }
     &#goto_store{
       width: auto;
     }
@@ -411,14 +414,15 @@ table{
   right: 5px;
   padding: 10px;
   z-index: 100;
-  background-color: rgba(175, 175, 175, 0.6);
-  box-shadow: 0 -2px 2px 1px rgba(124, 124, 124, 0.42);
-  border: 1px solid #CCC;
-  border-radius: 10px;
+  background-color: #2a85a0;
+  border: 1px solid #ddd;
   text-shadow: #121212;
   opacity: 0.85;
+  color: #f5f5f5;
   h3{
     margin: 0;
+    border-bottom: 1px solid #ddd;
+    color: white;
   }
   .field input{
     width: 180px;
@@ -426,8 +430,11 @@ table{
   input[type=submit]{
     margin: 5px auto;
   }
-  a:hover{
-    color: #111;
+  a{
+    color: #add2e1;
+    &:hover{
+      color: #f0f6ed;
+    }
   }
 }
 

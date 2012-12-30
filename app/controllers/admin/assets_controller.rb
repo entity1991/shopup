@@ -62,24 +62,29 @@ class Admin::AssetsController < Admin::ApplicationController
     @new_javascripts = []
     @new_assets =[]
     @new_htmls = []
+    @dublicable_names = []
 
     if params[:upload]
       if params[:asset]
         uploaded_asset = params[:asset]
         params[:asset][:file].each do |file|
-          uploaded_asset[:file] = file
-          @asset = @store.assets.build(uploaded_asset)
-          if @asset.save
-            @new_assets << @asset
-            if @asset.image?
-              @new_images << @asset
-            elsif @asset.stylesheet?
-              @new_stylesheets << @asset
-            elsif @asset.javascript?
-              @new_javascripts << @asset
-            elsif @asset.html?
-              @new_htmls << @asset
+          unless @store.has_asset? file.original_filename
+            uploaded_asset[:file] = file
+            @asset = @store.assets.build(uploaded_asset)
+            if @asset.save
+              @new_assets << @asset
+              if @asset.image?
+                @new_images << @asset
+              elsif @asset.stylesheet?
+                @new_stylesheets << @asset
+              elsif @asset.javascript?
+                @new_javascripts << @asset
+              elsif @asset.html?
+                @new_htmls << @asset
+              end
             end
+          else
+            @dublicable_names << file.original_filename
           end
         end
       end
@@ -88,37 +93,37 @@ class Admin::AssetsController < Admin::ApplicationController
         name = params[:asset][:name]
         ext = params[:asset][:ext]
         full_file_name = name + "." + ext
-        @asset = @store.assets.new
-        @asset.update_attribute(:file, File.new(TEMPORARY_EMPTY_FILE_PATH))
-        if ext == "css"
-          content_type = "text/css"
-        elsif ext == "js"
-          content_type = "application/javascript"
-        elsif ext == "html"
-          content_type = "text/html"
-        elsif ext == "erb"
-          content_type = "text/rhtml"
+        unless @store.has_asset? full_file_name
+          @asset = @store.assets.new
+          @asset.update_attribute(:file, File.new(TEMPORARY_EMPTY_FILE_PATH))
+          if ext == "css"
+            content_type = "text/css"
+          elsif ext == "js"
+            content_type = "application/javas cript"
+          elsif ext == "html"
+            content_type = "text/html"
+          elsif ext == "erb"
+            content_type = "text/rhtml"
+          else
+            content_type = "inode/x-empty"
+          end
+          @asset.update_attribute(:file_content_type, content_type)
+          old_file_path = "./public/assets/stores/" + @asset.store.domain + "/temp/" + @asset.file_file_name
+          new_file_path = @asset.path + full_file_name
+          File.rename(old_file_path, new_file_path)
+          @asset.update_attribute(:file_file_name, full_file_name)
+          @new_assets << @asset
+          if @asset.stylesheet?
+            @new_stylesheets << @asset
+          elsif @asset.javascript?
+            @new_javascripts << @asset
+          elsif @asset.html?
+            @new_htmls << @asset
+          end
         else
-          content_type = "inode/x-empty"
-        end
-        @asset.update_attribute(:file_content_type, content_type)
-        old_file_path = "./public/assets/stores/" + @asset.store.domain + "/temp/" + @asset.file_file_name
-        new_file_path = @asset.path + full_file_name
-        File.rename(old_file_path, new_file_path)
-        @asset.update_attribute(:file_file_name, full_file_name)
-        @new_assets << @asset
-        if @asset.stylesheet?
-          @new_stylesheets << @asset
-        elsif @asset.javascript?
-          @new_javascripts << @asset
-        elsif @asset.html?
-          @new_htmls << @asset
+          @dublicable_names << full_file_name
         end
       end
-    end
-
-    respond_to do |format|
-      format.js
     end
   end
 
@@ -132,12 +137,17 @@ class Admin::AssetsController < Admin::ApplicationController
   end
 
   def rename
-    @asset = Asset.find params[:asset_id]
-    old_file_path = @asset.path + @asset.file_file_name
-    new_file_path = @asset.path + params[:new_name]
-    File.rename(old_file_path, new_file_path)
-    @asset.update_attribute(:file_file_name, params[:new_name])
-    render :text => nil, :status => 200
+    unless @store.has_asset? params[:new_name]
+      @asset = Asset.find params[:asset_id]
+      old_file_path = @asset.path + @asset.file_file_name
+      new_file_path = @asset.path + params[:new_name]
+      File.rename(old_file_path, new_file_path)
+      @asset.update_attribute(:file_file_name, params[:new_name])
+      success = true
+    else
+      success = false
+    end
+    render :text => success
   end
 
   def activate

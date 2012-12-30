@@ -32,8 +32,7 @@ class Admin::StoresController < Admin::ApplicationController
       @store.take_capture
       redirect_to admin_store_path(@store), notice: 'Store was successfully created.'
     else
-      # todo refactoring to render
-      redirect_to :back
+      render :new
     end
   end
 

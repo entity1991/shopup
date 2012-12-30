@@ -67,5 +67,14 @@ class Store < ActiveRecord::Base
     (usage_storage.to_f*100/storage_limit).round 2
   end
 
+  def has_asset?(asset_name)
+    self.assets.each do |a|
+      if a.file_file_name == asset_name
+        return true
+      end
+    end
+    false
+  end
+
 end
 

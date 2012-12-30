@@ -61,6 +61,4 @@ class Asset < ActiveRecord::Base
     "./public/assets/stores/" + store.domain + "/" + type + "s/"
   end
 
-  private
-
 end
