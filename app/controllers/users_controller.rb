@@ -17,8 +17,8 @@ class UsersController < ApplicationController
   end
 
   def new
-    @title = "Sign up"
-    @submit_value = "Sign up"
+    @title = t(:sign_up)
+    @submit_value = t(:sign_up)
     @user = User.new
   end
 
@@ -30,11 +30,11 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-    @submit_value = "Sign up"
+    @submit_value = t(:sign_up)
     if @user.save
-      redirect_to root_path
+      redirect_to root_path, :notice => "Please, review you mail, confirm registrarion and refresh this page!"
     else
-      @title = "Sign up"
+      @title = t(:sign_up)
       render 'new'
     end
   end
@@ -71,7 +71,7 @@ class UsersController < ApplicationController
   def correct_user?
     @user = User.find(params[:id])
     unless current_user?(@user)
-      flash[:notice] = "You don't have permision to this page"
+      flash[:notice] = "You don't have permission to this page"
       redirect_to(root_path)
     end
   end

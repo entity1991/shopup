@@ -10,15 +10,15 @@
   <% end %>
 
   <div class="float_r">
-    <%= link_to "", root_path, :id => "header_home", :title => t(:Home) %>
-    <%= link_to "", help_path, :id => "header_help", :title => t(:Help) %>
+    <%= link_to "", root_path, :id => "header_home", :title => t(:home) %>
+    <%= link_to "", help_path, :id => "header_help", :title => t(:help) %>
     <%= link_to "", carts_path, :id => "header_cart", :title => t(:cart) %>
     <% if signed_in?%>
       <%= link_to "", profile_path, :id => "header_profile", :title => "Profile" %>
-      <%= link_to "", signout_path, :method => :delete, :id => "header_sign_out", :title => t(:Sign_out) %>
+      <%= link_to "", signout_path, :method => :delete, :id => "header_sign_out", :title => t(:sign_out) %>
     <% else %>
-      <%= link_to_function "", "toggleSigninWindow()", :id => "signin_window_toggler", :title=> t('Sign_in')%>
-      <%= link_to "", signup_path, :id => "header_sign_up", :title => t('Sign_up') %>
+      <%= link_to_function "", "toggleSigninWindow()", :id => "signin_window_toggler", :title=> t('sign_in')%>
+      <%= link_to "", signup_path, :id => "header_sign_up", :title => t('sign_up') %>
     <% end %>
   </div>
 </div>

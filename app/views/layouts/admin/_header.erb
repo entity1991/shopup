@@ -1,15 +1,15 @@
 <div id="header">
   <div class="float_l">
     <a id="stores_list_toggler"></a>
-    <%= (link_to @store.name, stores_store_path(@store), :target => "_blank", :title => "Visit your store", :id => "goto_store") if @store.id != nil %>
+    <%= (link_to "Visit your store: " + @store.name, stores_store_path(@store), :target => "_blank", :title => "Visit your store", :id => "goto_store") if @store.id != nil %>
   </div>
 
   <div class="float_r">
-    <%= link_to "", root_path, :id => "header_home", :title => t(:Home) %>
-    <%= link_to "", help_path, :id => "header_help", :title => t(:Help) %>
+    <%= link_to "", root_path, :id => "header_home", :title => t(:home) %>
+    <%= link_to "", help_path, :id => "header_help", :title => t(:help) %>
     <% if signed_in?%>
       <%= link_to "", profile_path, :id => "header_profile", :title => "Profile" %>
-      <%= link_to "", signout_path, :method => :delete, :id => "header_sign_out", :title => t(:Sign_out) %>
+      <%= link_to "", signout_path, :method => :delete, :id => "header_sign_out", :title => t(:sign_out) %>
     <% else %>
       <%= link_to_function t('Sign_in'), "toggleSigninWindow()", :id => "sign_in"%>
       <%= link_to t('Sign_up'), signup_path %>

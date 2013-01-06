@@ -1,10 +1,38 @@
 ru:
-  Settings: "Настройки"
-  Help: "Помощь"
-  Sign_out: "Выйти"
-  Sign_in: "Войти"
   or: "или"
-  Sign_up: "Зарегестрироваться"
-  Home: "Главная"
-  Search: "Поиск"
+  select_file: "Виберите файл"
+  sign_up: "Регитрация"
+  sign_in: "Ввойти"
+  sign_out: "Вийти"
+  home: "Главная"
+  help: "Помощь"
   cart: "Корзина"
+  failed_to_save: "Что-то пошло не так"
+  please_fix_problem_with_the_following_fields: "Пересмотрипе пожалуста ошибки, которие вказани ниже"
+  activerecord:
+    attributes:
+      user:
+        first_name: "Ім'я"
+        last_name: "Прізвище"
+        email: "Електронна пошта"
+        password: "Пароль"
+        password_confirmation: "Підтвердження паролю"
+        avatar: "Фотографія"
+    errors:
+      models:
+        user:
+          attributes:
+            first_name:
+              blank: "обов’язкове"
+              too_short: "дуже коротке"
+            last_name:
+              blank: "обов’язкове"
+              too_short: "дуже коротке"
+            email:
+              blank: "обов’язкова"
+              taken: "вже зайнята"
+              invalid: "неправильна"
+            password:
+              blank: "обов’язковий"
+              too_short: "дуже короткий"
+              confirmation: "не співпадає"

@@ -35,27 +35,6 @@ class Admin::AssetsController < Admin::ApplicationController
     }
   end
 
-  def update
-    @asset = Asset.find params[:id]
-    unless @asset.image?
-      file_name = @asset.path + @asset.file_file_name
-      if File.exist? file_name
-        File.open(file_name, 'w')do |file|
-          file.write params[:asset][:file_content]
-        end
-        @asset.update_attribute(:file_file_size, File.new(@asset.path + @asset.file_file_name).size)
-      else
-
-      end
-    else
-
-    end
-    respond_to do |format|
-      format.html {redirect_to admin_store_asset_path(@store, @asset), :notice => "Asset was successfully updated."}
-      format.json { render :json => {}, :status => 200}
-    end
-  end
-
   def create
     @new_images = []
     @new_stylesheets = []
@@ -127,12 +106,24 @@ class Admin::AssetsController < Admin::ApplicationController
     end
   end
 
-  def destroy
-    @asset = Asset.find(params[:id])
-    if @asset.destroy
-      redirect_to admin_store_assets_path, notice: 'Asset was successfully deleted.'
+  def update
+    @asset = Asset.find params[:id]
+    unless @asset.image?
+      file_name = @asset.path + @asset.file_file_name
+      if File.exist? file_name
+        File.open(file_name, 'w')do |file|
+          file.write params[:asset][:file_content]
+        end
+        @asset.update_attribute(:file_file_size, File.new(@asset.path + @asset.file_file_name).size)
+      else
+
+      end
     else
-      redirect_to admin_store_assets_path, notice: 'Something went wrong'
+
+    end
+    respond_to do |format|
+      format.html {redirect_to admin_store_asset_path(@store, @asset), :notice => "Asset was successfully updated."}
+      format.json { render :json => {}, :status => 200}
     end
   end
 
@@ -180,6 +171,15 @@ class Admin::AssetsController < Admin::ApplicationController
     #
     #end
     #send_data(@lines, disposition: "inline")
+  end
+
+  def destroy
+    @asset = Asset.find(params[:id])
+    if @asset.destroy
+      redirect_to admin_store_assets_path, notice: 'Asset was successfully deleted.'
+    else
+      redirect_to admin_store_assets_path, notice: 'Something went wrong'
+    end
   end
 
   private

@@ -1,7 +1,7 @@
 <% if object.errors.any? %>
     <div id="error_explanation">
-      <h3>Failed to save</h3>
-      <p>Please fix problems with the following fields:</p>
+      <h3><%= t(:failed_to_save) %></h3>
+      <p><%= t(:please_fix_problem_with_the_following_fields) %>:</p>
       <ul>
         <% object.errors.full_messages.each do |msg| %>
             <li><%= msg %></li>

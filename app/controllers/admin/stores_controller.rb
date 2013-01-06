@@ -1,6 +1,5 @@
 class Admin::StoresController < Admin::ApplicationController
 
-  before_filter :authenticate
   skip_before_filter :owner?, :only => [:new, :create]
   skip_before_filter :get_current_store, :only => [:new, :create]
 

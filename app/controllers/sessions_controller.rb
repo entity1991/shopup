@@ -1,7 +1,6 @@
 class SessionsController < ApplicationController
 
   before_filter :access_for_create_session, :only => [:new, :create]
-  before_filter :authenticate, :only => [:profile]
 
   def new
     @title = "Sign in"

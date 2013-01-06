@@ -8,8 +8,20 @@ j = jQuery.noConflict();
 
 j(document).ready(function(){
 
-    j("input[type=file]").wrap("<div class='file_wrapper'></div>").after("<button>Select file</button>");
+    j("input[type=file]").wrap("<div class='file_wrapper'></div>").after("<button><%= "Go fix I18n" %></button><span class='just_uploaded_file_name'></span>");
     j("input[type=file]").wrap("<div class='file'></div>");
+    j("input[type=file].with_file_name_label").live("change", function(){
+        if(j(this).val() == ""){
+            j(this).parents(".file_wrapper").find(".just_uploaded_file_name").html("");
+        } else{
+            var files = this.files;
+            for(var file in files){
+                if (files[file].hasOwnProperty("type")){
+                    j(this).parents(".file_wrapper").find(".just_uploaded_file_name").html(files[file].name);
+                }
+            }
+        }
+    });
 
     j("html").click(function(e){
         autoHiding(e, "signin_window");

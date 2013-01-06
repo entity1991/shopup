@@ -1,10 +1,38 @@
 ua:
-  Settings: "Настройки"
-  Help: "Допомога"
-  Sign_out: "Вийти"
-  Sign_in: "Ввійти"
   or: "або"
-  Sign_up: "Зареєструватися"
-  Home: "Головна"
-  Search: "Пошук"
+  select_file: "Виберіт файл"
+  sign_up: "Реєстрація"
+  sign_in: "Ввійти"
+  sign_out: "Вийти"
+  home: "Головна"
+  help: "Допомога"
   cart: "Корзина"
+  failed_to_save: "Щось пішло не так"
+  please_fix_problem_with_the_following_fields: "Перегляньте, будь-лфска помилки, які задані нище"
+  activerecord:
+    attributes:
+      user:
+        first_name: "Ім'я"
+        last_name: "Прізвище"
+        email: "Електронна пошта"
+        password: "Пароль"
+        password_confirmation: "Підтвердження паролю"
+        avatar: "Фотографія"
+    errors:
+      models:
+        user:
+          attributes:
+            first_name:
+              blank: "обов’язкове"
+              too_short: "дуже коротке"
+            last_name:
+              blank: "обов’язкове"
+              too_short: "дуже коротке"
+            email:
+              blank: "обов’язкова"
+              taken: "вже зайнята"
+              invalid: "неправильна"
+            password:
+              blank: "обов’язковий"
+              too_short: "дуже короткий"
+              confirmation: "не співпадає"

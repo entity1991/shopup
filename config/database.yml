@@ -5,5 +5,5 @@ development:
   database: shop_up_d
   pool: 5
   username: root
-  password: remeta
+  password: "1111"
   host: localhost

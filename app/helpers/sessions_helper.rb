@@ -48,7 +48,7 @@ module SessionsHelper
   end
 
   def boss?
-    flash[:notice] = "You don't have permision to this page"
+    flash[:notice] = "You don't have permission to this page"
     redirect_to(root_path)
   end
 

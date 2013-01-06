@@ -2,7 +2,6 @@ ShopUp::Application.routes.draw do
 
   resources :users,      :except => [:edit]
   resources :sessions,   :only => [:new, :create, :destroy]
-  match '/join_confirm', :to => 'sessions#join_confirm'
   resources :carts,      :only => [:index, :show, :destroy]
   resources :line_items, :only => [:create, :destroy]
   resources :orders,     :only => [:new, :create]
@@ -14,19 +13,19 @@ ShopUp::Application.routes.draw do
       resources :categories
       resources :fields
       resources :assets, :except => [:new, :show, :edit] do
-        match "download",   :to => "assets#download",   :as => "download",   :via => "get"
-        match "load_asset", :to => "assets#load_asset", :as => "load_asset", :via => "get"
-        match "activate",   :to => "assets#activate",   :as => "activate",   :via => "get"
-        match "deactivate", :to => "assets#deactivate", :as => "deactivate", :via => "get"
-        match "rename",     :to => "assets#rename",     :as => "rename",     :via => "get"
+        match "download",      :to => "assets#download",      :as => "download",      :via => "get"
+        match "load_asset",    :to => "assets#load_asset",    :as => "load_asset",    :via => "get"
+        match "activate",      :to => "assets#activate",      :as => "activate",      :via => "get"
+        match "deactivate",    :to => "assets#deactivate",    :as => "deactivate",    :via => "get"
+        match "rename",        :to => "assets#rename",        :as => "rename",        :via => "get"
       end
-
       get 'statistic'
       get 'orders'
       get 'open', :on => :member
       get 'close', :on => :member
     end
   end
+  get "/documentation/editor"
 
   namespace :stores, :path => "/" do
     resources :stores do
@@ -41,8 +40,8 @@ ShopUp::Application.routes.draw do
 
   root :to => "pages#home"
   post "/sessions/change_locale", :as=> "locale"
-  match "/change_editor_theme/:id", :to => "sessions#change_editor_theme", :via => :get, :as => "change_editor_theme"
-  match "/change_editor_ln/:id", :to => "sessions#change_editor_ln", :via => :get, :as => "change_editor_ln"
+  match "/change_editor_theme/:id",     :to => "sessions#change_editor_theme",     :via => :get, :as => "change_editor_theme"
+  match "/change_editor_ln/:id",        :to => "sessions#change_editor_ln",        :via => :get, :as => "change_editor_ln"
   match "/change_editor_font_size/:id", :to => "sessions#change_editor_font_size", :via => :get, :as => "change_editor_font_size"
 
   match '/contact',              :to => 'pages#contact'
@@ -52,6 +51,7 @@ ShopUp::Application.routes.draw do
   match '/profile',              :to => 'users#edit', :as => 'profile'
   match '/signin',               :to => 'sessions#new'
   match '/signout',              :to => 'sessions#destroy'
+  match '/join_confirm',         :to => 'sessions#join_confirm'
 
   match "/empty_cart_from_store/:store_id", :to => "carts#empty_cart_from_store", :as => "empty_cart_from_store"
   match "/create_order_from_store/:store_id", :to => "orders#create_order_from_store", :as => "create_order_from_store"

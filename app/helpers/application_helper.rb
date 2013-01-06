@@ -22,8 +22,7 @@ module ApplicationHelper
   end
 
   def languages_select_tag(name = 'set_locale')
-    languages = [%w(English en), %w(Russian ru), %w(Ukrainian ua)]
-    options = options_for_select(languages, I18n.locale.to_s)
+    options = options_for_select(LANGUAGES, I18n.locale.to_s)
     form_tag locale_path, :id => "change_locale_form" do
       select_tag(name, options, :onchange => 'this.form.submit()')
     end

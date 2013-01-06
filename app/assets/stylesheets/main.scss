@@ -85,13 +85,12 @@ table{
 .file_wrapper{
   position: relative;
   height: 30px;
-  max-width: 100px;
-  overflow: hidden;
+  width: 225px;
+  overflow-x: visible;
   display: inline-block;
   margin: 0;
   .file{
     opacity: 0;
-    cursor: pointer;
     position: absolute;
     top: 0;
     z-index: 2;
@@ -99,7 +98,7 @@ table{
   button{
     cursor: pointer;
     height: 100%;
-    width: 100%;
+    width: 100px;
     text-shadow: 1px 1px 0px #2a87a2;
     background: -webkit-linear-gradient(top, #5BC0DE, #2F96B4);
     background: -moz-linear-gradient(top, #5BC0DE, #2F96B4);
@@ -110,6 +109,13 @@ table{
     position: relative;
     top: 0;
     z-index: 1;
+  }
+  .just_uploaded_file_name{
+    padding: 5px;
+    color: #5BC0DE;
+    width: 120px !important;
+    display: inline-block;
+    overflow-x: visible;
   }
 }
 
@@ -187,6 +193,8 @@ table{
 }
 
 #stores_list{
+  min-width: 200px;
+  min-height: 60px;
   overflow-x: visible;
   overflow-y: auto;
   display: none;

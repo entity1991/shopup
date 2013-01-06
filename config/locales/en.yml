@@ -2,13 +2,15 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  Settings: "Settings"
-  Help: "Help"
-  Sign_out: "Sign out"
-  Sign_in: "Sign in"
-  or: "or"
-  Sign_up: "Sign up"
-  Home: "Home"
-  Search: "Search"
-  Profile: "Profile"
+  or: "або"
+  select_file: "Select file"
+  sign_up: "Sign up"
+  sign_in: "Sign in"
+  sign_out: "Sign out"
+  home: "Home"
+  help: "Help"
   cart: "Cart"
+  failed_to_save: "Something went wrong"
+  please_fix_problem_with_the_following_fields: "Please, fix problems with the following fields"
+
+
