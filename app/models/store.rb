@@ -28,7 +28,7 @@ class Store < ActiveRecord::Base
   def take_capture
     path_to_saving_capture = CAPTURE_PATH + 'stores_captures/' + self.domain + '.png'
     begin
-      #todo need to refactoring by mechanize
+      #todo need to refactoring via mechanize
       #profile = Selenium::WebDriver::Firefox::Profile.new
       #driver = Selenium::WebDriver.for :firefox, :profile => profile
       #driver.navigate.to "http://facebook.com/"
@@ -45,8 +45,8 @@ class Store < ActiveRecord::Base
   def create_default_assets
     self.assets.create(file: File.new("./app/assets/javascripts/stores/application.js"), active: 1)
     self.assets.create(file: File.new("./app/assets/stylesheets/stores/application.css"), active: 1)
-    Dir["./app/views/stores/**/*"].each do |page|
-      self.assets.create(file: File.new(page), active: 1) if File.file? page
+    Dir["./app/views/stores/**/*", "./app/views/layouts/stores/**/*"].each do |page|
+      self.assets.create(file: File.new(page), active: 1) if File.file? page and !(page.match /admin_wrapper/)
     end
   end
 

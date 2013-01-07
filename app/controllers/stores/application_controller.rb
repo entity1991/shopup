@@ -1,26 +1,26 @@
 class Stores::ApplicationController < ApplicationController
 
-  before_filter :current_store, :stylesheets, :javascripts
+  before_filter :get_current_store, :stylesheets, :javascripts
   before_filter :is_open?
 
-  layout "stores/application"
+  layout "stores/admin_wrapper"
 
   private
 
-  def current_store
+  def get_current_store
     @store ||= Store.find(params[:store_id])
   end
 
   def stylesheets
-    @stylesheets = current_store.stylesheets.active
+    @stylesheets = @store.stylesheets.active
   end
 
   def javascripts
-    @javascripts = current_store.javascripts.active
+    @javascripts = @store.javascripts.active
   end
 
   def is_open?
-    unless @store.open?
+    if !@store.open? and @store.owner != current_user
       flash[:error] = "Store is closed in this moment"
       redirect_to root_path
     end

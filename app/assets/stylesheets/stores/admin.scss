@@ -1,0 +1,42 @@
+#admin_wrapper{
+  position: static;
+  top: 0;
+  left: 0;
+  padding: 5px;
+  background-color: #434442;
+  height: 50px;
+  color: #dddddd;
+  cursor: default;
+  margin-bottom: 5px;
+  &.minimized{
+    position: fixed;
+    width: 60px;
+    height: 30px;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    z-index: 1000000;
+    #maximized_window{
+      display: none;
+    }
+    #minimized_window{
+      display: inline-block;
+      float: left;
+    }
+  }
+  #maximized_window{
+    display: inline-block;
+    float: left;
+  }
+  #minimized_window{
+    display: none;
+  }
+  #toggle_admin_panel{
+    cursor: pointer;
+    float: right;
+    &:hover{
+      color: white;
+    }
+
+  }
+}

@@ -1,0 +1,24 @@
+<!--Necessary to know!!! Don't rename this file!!!-->
+<!--Necessary to know!!! Don't rename this file!!!-->
+<!--Necessary to know!!! Don't rename this file!!!-->
+
+<% if @store.owner == current_user %>
+  <%= stylesheet_link_tag 'stores/admin', :media => 'all' %>
+  <%= javascript_include_tag 'stores/admin', :media => 'all' %>
+  <div id="admin_wrapper">
+    <div id="maximized_window">
+      You are admin of this store. Here will be some store managing panel with different options.
+    </div>
+    <div id="minimized_window"></div>
+    <div id="toggle_admin_panel">X</div>
+  </div>
+<% end %>
+
+<% @stylesheets.each do |style| %>
+  <link href="<%= style.file.url %>" media="all" rel="stylesheet" type="text/css">
+<% end %>
+<% @javascripts.each do |js| %>
+  <script type="text/javascript" src="<%= js.file.url %>"></script>
+<% end %>
+
+<%= render "layouts/stores/application" %>
